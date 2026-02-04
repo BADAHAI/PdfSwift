@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PDF Tools | PDF SWIFT</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      color: #1a202c;
+      transition: 0.3s;
+    }
+    body.dark {
+      background: #1f2937;
+      color: #f3f4f6;
+    }
+
+    header {
+      background: #5A67D8;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+
+    .toggle {
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .tool-card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    body.dark .tool-card {
+      background: #374151;
+    }
+
+    .tool-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+    }
+
+    .tool-card h3 {
+      margin-top: 1rem;
+    }
+
+    .workspace {
+      display: none;
+      margin-top: 2rem;
+      padding: 2rem;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    body.dark .workspace {
+      background: #374151;
+    }
+
+    .btn {
+      background: #5A67D8;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 1rem;
+    }
+
+    input[type="file"] {
+      margin-top: 1rem;
+    }
+
+    .lang-ar {
+      display: none;
+      direction: rtl;
+      text-align: right;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <strong>PDF SWIFT — Tools</strong>
+
+  <div>
+    <a href="index.html">Home</a>
+    <button class="toggle" onclick="toggleLang()">EN / AR</button>
+    <button class="toggle" onclick="toggleMode()">☀ / 🌙</button>
+  </div>
+</header>
+
+<div class="container">
+
+  <!-- DASHBOARD -->
+  <div id="dashboard">
+    <h2 class="lang-en">Choose a PDF Tool</h2>
+    <h2 class="lang-ar">اختر أداة PDF</h2>
+
+    <div class="grid">
+
+      <div class="tool-card" onclick="openTool('merge')">
+        <h3>Merge PDF</h3>
+        <p class="lang-en">Combine multiple PDFs into one.</p>
+        <p class="lang-ar">دمج عدة ملفات PDF في ملف واحد.</p>
+      </div>
+
+      <div class="tool-card" onclick="openTool('split')">
+        <h3>Split PDF</h3>
+        <p class="lang-en">Extract pages or split files.</p>
+        <p class="lang-ar">تقسيم ملف PDF أو استخراج صفحات.</p>
+      </div>
+
+      <div class="tool-card" onclick="openTool('compress')">
+        <h3>Compress PDF</h3>
+        <p class="lang-en">Reduce file size.</p>
+        <p class="lang-ar">تقليل حجم ملف PDF.</p>
+      </div>
+
+      <div class="tool-card" onclick="openTool('pdfToImg')">
+        <h3>PDF → Images</h3>
+        <p class="lang-en">Convert PDF pages to images.</p>
+        <p class="lang-ar">تحويل صفحات PDF إلى صور.</p>
+      </div>
+
+      <div class="tool-card" onclick="openTool('imgToPdf')">
+        <h3>Images → PDF</h3>
+        <p class="lang-en">Convert images to PDF.</p>
+        <p class="lang-ar">تحويل الصور إلى PDF.</p>
+      </div>
+
+      <div class="tool-card" onclick="openTool('ocr')">
+        <h3>OCR Extract Text</h3>
+        <p class="lang-en">Extract text from images.</p>
+        <p class="lang-ar">استخراج النصوص من الصور.</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- WORKSPACE -->
+  <div id="workspace" class="workspace">
+    <h2 id="toolTitle"></h2>
+
+    <input type="file" id="fileInput" multiple>
+
+    <button class="btn" onclick="runTool()">Run Tool</button>
+    <button class="btn" onclick="backToDashboard()">← Back</button>
+
+    <div id="output" style="margin-top: 1.5rem;"></div>
+  </div>
+
+</div>
+
+<!-- JAVASCRIPT -->
+<script>
+function toggleMode() {
+  document.body.classList.toggle('dark');
+}
+
+function toggleLang() {
+  document.querySelectorAll('.lang-en').forEach(e => {
+    e.style.display = e.style.display === 'none' ? '' : 'none';
+  });
+  document.querySelectorAll('.lang-ar').forEach(e => {
+    e.style.display = e.style.display === 'none' ? '' : 'none';
+  });
+}
+
+let currentTool = "";
+
+function openTool(tool) {
+  currentTool = tool;
+
+  document.getElementById("dashboard").style.display = "none";
+  document.getElementById("workspace").style.display = "block";
+
+  const titles = {
+    merge: "Merge PDF",
+    split: "Split PDF",
+    compress: "Compress PDF",
+    pdfToImg: "PDF → Images",
+    imgToPdf: "Images → PDF",
+    ocr: "OCR Extract Text"
+  };
+
+  document.getElementById("toolTitle").innerText = titles[tool];
+  document.getElementById("output").innerHTML = "";
+}
+
+function backToDashboard() {
+  document.getElementById("dashboard").style.display = "block";
+  document.getElementById("workspace").style.display = "none";
+}
+
+async function runTool() {
+  const files = document.getElementById("fileInput").files;
+  if (!files.length) {
+    alert("Please upload at least one file.");
+    return;
+  }
+
+  if (currentTool === "merge") mergePDF(files);
+  if (currentTool === "split") splitPDF(files[0]);
+  if (currentTool === "compress") compressPDF(files[0]);
+  if (currentTool === "pdfToImg") pdfToImages(files[0]);
+  if (currentTool === "imgToPdf") imagesToPDF(files);
+  if (currentTool === "ocr") runOCR(files[0]);
+}
+
+async function mergePDF(files) {
+  const { PDFDocument } = PDFLib;
+  const mergedPdf = await PDFDocument.create();
+
+  for (let file of files) {
+    const bytes = await file.arrayBuffer();
+    const pdf = await PDFDocument.load(bytes);
+    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
+    pages.forEach(p => mergedPdf.addPage(p));
+  }
+
+  const mergedBytes = await mergedPdf.save();
+  downloadFile(mergedBytes, "merged.pdf");
+}
+
+async function splitPDF(file) {
+  const { PDFDocument } = PDFLib;
+  const bytes = await file.arrayBuffer();
+  const pdf = await PDFDocument.load(bytes);
+
+  for (let i = 0; i < pdf.getPageCount(); i++) {
+    const newPdf = await PDFDocument.create();
+    const [page] = await newPdf.copyPages(pdf, [i]);
+    newPdf.addPage(page);
+
+    const pdfBytes = await newPdf.save();
+    downloadFile(pdfBytes, `page-${i + 1}.pdf`);
+  }
+}
+
+async function compressPDF(file) {
+  const compressed = await imageCompression(file, {
+    maxSizeMB: 1,
+    maxWidthOrHeight: 2000
+  });
+
+  downloadFile(await compressed.arrayBuffer(), "compressed.pdf");
+}
+
+async function pdfToImages(file) {
+  const pdfData = await file.arrayBuffer();
+  const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
+
+  const output = document.getElementById("output");
+  output.innerHTML = "";
+
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    const viewport = page.getViewport({ scale: 1.5 });
+
+    const canvas = document.createElement("canvas");
+    const ctx = canvas.getContext("2d");
+    canvas.height = viewport.height;
+    canvas.width = viewport.width;
+
+    await page.render({ canvasContext: ctx, viewport }).promise;
+
+    const imgURL = canvas.toDataURL("image/png");
+    const link = document.createElement("a");
+    link.href = imgURL;
+    link.download = `page-${i}.png`;
+    link.innerText = `Download page ${i}`;
+    link.style.display = "block";
+
+    output.appendChild(link);
+  }
+}
+
+async function imagesToPDF(files) {
+  const pdf = new jspdf.jsPDF();
+
+  for (let i = 0; i < files.length; i++) {
+    const img = await readImage(files[i]);
+    pdf.addImage(img, "PNG", 10, 10, 190, 260);
+
+    if (i < files.length - 1) pdf.addPage();
+  }
+
+  pdf.save("images.pdf");
+}
+
+function readImage(file) {
+  return new Promise(resolve => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+async function runOCR(file) {
+  const output = document.getElementById("output");
+  output.innerHTML = "<p>Processing OCR… please wait.</p>";
+
+  const { data } = await Tesseract.recognize(file, "eng", {
+    logger: m => console.log(m)
+  });
+
+  output.innerHTML = `<textarea style="width:100%;height:200px;">${data.text}</textarea>`;
+}
+
+function downloadFile(bytes, filename) {
+  const blob = new Blob([bytes], { type: "application/pdf" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = filename;
+  link.click();
+}
+</script>
+
+<!-- LIBRARIES -->
+<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+
+</body>
+</html>
