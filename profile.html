@@ -1,15 +1,181 @@
+<!DOCTYPE html>
+<html lang="ar">
+
+<!-- 🔐 حماية الصفحة + العربية افتراضية -->
 <script>
-document.getElementById("username").innerText =
-  localStorage.getItem("username") || "Guest User";
-
-document.getElementById("email").innerText =
-  localStorage.getItem("email") || "guest@example.com";
-
-const avatar = localStorage.getItem("avatar");
-if (avatar) {
-  document.getElementById("avatar").src = avatar;
+// منع الوصول للصفحة بدون تسجيل دخول
+if (!localStorage.getItem("email")) {
+    window.location.href = "login.html";
 }
 
+// جعل اللغة العربية هي الافتراضية
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
+    document.querySelectorAll('.lang-ar').forEach(e => e.style.display = '');
+});
+</script>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>الملف الشخصي | PDF SWIFT</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Cairo', 'Inter', sans-serif;
+      background: #f3f4f6;
+      color: #1a202c;
+      direction: rtl;
+      text-align: right;
+      transition: 0.3s;
+    }
+    body.dark {
+      background: #1f2937;
+      color: #f3f4f6;
+    }
+
+    header {
+      background: #5A67D8;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+
+    .toggle {
+      background: none;
+      border: 2px solid white;
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: 600;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: auto;
+      padding: 2rem;
+    }
+
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      text-align: center;
+    }
+
+    body.dark .card {
+      background: #374151;
+    }
+
+    .avatar {
+      width: 140px;
+      height: 140px;
+      border-radius: 50%;
+      background: #cbd5e0;
+      margin: auto;
+      display: block;
+      object-fit: cover;
+    }
+
+    .btn {
+      background: #5A67D8;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      font-size: 1rem;
+      width: 100%;
+    }
+
+    input[type="file"] {
+      margin-top: 1rem;
+    }
+
+    .lang-ar { display: block; }
+    .lang-en { display: none; direction: ltr; text-align: left; }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <strong>PDF SWIFT — الملف الشخصي</strong>
+
+  <div>
+    <a href="dashboard.html">لوحة التحكم</a>
+    <a href="index.html">الرئيسية</a>
+    <button class="toggle" onclick="toggleLang()">AR / EN</button>
+    <button class="toggle" onclick="toggleMode()">☀ / 🌙</button>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+
+    <img id="avatar" class="avatar" src="https://ui-avatars.com/api/?name=User&background=5A67D8&color=fff">
+
+    <h2 id="username"></h2>
+    <p id="email"></p>
+
+    <label class="lang-ar">تغيير الصورة الشخصية:</label>
+    <label class="lang-en">Change Profile Picture:</label>
+    <input type="file" accept="image/*" onchange="changeAvatar(event)">
+
+    <button class="btn" onclick="logout()">تسجيل الخروج</button>
+
+  </div>
+</div>
+
+<script>
+function toggleMode() {
+  document.body.classList.toggle('dark');
+}
+
+function toggleLang() {
+  const ar = document.querySelectorAll('.lang-ar');
+  const en = document.querySelectorAll('.lang-en');
+
+  const isArabic = ar[0].style.display !== 'none';
+
+  if (isArabic) {
+    ar.forEach(e => e.style.display = 'none');
+    en.forEach(e => e.style.display = '');
+  } else {
+    en.forEach(e => e.style.display = 'none');
+    ar.forEach(e => e.style.display = '');
+  }
+}
+
+// تحميل بيانات المستخدم
+document.getElementById("username").innerText =
+  localStorage.getItem("username") || "مستخدم";
+
+document.getElementById("email").innerText =
+  localStorage.getItem("email") || "example@mail.com";
+
+// تحميل الصورة
+const savedAvatar = localStorage.getItem("avatar");
+if (savedAvatar) {
+  document.getElementById("avatar").src = savedAvatar;
+}
+
+// تغيير الصورة
 function changeAvatar(event) {
   const file = event.target.files[0];
   const reader = new FileReader();
@@ -22,8 +188,12 @@ function changeAvatar(event) {
   reader.readAsDataURL(file);
 }
 
+// تسجيل الخروج
 function logout() {
   localStorage.clear();
   location.href = "login.html";
 }
 </script>
+
+</body>
+</html>
