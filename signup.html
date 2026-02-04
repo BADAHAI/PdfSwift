@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Sign Up | PDF SWIFT</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -23,16 +24,12 @@
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
     }
-    h2 {
-      margin-bottom: 1rem;
-    }
     input {
       width: 100%;
       padding: 0.8rem;
       margin: 0.5rem 0;
       border-radius: 6px;
       border: 1px solid #ccc;
-      font-size: 1rem;
     }
     .btn {
       width: 100%;
@@ -41,16 +38,8 @@
       color: white;
       border: none;
       border-radius: 6px;
-      font-size: 1rem;
       cursor: pointer;
       margin-top: 1rem;
-    }
-    a {
-      display: block;
-      margin-top: 1rem;
-      color: #5A67D8;
-      text-decoration: none;
-      font-size: 0.9rem;
     }
   </style>
 </head>
@@ -60,15 +49,35 @@
 <div class="card">
   <h2>Create Account</h2>
 
-  <input type="text" placeholder="Full Name">
-  <input type="email" placeholder="Email">
-  <input type="password" placeholder="Password">
+  <input id="name" type="text" placeholder="Full Name">
+  <input id="email" type="email" placeholder="Email">
+  <input id="password" type="password" placeholder="Password">
 
-  <button class="btn">Sign Up</button>
+  <button class="btn" onclick="signup()">Sign Up</button>
 
   <a href="login.html">Already have an account? Login</a>
-  <a href="index.html">← Back to Home</a>
 </div>
+
+<script>
+function signup() {
+  const name = document.getElementById("name").value;
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  if (!name || !email || !password) {
+    alert("Please fill all fields");
+    return;
+  }
+
+  localStorage.setItem("username", name);
+  localStorage.setItem("email", email);
+  localStorage.setItem("password", password);
+  localStorage.setItem("avatar", ""); // empty avatar
+  localStorage.setItem("history", JSON.stringify([])); // empty file history
+
+  location.href = "dashboard.html";
+}
+</script>
 
 </body>
 </html>
