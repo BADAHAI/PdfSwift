@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile | PDF SWIFT</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background: #f3f4f6;
+      color: #1a202c;
+    }
+    header {
+      background: #5A67D8;
+      padding: 1rem 2rem;
+      color: white;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header a {
+      color: white;
+      text-decoration: none;
+      margin-left: 1rem;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 800px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .card {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      background: #cbd5e0;
+      margin: auto;
+      display: block;
+    }
+    .info {
+      margin-top: 1.5rem;
+      text-align: center;
+    }
+    .info h2 {
+      margin-bottom: 0.5rem;
+    }
+    .btn {
+      background: #5A67D8;
+      color: white;
+      padding: 0.8rem 1.2rem;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 1rem;
+      display: block;
+      width: 100%;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>
+  <strong>PDF SWIFT — Profile</strong>
+  <div>
+    <a href="dashboard.html">Dashboard</a>
+    <a href="index.html">Home</a>
+  </div>
+</header>
+
+<div class="container">
+  <div class="card">
+
+    <img class="avatar" src="https://ui-avatars.com/api/?name=User&background=5A67D8&color=fff">
+
+    <div class="info">
+      <h2 id="username">User Name</h2>
+      <p id="email">user@example.com</p>
+    </div>
+
+    <button class="btn" onclick="location.href='dashboard.html'">Go to Dashboard</button>
+    <button class="btn" onclick="logout()">
