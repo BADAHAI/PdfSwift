@@ -1,19 +1,36 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
+
+<!-- 🔐 حماية الصفحة + العربية افتراضية -->
+<script>
+// منع الوصول للصفحة بدون تسجيل دخول
+if (!localStorage.getItem("email")) {
+    window.location.href = "login.html";
+}
+
+// جعل اللغة العربية هي الافتراضية
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
+    document.querySelectorAll('.lang-ar').forEach(e => e.style.display = '');
+});
+</script>
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF Tools | PDF SWIFT</title>
+  <title>أدوات PDF | PDF SWIFT</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
+      font-family: 'Cairo', 'Inter', sans-serif;
       background: #f3f4f6;
       color: #1a202c;
       transition: 0.3s;
+      direction: rtl;
+      text-align: right;
     }
     body.dark {
       background: #1f2937;
@@ -77,10 +94,6 @@
       box-shadow: 0 6px 18px rgba(0,0,0,0.15);
     }
 
-    .tool-card h3 {
-      margin-top: 1rem;
-    }
-
     .workspace {
       display: none;
       margin-top: 2rem;
@@ -109,22 +122,20 @@
       margin-top: 1rem;
     }
 
-    .lang-ar {
-      display: none;
-      direction: rtl;
-      text-align: right;
-    }
+    .lang-ar { display: block; }
+    .lang-en { display: none; direction: ltr; text-align: left; }
   </style>
 </head>
 
 <body>
 
 <header>
-  <strong>PDF SWIFT — Tools</strong>
+  <strong>PDF SWIFT — الأدوات</strong>
 
   <div>
-    <a href="index.html">Home</a>
-    <button class="toggle" onclick="toggleLang()">EN / AR</button>
+    <a href="dashboard.html">لوحة التحكم</a>
+    <a href="index.html">الرئيسية</a>
+    <button class="toggle" onclick="toggleLang()">AR / EN</button>
     <button class="toggle" onclick="toggleMode()">☀ / 🌙</button>
   </div>
 </header>
@@ -133,45 +144,33 @@
 
   <!-- DASHBOARD -->
   <div id="dashboard">
-    <h2 class="lang-en">Choose a PDF Tool</h2>
     <h2 class="lang-ar">اختر أداة PDF</h2>
+    <h2 class="lang-en">Choose a PDF Tool</h2>
 
     <div class="grid">
 
       <div class="tool-card" onclick="openTool('merge')">
-        <h3>Merge PDF</h3>
-        <p class="lang-en">Combine multiple PDFs into one.</p>
-        <p class="lang-ar">دمج عدة ملفات PDF في ملف واحد.</p>
+        <h3>دمج PDF</h3>
       </div>
 
       <div class="tool-card" onclick="openTool('split')">
-        <h3>Split PDF</h3>
-        <p class="lang-en">Extract pages or split files.</p>
-        <p class="lang-ar">تقسيم ملف PDF أو استخراج صفحات.</p>
+        <h3>تقسيم PDF</h3>
       </div>
 
       <div class="tool-card" onclick="openTool('compress')">
-        <h3>Compress PDF</h3>
-        <p class="lang-en">Reduce file size.</p>
-        <p class="lang-ar">تقليل حجم ملف PDF.</p>
+        <h3>ضغط PDF</h3>
       </div>
 
       <div class="tool-card" onclick="openTool('pdfToImg')">
-        <h3>PDF → Images</h3>
-        <p class="lang-en">Convert PDF pages to images.</p>
-        <p class="lang-ar">تحويل صفحات PDF إلى صور.</p>
+        <h3>PDF → صور</h3>
       </div>
 
       <div class="tool-card" onclick="openTool('imgToPdf')">
-        <h3>Images → PDF</h3>
-        <p class="lang-en">Convert images to PDF.</p>
-        <p class="lang-ar">تحويل الصور إلى PDF.</p>
+        <h3>صور → PDF</h3>
       </div>
 
       <div class="tool-card" onclick="openTool('ocr')">
-        <h3>OCR Extract Text</h3>
-        <p class="lang-en">Extract text from images.</p>
-        <p class="lang-ar">استخراج النصوص من الصور.</p>
+        <h3>استخراج النصوص OCR</h3>
       </div>
 
     </div>
@@ -183,8 +182,8 @@
 
     <input type="file" id="fileInput" multiple>
 
-    <button class="btn" onclick="runTool()">Run Tool</button>
-    <button class="btn" onclick="backToDashboard()">← Back</button>
+    <button class="btn" onclick="runTool()">تشغيل الأداة</button>
+    <button class="btn" onclick="backToDashboard()">← رجوع</button>
 
     <div id="output" style="margin-top: 1.5rem;"></div>
   </div>
@@ -198,19 +197,23 @@ function toggleMode() {
 }
 
 function toggleLang() {
-  document.querySelectorAll('.lang-en').forEach(e => {
-    e.style.display = e.style.display === 'none' ? '' : 'none';
-  });
-  document.querySelectorAll('.lang-ar').forEach(e => {
-    e.style.display = e.style.display === 'none' ? '' : 'none';
-  });
+  const ar = document.querySelectorAll('.lang-ar');
+  const en = document.querySelectorAll('.lang-en');
+
+  const isArabic = ar[0].style.display !== 'none';
+
+  if (isArabic) {
+    ar.forEach(e => e.style.display = 'none');
+    en.forEach(e => e.style.display = '');
+  } else {
+    en.forEach(e => e.style.display = 'none');
+    ar.forEach(e => e.style.display = '');
+  }
 }
 
 let currentTool = "";
 
-/* -----------------------------------
-   📝 إضافة الملف إلى سجل المستخدم
------------------------------------ */
+/* 📝 إضافة الملف إلى سجل المستخدم */
 function addToHistory(filename) {
   let history = JSON.parse(localStorage.getItem("history") || "[]");
 
@@ -222,9 +225,7 @@ function addToHistory(filename) {
   localStorage.setItem("history", JSON.stringify(history));
 }
 
-/* -----------------------------------
-   📌 Open Tool Workspace
------------------------------------ */
+/* فتح الأداة */
 function openTool(tool) {
   currentTool = tool;
 
@@ -232,33 +233,29 @@ function openTool(tool) {
   document.getElementById("workspace").style.display = "block";
 
   const titles = {
-    merge: "Merge PDF",
-    split: "Split PDF",
-    compress: "Compress PDF",
-    pdfToImg: "PDF → Images",
-    imgToPdf: "Images → PDF",
-    ocr: "OCR Extract Text"
+    merge: "دمج ملفات PDF",
+    split: "تقسيم ملف PDF",
+    compress: "ضغط ملف PDF",
+    pdfToImg: "تحويل PDF إلى صور",
+    imgToPdf: "تحويل الصور إلى PDF",
+    ocr: "استخراج النصوص OCR"
   };
 
   document.getElementById("toolTitle").innerText = titles[tool];
   document.getElementById("output").innerHTML = "";
 }
 
-/* -----------------------------------
-   🔙 Back to Dashboard
------------------------------------ */
+/* رجوع */
 function backToDashboard() {
   document.getElementById("dashboard").style.display = "block";
   document.getElementById("workspace").style.display = "none";
 }
 
-/* -----------------------------------
-   🚀 Run Selected Tool
------------------------------------ */
+/* تشغيل الأداة */
 async function runTool() {
   const files = document.getElementById("fileInput").files;
   if (!files.length) {
-    alert("Please upload at least one file.");
+    alert("الرجاء رفع ملف واحد على الأقل");
     return;
   }
 
@@ -270,9 +267,7 @@ async function runTool() {
   if (currentTool === "ocr") runOCR(files[0]);
 }
 
-/* -----------------------------------
-   📌 Merge PDF (pdf-lib)
------------------------------------ */
+/* دمج PDF */
 async function mergePDF(files) {
   const { PDFDocument } = PDFLib;
   const mergedPdf = await PDFDocument.create();
@@ -289,9 +284,7 @@ async function mergePDF(files) {
   addToHistory("merged.pdf");
 }
 
-/* -----------------------------------
-   ✂ Split PDF (pdf-lib)
------------------------------------ */
+/* تقسيم PDF */
 async function splitPDF(file) {
   const { PDFDocument } = PDFLib;
   const bytes = await file.arrayBuffer();
@@ -308,9 +301,7 @@ async function splitPDF(file) {
   }
 }
 
-/* -----------------------------------
-   🗜 Compress PDF
------------------------------------ */
+/* ضغط PDF */
 async function compressPDF(file) {
   const compressed = await imageCompression(file, {
     maxSizeMB: 1,
@@ -321,9 +312,7 @@ async function compressPDF(file) {
   addToHistory("compressed.pdf");
 }
 
-/* -----------------------------------
-   🖼 PDF → Images
------------------------------------ */
+/* PDF → صور */
 async function pdfToImages(file) {
   const pdfData = await file.arrayBuffer();
   const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
@@ -346,7 +335,7 @@ async function pdfToImages(file) {
     const link = document.createElement("a");
     link.href = imgURL;
     link.download = `page-${i}.png`;
-    link.innerText = `Download page ${i}`;
+    link.innerText = `تحميل الصفحة ${i}`;
     link.style.display = "block";
 
     output.appendChild(link);
@@ -355,9 +344,7 @@ async function pdfToImages(file) {
   }
 }
 
-/* -----------------------------------
-   🖼 Images → PDF
------------------------------------ */
+/* صور → PDF */
 async function imagesToPDF(files) {
   const pdf = new jspdf.jsPDF();
 
@@ -380,14 +367,12 @@ function readImage(file) {
   });
 }
 
-/* -----------------------------------
-   🔍 OCR (Tesseract.js)
------------------------------------ */
+/* OCR */
 async function runOCR(file) {
   const output = document.getElementById("output");
-  output.innerHTML = "<p>Processing OCR… please wait.</p>";
+  output.innerHTML = "<p>جاري استخراج النص…</p>";
 
-  const { data } = await Tesseract.recognize(file, "eng", {
+  const { data } = await Tesseract.recognize(file, "ara+eng", {
     logger: m => console.log(m)
   });
 
@@ -395,9 +380,7 @@ async function runOCR(file) {
   addToHistory("ocr-text.txt");
 }
 
-/* -----------------------------------
-   📥 Download Helper
------------------------------------ */
+/* تحميل ملف */
 function downloadFile(bytes, filename) {
   const blob = new Blob([bytes], { type: "application/pdf" });
   const link = document.createElement("a");
