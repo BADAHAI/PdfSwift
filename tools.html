@@ -32,10 +32,15 @@
       height: 45px;
     }
 
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
     .nav-links a {
       color: white;
       text-decoration: none;
-      margin-left: 1.5rem;
       font-weight: 600;
       display: inline-flex;
       flex-direction: column;
@@ -47,15 +52,51 @@
       width: 24px;
       height: 24px;
       margin-bottom: 3px;
-      transition: 0.2s;
     }
 
-    .active-link {
-      font-weight: 800;
+    /* Dropdown */
+    .user-menu {
+      position: relative;
+      cursor: pointer;
     }
 
-    .active-link svg {
-      filter: drop-shadow(0 0 4px rgba(255,255,255,0.7));
+    .user-menu-btn {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+    }
+
+    .dropdown {
+      position: absolute;
+      top: 45px;
+      right: 0;
+      background: white;
+      color: #333;
+      min-width: 160px;
+      border-radius: 10px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
+      padding: 0.5rem 0;
+      display: none;
+      animation: fadeSlide 0.25s ease;
+      z-index: 999;
+    }
+
+    .dropdown a {
+      display: block;
+      padding: 0.7rem 1rem;
+      color: #333;
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    .dropdown a:hover {
+      background: #f3f4f6;
+    }
+
+    @keyframes fadeSlide {
+      from { opacity: 0; transform: translateY(-8px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* الأدوات */
@@ -93,12 +134,6 @@
       box-shadow: 0 8px 20px rgba(0,0,0,0.15);
     }
 
-    .tool-card svg {
-      width: 50px;
-      height: 50px;
-      margin-bottom: 1rem;
-    }
-
     .tool-card h3 {
       margin: 0;
       font-size: 1.2rem;
@@ -113,27 +148,10 @@
     }
 
     @media (max-width: 480px) {
-      header {
-        padding: 1rem;
-      }
-
-      .logo {
-        height: 38px;
-      }
-
-      .nav-links a {
-        margin-left: 1rem;
-        font-size: 0.75rem;
-      }
-
-      .nav-links svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      .grid {
-        grid-template-columns: 1fr;
-      }
+      .logo { height: 38px; }
+      .nav-links a { font-size: 0.75rem; }
+      .nav-links svg { width: 20px; height: 20px; }
+      .grid { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -151,7 +169,6 @@
 
   <div class="grid">
 
-    <!-- 12 أداة احترافية -->
     <div class="tool-card"><h3>دمج PDF</h3></div>
     <div class="tool-card"><h3>تقسيم PDF</h3></div>
     <div class="tool-card"><h3>ضغط PDF</h3></div>
@@ -171,36 +188,57 @@
 <script>
   const nav = document.getElementById("nav-area");
   const username = localStorage.getItem("username");
-  const currentPage = window.location.pathname.split("/").pop();
-
-  function linkItem(page, label, icon) {
-    const active = currentPage === page ? "active-link" : "";
-    return `
-      <a href="${page}" class="${active}">
-        ${icon}
-        ${label}
-      </a>
-    `;
-  }
 
   const icons = {
-    home: `<svg fill="url(#grad)" viewBox="0 0 24 24"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/></svg>`,
-    tools: `<svg fill="url(#grad)" viewBox="0 0 24 24"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs><path d="M14.7 6.3l3 3-8.4 8.4H6.3v-3l8.4-8.4zM19.7 4.3a1 1 0 0 0-1.4 0l-1.6 1.6 3 3 1.6-1.6a1 1 0 0 0 0-1.4l-1.6-1.6z"/></svg>`
+    home: `<svg fill="url(#grad)" viewBox="0 0 24 24">
+      <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs>
+      <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/></svg>`,
+
+    tools: `<svg fill="url(#grad)" viewBox="0 0 24 24">
+      <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs>
+      <path d="M14.7 6.3l3 3-8.4 8.4H6.3v-3l8.4-8.4zM19.7 4.3a1 1 0 0 0-1.4 0l-1.6 1.6 3 3 1.6-1.6a1 1 0 0 0 0-1.4l-1.6-1.6z"/></svg>`
   };
 
   if (!username) {
     nav.innerHTML = `
-      ${linkItem("index.html", "الرئيسية", icons.home)}
-      ${linkItem("tools.html", "الأدوات", icons.tools)}
+      <a href="index.html">${icons.home} الرئيسية</a>
+      <a href="tools.html">${icons.tools} الأدوات</a>
       <a href="login.html">تسجيل الدخول</a>
       <a href="signup.html">إنشاء حساب</a>
     `;
   } else {
     nav.innerHTML = `
-      <a href="dashboard.html">لوحة التحكم</a>
-      <a href="profile.html">الملف الشخصي</a>
-      <a href="#" onclick="logout()">تسجيل الخروج</a>
+      <a href="index.html">${icons.home} الرئيسية</a>
+      <a href="tools.html">${icons.tools} الأدوات</a>
+
+      <div class="user-menu" id="userMenu">
+        <div class="user-menu-btn">
+          <svg fill="white" width="26" height="26" viewBox="0 0 24 24">
+            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/>
+          </svg>
+          ${username}
+        </div>
+
+        <div class="dropdown" id="dropdownMenu">
+          <a href="dashboard.html">لوحة التحكم</a>
+          <a href="profile.html">الملف الشخصي</a>
+          <a href="#" onclick="logout()">تسجيل الخروج</a>
+        </div>
+      </div>
     `;
+
+    const userMenu = document.getElementById("userMenu");
+    const dropdown = document.getElementById("dropdownMenu");
+
+    userMenu.addEventListener("click", () => {
+      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
+    });
+
+    document.addEventListener("click", (e) => {
+      if (!userMenu.contains(e.target)) dropdown.style.display = "none";
+    });
   }
 
   function logout() {
