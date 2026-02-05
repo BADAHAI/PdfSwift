@@ -1,258 +1,41 @@
 <!DOCTYPE html>
-<html lang="ar">
-
+<html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>PDF SWIFT | الرئيسية</title>
-
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Cairo', sans-serif;
-      background: #f3f4f6;
-      color: #1a202c;
-      direction: rtl;
-      text-align: right;
-    }
-
-    /* الهيدر */
-    header {
-      background: #5A67D8;
-      padding: 1rem 2rem;
-      color: white;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo {
-      height: 45px;
-    }
-
-    .nav-links {
-      display: flex;
-      align-items: center;
-      gap: 1.5rem;
-    }
-
-    .nav-links a {
-      color: white;
-      text-decoration: none;
-      font-weight: 600;
-      display: inline-flex;
-      flex-direction: column;
-      align-items: center;
-      font-size: 0.9rem;
-    }
-
-    .nav-links svg {
-      width: 24px;
-      height: 24px;
-      margin-bottom: 3px;
-    }
-
-    /* Dropdown */
-    .user-menu {
-      position: relative;
-      cursor: pointer;
-    }
-
-    .user-menu-btn {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: 700;
-    }
-
-    .dropdown {
-      position: absolute;
-      top: 45px;
-      right: 0;
-      background: white;
-      color: #333;
-      min-width: 160px;
-      border-radius: 10px;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
-      padding: 0.5rem 0;
-      display: none;
-      animation: fadeSlide 0.25s ease;
-      z-index: 999;
-    }
-
-    .dropdown a {
-      display: block;
-      padding: 0.7rem 1rem;
-      color: #333;
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    .dropdown a:hover {
-      background: #f3f4f6;
-    }
-
-    @keyframes fadeSlide {
-      from { opacity: 0; transform: translateY(-8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    /* الصفحة */
-    .container {
-      max-width: 1100px;
-      margin: auto;
-      padding: 3rem 2rem;
-      text-align: center;
-    }
-
-    h1 {
-      font-size: 2.4rem;
-      margin-bottom: 1rem;
-      font-weight: 700;
-      color: #2d3748;
-    }
-
-    p {
-      font-size: 1.2rem;
-      color: #555;
-      margin-bottom: 2rem;
-    }
-
-    .start-btn {
-      display: inline-block;
-      padding: 1.1rem 2.2rem;
-      font-size: 1.3rem;
-      font-weight: 700;
-      color: white;
-      background: linear-gradient(135deg, #5A67D8, #7F9CF5);
-      border-radius: 50px;
-      text-decoration: none;
-      box-shadow: 0 6px 18px rgba(90, 103, 216, 0.35);
-      transition: 0.25s;
-    }
-
-    .start-btn:hover {
-      transform: scale(1.05);
-      box-shadow: 0 8px 22px rgba(90, 103, 216, 0.45);
-    }
-
-    /* الجوال */
-    @media (max-width: 480px) {
-      .logo { height: 38px; }
-      .nav-links a { font-size: 0.75rem; }
-      .nav-links svg { width: 20px; height: 20px; }
-      h1 { font-size: 1.8rem; }
-      p { font-size: 1rem; }
-      .start-btn { padding: 1rem 1.8rem; font-size: 1.1rem; }
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF SWIFT | الصفحة الرئيسية</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-<!-- الهيدر الجديد -->
-<header>
-  <img src="https://raw.githubusercontent.com/imbadah/PdfSwift/main/logo.png" class="logo">
-  <nav id="nav-area" class="nav-links"></nav>
-</header>
-
-<div class="container">
-  <h1>مرحباً بك في PDF SWIFT</h1>
-  <p>منصة سريعة وسهلة لتحويل وتعديل ملفات PDF بدون تسجيل دخول.</p>
-
-  <a href="tools.html" class="start-btn">ابدأ الآن</a>
-</div>
-
-<script>
-  const nav = document.getElementById("nav-area");
-  const username = localStorage.getItem("username");
-
-  const icons = {
-    home: `<svg fill="url(#grad)" viewBox="0 0 24 24">
-      <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs>
-      <path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/></svg>`,
-
-    tools: `<svg fill="url(#grad)" viewBox="0 0 24 24">
-      <defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
-      <stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs>
-      <path d="M14.7 6.3l3 3-8.4 8.4H6.3v-3l8.4-8.4zM19.7 4.3a1 1 0 0 0-1.4 0l-1.6 1.6 3 3 1.6-1.6a1 1 0 0 0 0-1.4l-1.6-1.6z"/></svg>`
-  };
-
-  if (!username) {
-    nav.innerHTML = `
-      <a href="index.html">${icons.home} الرئيسية</a>
-      <a href="tools.html">${icons.tools} الأدوات</a>
-      <a href="login.html">تسجيل الدخول</a>
-      <a href="signup.html">إنشاء حساب</a>
-    `;
-  } else {
-    nav.innerHTML = `
-      <a href="index.html">${icons.home} الرئيسية</a>
-      <a href="tools.html">${icons.tools} الأدوات</a>
-
-      <div class="user-menu" id="userMenu">
-        <div class="user-menu-btn">
-          <svg fill="white" width="26" height="26" viewBox="0 0 24 24">
-            <path d="M12 12a5 5 0 1 0-5-5 5 5 0 0 0 5 5zm0 2c-4 0-8 2-8 5v2h16v-2c0-3-4-5-8-5z"/>
-          </svg>
-          ${username}
+    <!-- HEADER -->
+    <header>
+        <div class="navbar container">
+            <div class="logo">PDF SWIFT</div>
+            <div class="nav-links">
+                <a href="index.html">الرئيسية</a>
+                <a href="tools.html">الأدوات</a>
+            </div>
         </div>
+    </header>
 
-        <div class="dropdown" id="dropdownMenu">
-          <a href="dashboard.html">لوحة التحكم</a>
-          <a href="profile.html">الملف الشخصي</a>
-          <a href="#" onclick="logout()">تسجيل الخروج</a>
-        </div>
-      </div>
-    `;
+    <!-- HERO SECTION -->
+    <section class="hero container">
+        <h1>PDF SWIFT</h1>
+        <p>منصة سريعة وسهلة لتحرير ملفات PDF — دمج، تقسيم، تدوير، حماية والمزيد.</p>
+        <a href="tools.html" class="btn">الانتقال إلى الأدوات</a>
+    </section>
 
-    const userMenu = document.getElementById("userMenu");
-    const dropdown = document.getElementById("dropdownMenu");
-
-    userMenu.addEventListener("click", () => {
-      dropdown.style.display = dropdown.style.display === "block" ? "none" : "block";
-    });
-
-    document.addEventListener("click", (e) => {
-      if (!userMenu.contains(e.target)) dropdown.style.display = "none";
-    });
-  }
-
-  function logout() {
-    localStorage.clear();
-    location.href = "index.html";
-  }
-</script>
-<!-- Footer -->
-<footer style="
-    margin-top: 60px;
-    padding: 25px 0;
-    text-align: center;
-    background: rgba(255, 255, 255, 0.08);
-    backdrop-filter: blur(12px);
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
-">
-
-    <div style="margin-bottom: 15px;">
-        <a href="https://x.com/BADAH_AI" target="_blank" 
-           style="margin: 0 12px; color:white; font-size:30px;">
-            <i class="fa-brands fa-x-twitter"></i>
-        </a>
-
-        <a href="mailto:imbadah@hotmail.com" 
-           style="margin: 0 12px; color:white; font-size:30px;">
-            <i class="fa-solid fa-envelope"></i>
-        </a>
-    </div>
-
-    <div style="font-size:14px; opacity:0.8;">
-        © 2025 PDF Swift — جميع الحقوق محفوظة
-    </div>
-
-</footer>
+    <!-- FOOTER -->
+    <footer>
+        <p>© 2025 PDF SWIFT — جميع الحقوق محفوظة</p>
+        <p>
+            تواصل معنا:
+            <a href="https://x.com/BADAH_AI" target="_blank">BADAH_AI@</a> |
+            <a href="mailto:imbadah@hotmail.com">imbadah@hotmail.com</a>
+        </p>
+    </footer>
 
 </body>
 </html>
