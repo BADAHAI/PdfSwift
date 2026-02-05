@@ -30,56 +30,48 @@
     <section class="container">
         <div class="tools-grid">
 
-            <!-- دمج PDF -->
             <div class="tool-card" onclick="openModal('mergeModal')">
                 <i>📎</i>
                 <h3>دمج ملفات PDF</h3>
                 <p>دمج عدة ملفات PDF في ملف واحد بسهولة.</p>
             </div>
 
-            <!-- تقسيم PDF -->
             <div class="tool-card" onclick="openModal('splitModal')">
                 <i>✂️</i>
                 <h3>تقسيم PDF</h3>
                 <p>تقسيم ملف PDF إلى عدة ملفات.</p>
             </div>
 
-            <!-- تدوير PDF -->
             <div class="tool-card" onclick="openModal('rotateModal')">
                 <i>🔄</i>
                 <h3>تدوير الصفحات</h3>
                 <p>تدوير صفحات PDF بزاوية 90° أو 180°.</p>
             </div>
 
-            <!-- حماية PDF -->
             <div class="tool-card" onclick="openModal('protectModal')">
                 <i>🔐</i>
                 <h3>حماية PDF</h3>
                 <p>إضافة كلمة مرور لملف PDF.</p>
             </div>
 
-            <!-- إزالة حماية PDF -->
             <div class="tool-card" onclick="openModal('unlockModal')">
                 <i>🔓</i>
                 <h3>إزالة كلمة المرور</h3>
                 <p>فتح ملف PDF محمي بكلمة مرور.</p>
             </div>
 
-            <!-- ضغط PDF -->
             <div class="tool-card" onclick="openModal('compressModal')">
                 <i>📉</i>
                 <h3>ضغط PDF</h3>
                 <p>تقليل حجم ملف PDF بسهولة.</p>
             </div>
 
-            <!-- JPG إلى PDF -->
             <div class="tool-card" onclick="openModal('jpgModal')">
                 <i>🖼️</i>
                 <h3>JPG إلى PDF</h3>
                 <p>تحويل صورة JPG إلى ملف PDF.</p>
             </div>
 
-            <!-- PDF إلى JPG -->
             <div class="tool-card" onclick="openModal('pdfToImgModal')">
                 <i>🧾</i>
                 <h3>PDF إلى JPG</h3>
@@ -90,41 +82,59 @@
     </section>
 
     <!-- MODALS -->
-    <!-- نموذج واحد — والباقي نفس الفكرة -->
     <div id="mergeModal" class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal('mergeModal')">&times;</span>
             <h2>دمج ملفات PDF</h2>
-            <p>هذه الأداة ستسمح لك بدمج عدة ملفات PDF في ملف واحد.</p>
-            <input type="file" id="mergeFiles" multiple accept="application/pdf">
+            <p>اختر الملفات لدمجها.</p>
+            <input type="file" multiple accept="application/pdf">
             <br><br>
             <button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">دمج الآن</button>
         </div>
     </div>
 
-    <!-- نسخ المودالات الأخرى بنفس الشكل -->
-    <div id="splitModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('splitModal')">&times;</span><h2>تقسيم PDF</h2><p>اختر ملف PDF لتقسيمه.</p><input type="file" accept="application/pdf"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">تقسيم</button></div></div>
+    <div id="splitModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('splitModal')">&times;</span><h2>تقسيم PDF</h2><input type="file" accept="application/pdf"><br><br><button class="btn">تقسيم</button></div></div>
 
-    <div id="rotateModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('rotateModal')">&times;</span><h2>تدوير الصفحات</h2><p>اختر ملف PDF لتدوير صفحاته.</p><input type="file" accept="application/pdf"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">تدوير</button></div></div>
+    <div id="rotateModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('rotateModal')">&times;</span><h2>تدوير الصفحات</h2><input type="file" accept="application/pdf"><br><br><button class="btn">تدوير</button></div></div>
 
-    <div id="protectModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('protectModal')">&times;</span><h2>حماية PDF</h2><p>اختر ملف PDF وأدخل كلمة مرور.</p><input type="file" accept="application/pdf"><br><br><input type="password" placeholder="كلمة المرور"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">حماية</button></div></div>
+    <div id="protectModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('protectModal')">&times;</span><h2>حماية PDF</h2><input type="file" accept="application/pdf"><br><br><input type="password" placeholder="كلمة المرور"><br><br><button class="btn">حماية</button></div></div>
 
-    <div id="unlockModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('unlockModal')">&times;</span><h2>إزالة كلمة المرور</h2><p>اختر ملف PDF وأدخل كلمة المرور الحالية.</p><input type="file" accept="application/pdf"><br><br><input type="password" placeholder="كلمة المرور الحالية"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">إزالة الحماية</button></div></div>
+    <div id="unlockModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('unlockModal')">&times;</span><h2>إزالة كلمة المرور</h2><input type="file" accept="application/pdf"><br><br><input type="password" placeholder="كلمة المرور الحالية"><br><br><button class="btn">إزالة الحماية</button></div></div>
 
-    <div id="compressModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('compressModal')">&times;</span><h2>ضغط PDF</h2><p>اختر ملف PDF لتقليل حجمه.</p><input type="file" accept="application/pdf"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">ضغط</button></div></div>
+    <div id="compressModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('compressModal')">&times;</span><h2>ضغط PDF</h2><input type="file" accept="application/pdf"><br><br><button class="btn">ضغط</button></div></div>
 
-    <div id="jpgModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('jpgModal')">&times;</span><h2>JPG إلى PDF</h2><p>اختر صورة JPG لتحويلها إلى PDF.</p><input type="file" accept="image/jpeg"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">تحويل</button></div></div>
+    <div id="jpgModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('jpgModal')">&times;</span><h2>JPG إلى PDF</h2><input type="file" accept="image/jpeg"><br><br><button class="btn">تحويل</button></div></div>
 
-    <div id="pdfToImgModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('pdfToImgModal')">&times;</span><h2>PDF إلى JPG</h2><p>اختر ملف PDF لتحويل صفحاته إلى صور.</p><input type="file" accept="application/pdf"><br><br><button class="btn" onclick="alert('سيتم إضافة المعالجة لاحقًا')">تحويل</button></div></div>
+    <div id="pdfToImgModal" class="modal"><div class="modal-content"><span class="close-btn" onclick="closeModal('pdfToImgModal')">&times;</span><h2>PDF إلى JPG</h2><input type="file" accept="application/pdf"><br><br><button class="btn">تحويل</button></div></div>
 
     <!-- FOOTER -->
     <footer>
         <p>© 2025 PDF SWIFT — جميع الحقوق محفوظة</p>
-        <p>
-            تواصل معنا:
-            <a href="https://x.com/BADAH_AI" target="_blank">BADAH_AI@</a> |
-            <a href="mailto:imbadah@hotmail.com">imbadah@hotmail.com</a>
-        </p>
+
+        <div style="margin-top:12px; display:flex; justify-content:center; gap:18px;">
+
+            <!-- X -->
+            <a href="https://x.com/BADAH_AI" target="_blank">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#ffffff">
+                    <path d="M18.244 2H21.5l-7.52 8.57L22 22h-6.828l-5.364-6.727L3.83 22H.5l8.11-9.24L2 2h6.828l4.94 6.165L18.244 2zm-2.27 17.17h1.79L7.084 4.69H5.176l10.797 14.48z"/>
+                </svg>
+            </a>
+
+            <!-- WhatsApp -->
+            <a href="https://wa.me/966590211191" target="_blank">
+                <svg width="28" height="28" viewBox="0 0 32 32" fill="#25D366">
+                    <path d="M16.027 3C9.383 3 4 8.383 4 15.027c0 2.652.797 5.105 2.168 7.168L4 29l7.027-2.105A12.86 12.86 0 0016.027 27C22.672 27 28 21.617 28 14.973 28 8.328 22.672 3 16.027 3zm0 22.5c-2.07 0-4.07-.555-5.84-1.613l-.418-.25-4.168 1.25 1.25-4.07-.273-.43A10.42 10.42 0 015.5 15.027C5.5 9.18 10.18 4.5 16.027 4.5c5.848 0 10.527 4.68 10.527 10.527 0 5.848-4.68 10.473-10.527 10.473zm5.09-7.957c-.273-.137-1.613-.797-1.863-.887-.25-.09-.43-.137-.61.137-.18.273-.7.887-.863 1.07-.16.18-.32.205-.593.068-.273-.137-1.152-.424-2.195-1.35-.81-.72-1.36-1.613-1.52-1.887-.16-.273-.017-.42.12-.557.125-.125.273-.32.41-.48.137-.16.18-.273.273-.457.09-.18.045-.34-.022-.48-.068-.137-.61-1.47-.84-2.01-.22-.53-.445-.46-.61-.47-.16-.007-.34-.01-.52-.01-.18 0-.48.068-.73.34-.25.273-.96.94-.96 2.287 0 1.348.985 2.645 1.12 2.83.137.18 1.94 2.965 4.72 4.16.66.285 1.175.455 1.577.583.662.21 1.265.18 1.74.11.53-.078 1.613-.66 1.84-1.297.227-.637.227-1.18.16-1.297-.068-.117-.25-.18-.52-.317z"/>
+                </svg>
+            </a>
+
+            <!-- Telegram -->
+            <a href="https://t.me/966590211191" target="_blank">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="#0088cc">
+                    <path d="M9.999 15.17l-.39 5.48c.56 0 .8-.24 1.09-.53l2.62-2.5 5.43 3.97c.99.55 1.69.26 1.94-.92l3.52-16.51.01-.01c.31-1.44-.52-2-1.48-1.65L1.49 9.36c-1.41.55-1.39 1.34-.24 1.7l5.52 1.72L18.7 6.2c.6-.36 1.15-.16.7.23"/>
+                </svg>
+            </a>
+
+        </div>
     </footer>
 
     <!-- JS -->
