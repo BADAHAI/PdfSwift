@@ -1,81 +1,146 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sign Up | PDF SWIFT</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <title>إنشاء حساب | PDF SWIFT</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: 'Inter', sans-serif;
-      background: #f3f4f6;
+      font-family: 'Cairo', sans-serif;
+      background: linear-gradient(135deg, #5A67D8, #7F9CF5);
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      direction: rtl;
+      text-align: right;
     }
-    .card {
+
+    .signup-box {
       background: white;
+      width: 90%;
+      max-width: 380px;
       padding: 2rem;
-      width: 350px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+      border-radius: 14px;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.15);
       text-align: center;
     }
+
+    .logo {
+      width: 90px;
+      margin-bottom: 1rem;
+    }
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #333;
+    }
+
     input {
       width: 100%;
       padding: 0.8rem;
-      margin: 0.5rem 0;
-      border-radius: 6px;
+      margin-top: 0.7rem;
       border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
     }
+
     .btn {
       width: 100%;
-      padding: 0.8rem;
+      padding: 0.9rem;
       background: #5A67D8;
       color: white;
       border: none;
       border-radius: 6px;
-      cursor: pointer;
       margin-top: 1rem;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    .lang-en { display: none; direction: ltr; text-align: left; }
+    .lang-ar { display: block; }
+
+    .toggle {
+      margin-top: 1rem;
+      background: none;
+      border: none;
+      color: #5A67D8;
+      cursor: pointer;
+      font-weight: 600;
     }
   </style>
 </head>
 
 <body>
 
-<div class="card">
-  <h2>Create Account</h2>
+<div class="signup-box">
 
-  <input id="name" type="text" placeholder="Full Name">
-  <input id="email" type="email" placeholder="Email">
-  <input id="password" type="password" placeholder="Password">
+  <!-- شعار -->
+  <img src="https://ui-avatars.com/api/?name=PDF+SWIFT&background=5A67D8&color=fff&size=128" class="logo">
 
-  <button class="btn" onclick="signup()">Sign Up</button>
+  <h2 class="lang-ar">إنشاء حساب جديد</h2>
+  <h2 class="lang-en">Create Account</h2>
 
-  <a href="login.html">Already have an account? Login</a>
+  <input id="username" type="text" class="lang-ar" placeholder="اسم المستخدم">
+  <input id="username-en" type="text" class="lang-en" placeholder="Username">
+
+  <input id="email" type="email" class="lang-ar" placeholder="البريد الإلكتروني">
+  <input id="email-en" type="email" class="lang-en" placeholder="Email">
+
+  <input id="password" type="password" class="lang-ar" placeholder="كلمة المرور">
+  <input id="password-en" type="password" class="lang-en" placeholder="Password">
+
+  <button class="btn lang-ar" onclick="signup()">إنشاء الحساب</button>
+  <button class="btn lang-en" onclick="signup()">Create Account</button>
+
+  <button class="toggle" onclick="toggleLang()">AR / EN</button>
+
+  <p style="margin-top:1rem;">
+    <a href="login.html" style="color:#333; text-decoration:none;" class="lang-ar">لديك حساب؟ تسجيل الدخول</a>
+    <a href="login.html" style="color:#333; text-decoration:none;" class="lang-en">Already have an account? Login</a>
+  </p>
+
 </div>
 
 <script>
-function signup() {
-  const name = document.getElementById("name").value;
-  const email = document.getElementById("email").value;
-  const password = document.getElementById("password").value;
+function toggleLang() {
+  const ar = document.querySelectorAll('.lang-ar');
+  const en = document.querySelectorAll('.lang-en');
 
-  if (!name || !email || !password) {
-    alert("Please fill all fields");
+  const isArabic = ar[0].style.display !== 'none';
+
+  if (isArabic) {
+    ar.forEach(e => e.style.display = 'none');
+    en.forEach(e => e.style.display = 'block');
+  } else {
+    en.forEach(e => e.style.display = 'none');
+    ar.forEach(e => e.style.display = 'block');
+  }
+}
+
+// إنشاء حساب
+function signup() {
+  const username = document.getElementById("username").value || document.getElementById("username-en").value;
+  const email = document.getElementById("email").value || document.getElementById("email-en").value;
+  const password = document.getElementById("password").value || document.getElementById("password-en").value;
+
+  if (!username || !email || !password) {
+    alert("الرجاء تعبئة جميع الحقول");
     return;
   }
 
-  localStorage.setItem("username", name);
+  localStorage.setItem("username", username);
   localStorage.setItem("email", email);
   localStorage.setItem("password", password);
-  localStorage.setItem("avatar", ""); // empty avatar
-  localStorage.setItem("history", JSON.stringify([])); // empty file history
 
-  location.href = "dashboard.html";
+  alert("تم إنشاء الحساب بنجاح");
+  location.href = "login.html";
 }
 </script>
 
