@@ -1,142 +1,82 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PDF SWIFT | الأدوات</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <title>PdfSwift | أدوات PDF</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="PdfSwift — جميع أدوات PDF في مكان واحد، دمج، تقسيم، حذف، ترتيب، ضغط ملفات PDF مباشرة.">
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
 
-    <!-- ================= HEADER ================= -->
-    <header>
-        <div class="container">
-            <h1>PDF SWIFT</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html">الرئيسية</a></li>
-                    <li><a href="tools.html">الأدوات</a></li>
-                    <li><a href="about.html">من نحن</a></li>
-                    <li><a href="privacy.html">الخصوصية</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+  <!-- ================= HEADER ================= -->
+  <header>
+    <div class="nav">
+      <div class="logo">PdfSwift</div>
+      <a href="index.html" class="btn">الرئيسية</a>
+    </div>
+  </header>
 
-    <!-- ================= PAGE TITLE ================= -->
-    <section class="hero">
-        <h2>جميع أدوات PDF في مكان واحد</h2>
-        <p>اختر الأداة التي تحتاجها، واجعل ملفات PDF أسهل في التعامل.</p>
-    </section>
+  <!-- ================= TOOLS HERO ================= -->
+  <section class="hero">
+    <h1>جميع أدوات PDF</h1>
+    <p>ادمج، قسم، حذف، ضغط وترتب ملفات PDF بسهولة وبشكل آمن.</p>
+  </section>
 
-    <!-- ================= TOOLS GRID ================= -->
-    <div class="container">
-        <div class="tools-grid">
+  <!-- ================= TOOLS GRID ================= -->
+  <section class="tools">
 
-            <!-- TOOL 1 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag1" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <path class="stroke" d="M4 4h16v16H4z"/>
-                    <path class="fill" d="M7 7h10v10H7z"/>
-                </svg>
-                <h3>تحويل PDF</h3>
-                <p>حوّل ملفات PDF إلى Word أو صور أو العكس بسهولة.</p>
-            </div>
-
-            <!-- TOOL 2 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag2" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <circle class="stroke" cx="12" cy="12" r="9"/>
-                    <circle class="fill" cx="12" cy="12" r="5"/>
-                </svg>
-                <h3>ضغط PDF</h3>
-                <p>قلّل حجم ملفات PDF بدون فقدان الجودة.</p>
-            </div>
-
-            <!-- TOOL 3 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag3" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <path class="stroke" d="M6 6h12v12H6z"/>
-                    <path class="fill" d="M9 9h6v6H9z"/>
-                </svg>
-                <h3>دمج PDF</h3>
-                <p>ادمج عدة ملفات PDF في ملف واحد بسهولة.</p>
-            </div>
-
-            <!-- TOOL 4 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag4" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <path class="stroke" d="M5 8h14M5 12h14M5 16h14"/>
-                    <rect class="fill" x="8" y="10" width="8" height="4" rx="2"/>
-                </svg>
-                <h3>تقسيم PDF</h3>
-                <p>قسّم ملف PDF إلى عدة ملفات بسهولة.</p>
-            </div>
-
-            <!-- TOOL 5 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag5" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <path class="stroke" d="M12 3v18M3 12h18"/>
-                    <circle class="fill" cx="12" cy="12" r="4"/>
-                </svg>
-                <h3>تدوير PDF</h3>
-                <p>قم بتدوير صفحات PDF في أي اتجاه.</p>
-            </div>
-
-            <!-- TOOL 6 -->
-            <div class="tool-card">
-                <svg viewBox="0 0 24 24">
-                    <defs>
-                        <linearGradient id="diag6" x1="0%" y1="0%" x2="100%" y2="100%">
-                            <stop offset="0%" stop-color="#E8F2FF"/>
-                            <stop offset="100%" stop-color="#C7E0FF"/>
-                        </linearGradient>
-                    </defs>
-                    <path class="stroke" d="M4 6h16v12H4z"/>
-                    <path class="fill" d="M7 9h10v6H7z"/>
-                </svg>
-                <h3>استخراج الصور</h3>
-                <p>استخرج جميع الصور من ملف PDF بسهولة.</p>
-            </div>
-
-        </div>
+    <div class="tool-card">
+      <h3>دمج ملفات PDF</h3>
+      <p>ادمج عدة ملفات PDF في ملف واحد بسهولة.</p>
+      <button class="btn">جرب الآن</button>
     </div>
 
-    <!-- ================= FOOTER ================= -->
-    <footer>
-        <p>© 2025 PDF SWIFT — جميع الحقوق محفوظة</p>
-    </footer>
+    <div class="tool-card">
+      <h3>تقسيم ملف PDF</h3>
+      <p>قسّم ملف PDF إلى عدة ملفات حسب الصفحات.</p>
+      <button class="btn">جرب الآن</button>
+    </div>
+
+    <div class="tool-card">
+      <h3>حذف صفحات</h3>
+      <p>احذف الصفحات غير المهمة من ملف PDF.</p>
+      <button class="btn">جرب الآن</button>
+    </div>
+
+    <div class="tool-card">
+      <h3>ترتيب الصفحات</h3>
+      <p>غيّر ترتيب الصفحات بالسحب والإفلات.</p>
+      <button class="btn">جرب الآن</button>
+    </div>
+
+    <div class="tool-card">
+      <h3>تدوير الصفحات</h3>
+      <p>عدّل اتجاه الصفحات داخل ملف PDF.</p>
+      <button class="btn">جرب الآن</button>
+    </div>
+
+    <div class="tool-card">
+      <h3>ضغط PDF</h3>
+      <p>قلّل حجم ملف PDF مع الحفاظ على الجودة.</p>
+      <button class="btn">جرب الآن</button>
+    </div>
+
+  </section>
+
+  <!-- ================= FOOTER ================= -->
+  <footer class="footer">
+    <div class="footer-content">
+      <span>© 2026 PdfSwift — تواصل مع المطور</span>
+
+      <div class="social-icons">
+        <a class="x" href="https://x.com/BADAH_AI" target="_blank" aria-label="X"></a>
+        <a class="whatsapp" href="https://wa.me/966590211191" target="_blank" aria-label="WhatsApp"></a>
+        <a class="telegram" href="https://t.me/966590211191" target="_blank" aria-label="Telegram"></a>
+      </div>
+    </div>
+  </footer>
 
 </body>
 </html>
