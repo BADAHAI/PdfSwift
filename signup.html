@@ -32,7 +32,7 @@
     }
 
     .logo {
-      width: 90px;
+      width: 100px;
       margin-bottom: 1rem;
     }
 
@@ -63,9 +63,6 @@
       font-weight: 600;
     }
 
-    .lang-en { display: none; direction: ltr; text-align: left; }
-    .lang-ar { display: block; }
-
     .toggle {
       margin-top: 1rem;
       background: none;
@@ -73,6 +70,17 @@
       color: #5A67D8;
       cursor: pointer;
       font-weight: 600;
+    }
+
+    /* تحسين الجوال */
+    @media (max-width: 480px) {
+      .signup-box {
+        padding: 1.5rem;
+      }
+
+      .logo {
+        width: 85px;
+      }
     }
   </style>
 </head>
@@ -82,66 +90,39 @@
 <div class="signup-box">
 
   <!-- شعار -->
-  <img src="https://ui-avatars.com/api/?name=PDF+SWIFT&background=5A67D8&color=fff&size=128" class="logo">
+  <img src="https://raw.githubusercontent.com/imbadah/PdfSwift/main/logo.png" class="logo">
 
-  <h2 class="lang-ar">إنشاء حساب جديد</h2>
-  <h2 class="lang-en">Create Account</h2>
+  <h2>إنشاء حساب جديد</h2>
 
-  <input id="username" type="text" class="lang-ar" placeholder="اسم المستخدم">
-  <input id="username-en" type="text" class="lang-en" placeholder="Username">
+  <input id="username" type="text" placeholder="اسم المستخدم">
+  <input id="email" type="email" placeholder="البريد الإلكتروني">
+  <input id="password" type="password" placeholder="كلمة المرور">
 
-  <input id="email" type="email" class="lang-ar" placeholder="البريد الإلكتروني">
-  <input id="email-en" type="email" class="lang-en" placeholder="Email">
+  <button class="btn" onclick="signup()">إنشاء الحساب</button>
 
-  <input id="password" type="password" class="lang-ar" placeholder="كلمة المرور">
-  <input id="password-en" type="password" class="lang-en" placeholder="Password">
-
-  <button class="btn lang-ar" onclick="signup()">إنشاء الحساب</button>
-  <button class="btn lang-en" onclick="signup()">Create Account</button>
-
-  <button class="toggle" onclick="toggleLang()">AR / EN</button>
-
-  <p style="margin-top:1rem;">
-    <a href="login.html" style="color:#333; text-decoration:none;" class="lang-ar">لديك حساب؟ تسجيل الدخول</a>
-    <a href="login.html" style="color:#333; text-decoration:none;" class="lang-en">Already have an account? Login</a>
-  </p>
+  <button class="toggle" onclick="window.location.href='login.html'">لديك حساب؟ تسجيل الدخول</button>
 
 </div>
 
 <script>
-function toggleLang() {
-  const ar = document.querySelectorAll('.lang-ar');
-  const en = document.querySelectorAll('.lang-en');
+  function signup() {
+    const username = document.getElementById("username").value.trim();
+    const email = document.getElementById("email").value.trim();
+    const password = document.getElementById("password").value.trim();
 
-  const isArabic = ar[0].style.display !== 'none';
+    if (!username || !email || !password) {
+      alert("الرجاء تعبئة جميع الحقول");
+      return;
+    }
 
-  if (isArabic) {
-    ar.forEach(e => e.style.display = 'none');
-    en.forEach(e => e.style.display = 'block');
-  } else {
-    en.forEach(e => e.style.display = 'none');
-    ar.forEach(e => e.style.display = 'block');
+    // حفظ بيانات المستخدم محليًا (اختياري)
+    localStorage.setItem("username", username);
+    localStorage.setItem("email", email);
+    localStorage.setItem("password", password);
+
+    alert("تم إنشاء الحساب بنجاح");
+    window.location.href = "dashboard.html";
   }
-}
-
-// إنشاء حساب
-function signup() {
-  const username = document.getElementById("username").value || document.getElementById("username-en").value;
-  const email = document.getElementById("email").value || document.getElementById("email-en").value;
-  const password = document.getElementById("password").value || document.getElementById("password-en").value;
-
-  if (!username || !email || !password) {
-    alert("الرجاء تعبئة جميع الحقول");
-    return;
-  }
-
-  localStorage.setItem("username", username);
-  localStorage.setItem("email", email);
-  localStorage.setItem("password", password);
-
-  alert("تم إنشاء الحساب بنجاح");
-  location.href = "login.html";
-}
 </script>
 
 </body>
