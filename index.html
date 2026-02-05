@@ -18,6 +18,7 @@
       text-align: right;
     }
 
+    /* الهيدر */
     header {
       background: #5A67D8;
       padding: 1rem 2rem;
@@ -27,17 +28,37 @@
       align-items: center;
     }
 
-    header img {
+    .logo {
       height: 45px;
     }
 
-    nav a {
+    .nav-links a {
       color: white;
       text-decoration: none;
-      margin-left: 1rem;
+      margin-left: 1.5rem;
       font-weight: 600;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      font-size: 0.9rem;
     }
 
+    .nav-links svg {
+      width: 24px;
+      height: 24px;
+      margin-bottom: 3px;
+      transition: 0.2s;
+    }
+
+    .active-link {
+      font-weight: 800;
+    }
+
+    .active-link svg {
+      filter: drop-shadow(0 0 4px rgba(255,255,255,0.7));
+    }
+
+    /* الصفحة */
     .container {
       max-width: 1100px;
       margin: auto;
@@ -58,7 +79,6 @@
       margin-bottom: 2rem;
     }
 
-    /* زر ابدأ الآن الجديد */
     .start-btn {
       display: inline-block;
       padding: 1.1rem 2.2rem;
@@ -77,14 +97,24 @@
       box-shadow: 0 8px 22px rgba(90, 103, 216, 0.45);
     }
 
-    /* تحسين الجوال */
+    /* الجوال */
     @media (max-width: 480px) {
       header {
         padding: 1rem;
       }
 
-      header img {
+      .logo {
         height: 38px;
+      }
+
+      .nav-links a {
+        margin-left: 1rem;
+        font-size: 0.75rem;
+      }
+
+      .nav-links svg {
+        width: 20px;
+        height: 20px;
       }
 
       h1 {
@@ -105,43 +135,58 @@
 
 <body>
 
+<!-- الهيدر الجديد -->
 <header>
-  <img src="https://raw.githubusercontent.com/imbadah/PdfSwift/main/logo.png">
+  <img src="https://raw.githubusercontent.com/imbadah/PdfSwift/main/logo.png" class="logo">
 
-  <nav id="nav-area">
-    <!-- يتم التعديل عبر JavaScript -->
-  </nav>
+  <nav id="nav-area" class="nav-links"></nav>
 </header>
 
 <div class="container">
   <h1>مرحباً بك في PDF SWIFT</h1>
   <p>منصة سريعة وسهلة لتحويل وتعديل ملفات PDF بدون تسجيل دخول.</p>
 
-  <!-- زر ابدأ الآن الجديد -->
   <a href="tools.html" class="start-btn">ابدأ الآن</a>
 </div>
 
 <script>
-  // عرض أزرار الهيدر حسب حالة المستخدم
   const nav = document.getElementById("nav-area");
   const username = localStorage.getItem("username");
+  const currentPage = window.location.pathname.split("/").pop();
 
-  if (username) {
+  function linkItem(page, label, icon) {
+    const active = currentPage === page ? "active-link" : "";
+    return `
+      <a href="${page}" class="${active}">
+        ${icon}
+        ${label}
+      </a>
+    `;
+  }
+
+  const icons = {
+    home: `<svg fill="url(#grad)" viewBox="0 0 24 24"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs><path d="M3 10.5L12 3l9 7.5V21a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1v-10.5z"/></svg>`,
+    tools: `<svg fill="url(#grad)" viewBox="0 0 24 24"><defs><linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#7F9CF5"/><stop offset="100%" stop-color="#5A67D8"/></linearGradient></defs><path d="M14.7 6.3l3 3-8.4 8.4H6.3v-3l8.4-8.4zM19.7 4.3a1 1 0 0 0-1.4 0l-1.6 1.6 3 3 1.6-1.6a1 1 0 0 0 0-1.4l-1.6-1.6z"/></svg>`
+  };
+
+  if (!username) {
     nav.innerHTML = `
-      <span style="margin-left:1rem;">${username}</span>
-      <a href="profile.html">الملف الشخصي</a>
-      <a href="#" onclick="logout()">تسجيل الخروج</a>
+      ${linkItem("index.html", "الرئيسية", icons.home)}
+      ${linkItem("tools.html", "الأدوات", icons.tools)}
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="signup.html">إنشاء حساب</a>
     `;
   } else {
     nav.innerHTML = `
-      <a href="login.html">تسجيل الدخول</a>
-      <a href="signup.html">إنشاء حساب</a>
+      <a href="dashboard.html">لوحة التحكم</a>
+      <a href="profile.html">الملف الشخصي</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
     `;
   }
 
   function logout() {
     localStorage.clear();
-    location.reload();
+    location.href = "index.html";
   }
 </script>
 
