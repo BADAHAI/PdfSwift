@@ -1,6 +1,6 @@
-/* ------------------------------
+/* --------------------------------------------------
    RESET
------------------------------- */
+-------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
@@ -9,14 +9,14 @@
 }
 
 body {
-    background: #ffffff;
-    color: #333;
-    line-height: 1.6;
+    background: #F4F7FB; /* أزرق ثلجي فاتح */
+    color: #222;
+    line-height: 1.7;
 }
 
-/* ------------------------------
+/* --------------------------------------------------
    CONTAINER
------------------------------- */
+-------------------------------------------------- */
 .container {
     width: 100%;
     max-width: 1400px;
@@ -24,332 +24,156 @@ body {
     padding: 20px;
 }
 
-/* ------------------------------
-   HEADER (كحلي + شعار أبيض)
------------------------------- */
+/* --------------------------------------------------
+   HEADER — أزرق قوي + قائمة احترافية
+-------------------------------------------------- */
 header {
     width: 100%;
-    background: #001f3f; /* كحلي */
+    background: #0A3D62; /* أزرق داكن قوي */
     position: sticky;
     top: 0;
     z-index: 999;
+    padding: 15px 0;
 }
 
-.navbar {
+header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 18px 25px;
 }
 
-.logo {
+header h1 {
+    color: #fff;
     font-size: 26px;
-    font-weight: 800;
-    color: #ffffff; /* أبيض */
-    letter-spacing: 1px;
+    font-weight: 700;
 }
 
-.nav-links {
+nav ul {
+    list-style: none;
     display: flex;
-    align-items: center;
     gap: 25px;
 }
 
-/* روابط الهيدر */
-.nav-links a {
-    text-decoration: none;
-    color: #ffffff; /* أبيض */
-    font-size: 17px;
-    transition: 0.2s;
-}
-
-.nav-links a:hover {
-    color: #d4c4ff; /* بنفسجي فاتح */
-}
-
-/* ------------------------------
-   DROPDOWN (المزيد)
------------------------------- */
-.dropdown {
-    position: relative;
-}
-
-.dropdown-toggle {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 17px;
-    cursor: pointer;
-    padding: 0;
-    font-family: inherit;
-}
-
-.dropdown-toggle:focus {
-    outline: none;
-}
-
-.dropdown-menu {
-    position: absolute;
-    top: 120%;
-    right: 0;
-    background: #ffffff;
-    color: #333;
-    min-width: 190px;
-    border-radius: 12px;
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(8px);
-    transition: opacity 0.18s ease, transform 0.18s ease, visibility 0.18s;
-    z-index: 1000;
-}
-
-.dropdown-menu a {
-    display: block;
-    padding: 10px 14px;
-    text-decoration: none;
-    color: #333;
-    font-size: 15px;
-}
-
-.dropdown-menu a:hover {
-    background: #f3ecff;
-}
-
-/* Hover على الكمبيوتر فقط */
-body.no-touch .navbar .dropdown:hover .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* Click على الجوال (عبر كلاس open) */
-.dropdown.open .dropdown-menu {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-}
-
-/* ------------------------------
-   BUTTONS
------------------------------- */
-.btn {
-    padding: 14px 28px;
-    background: #6a0dad;
+nav ul li a {
     color: #fff;
-    border-radius: 8px;
     text-decoration: none;
     font-size: 18px;
-    border: none;
-    cursor: pointer;
+    transition: 0.3s;
+}
+
+nav ul li a:hover {
+    opacity: 0.7;
+}
+
+/* --------------------------------------------------
+   BUTTONS — أزرق قوي
+-------------------------------------------------- */
+.btn {
     display: inline-block;
-    transition: 0.2s;
-    font-family: inherit;
+    background: #1E90FF;
+    color: #fff;
+    padding: 12px 22px;
+    border-radius: 10px;
+    text-decoration: none;
+    font-size: 17px;
+    transition: 0.3s;
 }
 
 .btn:hover {
-    background: #520a9c;
+    background: #1877D3;
 }
 
-/* ------------------------------
+/* --------------------------------------------------
    HERO SECTION
------------------------------- */
+-------------------------------------------------- */
 .hero {
     text-align: center;
-    padding: 100px 20px;
+    padding: 80px 20px;
 }
 
-.hero h1 {
-    font-size: 48px;
-    color: #6a0dad;
+.hero h2 {
+    font-size: 42px;
+    color: #0A3D62;
     margin-bottom: 15px;
 }
 
 .hero p {
     font-size: 20px;
-    color: #555;
-    margin-bottom: 30px;
+    color: #444;
+    margin-bottom: 25px;
 }
 
-/* ------------------------------
-   GRID TOOLS
------------------------------- */
+/* --------------------------------------------------
+   GLASS CARDS — (Glass Balanced + SVG Hybrid)
+-------------------------------------------------- */
 .tools-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
     gap: 25px;
     margin-top: 40px;
 }
 
 .tool-card {
-    background: #ffffff;
-    border: 1px solid #e8d7f8;
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
     padding: 25px;
-    border-radius: 14px;
     text-align: center;
-    cursor: pointer;
-    transition: 0.25s;
-    box-shadow: 0 0 0 rgba(0,0,0,0);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 8px 25px rgba(30, 144, 255, 0.15);
+    transition: 0.35s ease;
 }
 
 .tool-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 20px rgba(106, 13, 173, 0.15);
+    transform: translateY(-6px);
+    box-shadow: 0 12px 35px rgba(30, 144, 255, 0.25);
+    background: rgba(255, 255, 255, 0.75);
 }
 
-.tool-card i {
-    font-size: 45px;
-    color: #6a0dad;
+/* --------------------------------------------------
+   SVG ICONS — Hybrid + Inner Shadow + Diagonal Gradient
+-------------------------------------------------- */
+.tool-card svg {
+    width: 36px;
+    height: 36px;
     margin-bottom: 15px;
+    filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.12));
 }
 
-.tool-card h3 {
-    font-size: 20px;
-    margin-bottom: 8px;
-    color: #333;
+svg .fill {
+    fill: url(#diagGradient);
 }
 
-.tool-card p {
-    font-size: 15px;
-    color: #666;
+svg .stroke {
+    stroke: #1E90FF;
+    stroke-width: 1.8;
 }
 
-/* ------------------------------
-   GENERIC PAGE SECTIONS
------------------------------- */
-.page-header {
-    padding: 70px 20px 20px;
-}
-
-.page-header h1 {
-    color: #6a0dad;
-    margin-bottom: 10px;
-    font-size: 32px;
-}
-
-.page-header p {
-    color: #555;
-    font-size: 16px;
-}
-
-.page-content {
-    padding: 10px 20px 60px;
-    max-width: 900px;
-    margin: auto;
-    color: #333;
-    font-size: 16px;
-}
-
-.page-content h2 {
-    font-size: 22px;
-    margin: 25px 0 10px;
-    color: #4b0c8f;
-}
-
-.page-content p {
-    margin-bottom: 10px;
-}
-
-.page-content ul {
-    margin: 10px 20px 15px;
-    padding-right: 20px;
-}
-
-.page-content li {
-    margin-bottom: 6px;
-}
-
-/* ------------------------------
-   MODAL
------------------------------- */
-.modal {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.55);
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-}
-
-.modal-content {
-    background: #fff;
-    padding: 30px;
-    width: 90%;
-    max-width: 500px;
-    border-radius: 14px;
-    text-align: center;
-    border: 1px solid #e8d7f8;
-    position: relative;
-}
-
-.close-btn {
-    position: absolute;
-    left: 18px;
-    top: 12px;
-    font-size: 22px;
-    cursor: pointer;
-    color: #6a0dad;
-}
-
-/* ------------------------------
-   FOOTER (كحلي + أيقونات)
------------------------------- */
+/* --------------------------------------------------
+   FOOTER
+-------------------------------------------------- */
 footer {
-    margin-top: 60px;
-    padding: 35px 20px;
-    background: #001f3f; /* كحلي */
+    background: #0A3D62;
+    color: #fff;
     text-align: center;
-    color: white;
+    padding: 25px 0;
+    margin-top: 60px;
+    font-size: 17px;
 }
 
-footer p {
-    font-size: 16px;
-    color: #ffffff;
-}
-
-footer a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: 600;
-}
-
-footer a:hover {
-    opacity: 0.7;
-}
-
-/* ------------------------------
+/* --------------------------------------------------
    RESPONSIVE
------------------------------- */
+-------------------------------------------------- */
 @media (max-width: 768px) {
-    .navbar {
-        padding: 14px 16px;
-    }
-
-    .logo {
+    header h1 {
         font-size: 22px;
     }
 
-    .nav-links {
-        gap: 16px;
+    nav ul {
+        gap: 15px;
     }
 
-    .hero {
-        padding: 70px 20px;
-    }
-
-    .hero h1 {
-        font-size: 34px;
-    }
-
-    .hero p {
-        font-size: 17px;
-    }
-
-    .page-header {
-        padding-top: 60px;
+    .hero h2 {
+        font-size: 32px;
     }
 }
