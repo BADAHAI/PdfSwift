@@ -1,41 +1,93 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>سياسة الخصوصية – PdfSwift</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="light-theme">
 
-  <header class="header"> <!-- انسخ الـ header --> </header>
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">Pdf<span>Swift</span></a>
 
-  <main class="container" style="padding: 5rem 1rem; max-width: 900px;">
-    <h1>سياسة الخصوصية</h1>
-    
-    <p>آخر تحديث: فبراير 2026</p>
+      <nav class="nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="tools.html">الأدوات</a>
+        <a href="about.html">عن الموقع</a>
+        <a href="privacy.html" class="active">سياسة الخصوصية</a>
+      </nav>
 
-    <h2>جمع البيانات</h2>
-    <p>لا نجمع أي بيانات شخصية من المستخدمين. جميع عمليات معالجة الملفات PDF تتم محليًا داخل متصفحك فقط.</p>
+      <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع">
+        <i class="fa-solid fa-moon-stars"></i>
+      </button>
+    </div>
+  </header>
 
-    <h2>الملفات التي ترفعها</h2>
-    <p>لا يتم رفع أي ملف إلى سيرفر خارجي. الملفات تبقى في ذاكرة المتصفح طوال العملية وبعدها تُحذف تلقائيًا عند إغلاق الصفحة أو تحديثها.</p>
+  <!-- Main Content -->
+  <main class="container" style="padding: 5rem 1rem; max-width: 900px; margin: 0 auto;">
+    <h1 class="section-title" style="text-align: center; margin-bottom: 2.5rem;">سياسة الخصوصية</h1>
 
-    <h2>التخزين المحلي</h2>
-    <p>نستخدم localStorage فقط لحفظ تفضيل الوضع (فاتح/داكن) – لا يحتوي على أي بيانات حساسة.</p>
+    <div class="card" style="padding: 2.5rem; line-height: 1.8; font-size: 1.1rem;">
+      <p style="margin-bottom: 1.5rem; font-weight: bold;">آخر تحديث: فبراير 2026</p>
 
-    <h2>الكوكيز والتتبع</h2>
-    <p>لا نستخدم كوكيز تتبع أو أدوات تحليل خارجية (مثل Google Analytics).</p>
+      <h2 style="margin: 2rem 0 1rem;">1. عدم جمع البيانات الشخصية</h2>
+      <p>
+        لا نقوم بجمع أي بيانات شخصية من المستخدمين (اسم، بريد إلكتروني، رقم هاتف، عنوان IP، إلخ).
+      </p>
 
-    <h2>التعديلات على السياسة</h2>
-    <p>قد نحدث هذه السياسة في المستقبل، وسيتم نشر النسخة الجديدة هنا مع تاريخ التحديث.</p>
+      <h2 style="margin: 2rem 0 1rem;">2. معالجة الملفات محليًا فقط</h2>
+      <p>
+        جميع عمليات معالجة ملفات PDF (دمج، تقسيم، تدوير، علامة مائية، ...) تتم <strong>داخل متصفحك</strong> باستخدام JavaScript.<br>
+        لا يتم رفع أي ملف إلى خادم خارجي أو تخزينه في أي مكان.
+      </p>
 
-    <p style="margin-top: 3rem; font-weight: bold;">
-      إذا كان لديك أي استفسار، تواصل معنا عبر GitHub.
-    </p>
+      <h2 style="margin: 2rem 0 1rem;">3. التخزين المحلي (localStorage)</h2>
+      <p>
+        نستخدم localStorage فقط لحفظ تفضيل الوضع الليلي/النهاري (dark/light mode).<br>
+        لا يحتوي هذا التخزين على أي معلومات شخصية أو محتوى الملفات.
+      </p>
+
+      <h2 style="margin: 2rem 0 1rem;">4. عدم استخدام الكوكيز أو أدوات التتبع</h2>
+      <p>
+        لا نستخدم كوكيز تتبع، ولا Google Analytics، ولا أي خدمة تحليل خارجية.
+      </p>
+
+      <h2 style="margin: 2rem 0 1rem;">5. التعديلات على السياسة</h2>
+      <p>
+        قد نقوم بتحديث هذه السياسة في المستقبل، وسيتم نشر النسخة الجديدة هنا مع ذكر تاريخ التحديث.
+      </p>
+
+      <p style="margin-top: 3rem; text-align: center; font-weight: bold;">
+        إذا كان لديك أي استفسار حول الخصوصية، يمكنك التواصل عبر حساباتنا.
+      </p>
+    </div>
   </main>
 
-  <footer class="footer"> <!-- نفس الـ footer --> </footer>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
+
+      <div class="social-links">
+        <span>تواصل معنا:</span>
+        <a href="https://x.com/AIGemX" target="_blank" rel="noopener noreferrer" aria-label="حساب X (تويتر سابقاً)">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://t.me/AIGemX" target="_blank" rel="noopener noreferrer" aria-label="قناة تليجرام">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
 
   <script src="theme.js"></script>
 </body>
