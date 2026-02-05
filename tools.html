@@ -5,16 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>PDF Swift | الأدوات</title>
 
-    <!-- خطوط -->
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- أيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-
-    <!-- مكتبات PDF -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 
     <style>
         body {
@@ -70,16 +62,6 @@
             padding: 60px 20px;
         }
 
-        .hero h1 {
-            font-size: 42px;
-            margin-bottom: 10px;
-        }
-
-        .hero p {
-            font-size: 18px;
-            opacity: 0.9;
-        }
-
         .tools-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
@@ -98,7 +80,12 @@
             border: 1px solid rgba(255, 255, 255, 0.18);
         }
 
-        .tool-card:hover {
+        .tool-card.disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        .tool-card:hover:not(.disabled) {
             transform: translateY(-6px);
             background: rgba(255, 255, 255, 0.18);
         }
@@ -126,7 +113,6 @@
             padding: 30px;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25);
         }
 
         .close {
@@ -145,10 +131,6 @@
             cursor: pointer;
             border: 1px solid rgba(255, 255, 255, 0.25);
             transition: 0.3s;
-        }
-
-        .file-label:hover {
-            background: rgba(255, 255, 255, 0.25);
         }
 
         .file-label input {
@@ -185,30 +167,54 @@
     </div>
 
     <div class="tools-grid">
-        <div class="tool-card" onclick="openTool('merge')">
-            <i class="fa-solid fa-layer-group"></i>
-            <h3>دمج PDF</h3>
-        </div>
 
-        <div class="tool-card" onclick="openTool('split')">
-            <i class="fa-solid fa-scissors"></i>
-            <h3>تقسيم PDF</h3>
-        </div>
-
-        <div class="tool-card" onclick="openTool('compress')">
-            <i class="fa-solid fa-compress"></i>
-            <h3>ضغط PDF</h3>
-        </div>
-
-        <div class="tool-card" onclick="openTool('pdf_to_jpg')">
-            <i class="fa-solid fa-image"></i>
-            <h3>PDF إلى JPG</h3>
-        </div>
-
+        <!-- أدوات تعمل -->
         <div class="tool-card" onclick="openTool('jpg_to_pdf')">
             <i class="fa-solid fa-file-image"></i>
-            <h3>JPG إلى PDF</h3>
+            <h3>JPG → PDF</h3>
         </div>
+
+        <div class="tool-card" onclick="openTool('resize')">
+            <i class="fa-solid fa-expand"></i>
+            <h3>تغيير حجم الصور</h3>
+        </div>
+
+        <div class="tool-card" onclick="openTool('png_to_jpg')">
+            <i class="fa-solid fa-image"></i>
+            <h3>PNG → JPG</h3>
+        </div>
+
+        <div class="tool-card" onclick="openTool('text_to_file')">
+            <i class="fa-solid fa-file-lines"></i>
+            <h3>نص → ملف TXT</h3>
+        </div>
+
+        <!-- أدوات غير مفعّلة -->
+        <div class="tool-card disabled">
+            <i class="fa-solid fa-layer-group"></i>
+            <h3>دمج PDF (قريباً)</h3>
+        </div>
+
+        <div class="tool-card disabled">
+            <i class="fa-solid fa-scissors"></i>
+            <h3>تقسيم PDF (قريباً)</h3>
+        </div>
+
+        <div class="tool-card disabled">
+            <i class="fa-solid fa-lock"></i>
+            <h3>حماية PDF (قريباً)</h3>
+        </div>
+
+        <div class="tool-card disabled">
+            <i class="fa-solid fa-unlock"></i>
+            <h3>إزالة حماية (قريباً)</h3>
+        </div>
+
+        <div class="tool-card disabled">
+            <i class="fa-solid fa-rotate"></i>
+            <h3>تدوير PDF (قريباً)</h3>
+        </div>
+
     </div>
 
     <!-- المودال -->
@@ -243,29 +249,34 @@ function openTool(tool) {
     document.getElementById("fileInput").value = "";
 
     switch (tool) {
-        case "merge":
-            title.textContent = "دمج ملفات PDF";
-            desc.textContent = "اختر عدة ملفات PDF وسيتم دمجها.";
-            break;
-
-        case "split":
-            title.textContent = "تقسيم PDF";
-            desc.textContent = "اختر ملف PDF وسيتم تقسيمه.";
-            break;
-
-        case "compress":
-            title.textContent = "ضغط PDF";
-            desc.textContent = "اختر ملف PDF وسيتم تقليل حجمه.";
-            break;
-
-        case "pdf_to_jpg":
-            title.textContent = "تحويل PDF إلى JPG";
-            desc.textContent = "اختر ملف PDF وسيتم تحويل الصفحات إلى صور.";
-            break;
-
         case "jpg_to_pdf":
             title.textContent = "تحويل JPG إلى PDF";
-            desc.textContent = "اختر صور JPG وسيتم دمجها في PDF.";
+            desc.textContent = "اختر صور JPG وسيتم دمجها في ملف PDF.";
+            break;
+
+        case "resize":
+            title.textContent = "تغيير حجم الصور";
+            desc.textContent = "اختر صورة وحدد الحجم الجديد.";
+            dynamicInputs.innerHTML = `
+                <label>العرض (px):</label>
+                <input type="number" id="widthInput" class="input-field">
+
+                <label>الارتفاع (px):</label>
+                <input type="number" id="heightInput" class="input-field">
+            `;
+            break;
+
+        case "png_to_jpg":
+            title.textContent = "تحويل PNG إلى JPG";
+            desc.textContent = "اختر صورة PNG وسيتم تحويلها.";
+            break;
+
+        case "text_to_file":
+            title.textContent = "تحويل نص إلى ملف TXT";
+            desc.textContent = "اكتب النص وسيتم حفظه كملف.";
+            dynamicInputs.innerHTML = `
+                <textarea id="textInput" class="input-field" style="width:100%;height:120px;"></textarea>
+            `;
             break;
     }
 
@@ -279,89 +290,23 @@ function closeModal() {
 async function startTool() {
     const files = document.getElementById("fileInput").files;
 
-    if (!files.length) {
-        alert("اختر ملفًا أولاً");
-        return;
-    }
-
     switch (window.currentTool) {
-        case "merge":
-            await mergePDF(files);
-            break;
-
-        case "split":
-            await splitPDF(files[0]);
-            break;
-
-        case "compress":
-            await compressPDF(files[0]);
-            break;
-
-        case "pdf_to_jpg":
-            await pdfToJpg(files[0]);
-            break;
 
         case "jpg_to_pdf":
             await jpgToPdf(files);
             break;
-    }
-}
 
-async function mergePDF(files) {
-    const mergedPdf = await PDFLib.PDFDocument.create();
+        case "resize":
+            await resizeImage(files[0]);
+            break;
 
-    for (let file of files) {
-        const bytes = await file.arrayBuffer();
-        const pdf = await PDFLib.PDFDocument.load(bytes);
-        const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-        pages.forEach(p => mergedPdf.addPage(p));
-    }
+        case "png_to_jpg":
+            await pngToJpg(files[0]);
+            break;
 
-    const mergedBytes = await mergedPdf.save();
-    downloadFile(mergedBytes, "merged.pdf");
-}
-
-async function splitPDF(file) {
-    const bytes = await file.arrayBuffer();
-    const pdf = await PDFLib.PDFDocument.load(bytes);
-
-    for (let i = 0; i < pdf.getPageCount(); i++) {
-        const newPdf = await PDFLib.PDFDocument.create();
-        const [page] = await newPdf.copyPages(pdf, [i]);
-        newPdf.addPage(page);
-
-        const pdfBytes = await newPdf.save();
-        downloadFile(pdfBytes, `page-${i + 1}.pdf`);
-    }
-}
-
-async function compressPDF(file) {
-    const bytes = await file.arrayBuffer();
-    const pdf = await PDFLib.PDFDocument.load(bytes);
-
-    const compressed = await pdf.save({ useObjectStreams: true });
-    downloadFile(compressed, "compressed.pdf");
-}
-
-async function pdfToJpg(file) {
-    const url = URL.createObjectURL(file);
-    const pdf = await pdfjsLib.getDocument(url).promise;
-
-    for (let i = 1; i <= pdf.numPages; i++) {
-        const page = await pdf.getPage(i);
-        const viewport = page.getViewport({ scale: 2 });
-
-        const canvas = document.createElement("canvas");
-        const ctx = canvas.getContext("2d");
-
-        canvas.width = viewport.width;
-        canvas.height = viewport.height;
-
-        await page.render({ canvasContext: ctx, viewport }).promise;
-
-        canvas.toBlob(blob => {
-            downloadFile(blob, `page-${i}.jpg`);
-        }, "image/jpeg");
+        case "text_to_file":
+            saveText();
+            break;
     }
 }
 
@@ -371,11 +316,57 @@ async function jpgToPdf(files) {
     for (let i = 0; i < files.length; i++) {
         const img = await readImage(files[i]);
         pdf.addImage(img, "JPEG", 10, 10, 190, 260);
-
         if (i < files.length - 1) pdf.addPage();
     }
 
     pdf.save("images.pdf");
+}
+
+async function resizeImage(file) {
+    const width = parseInt(document.getElementById("widthInput").value);
+    const height = parseInt(document.getElementById("heightInput").value);
+
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = width;
+        canvas.height = height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0, width, height);
+
+        canvas.toBlob(blob => {
+            downloadFile(blob, "resized.jpg");
+        }, "image/jpeg");
+    };
+}
+
+async function pngToJpg(file) {
+    const img = new Image();
+    img.src = URL.createObjectURL(file);
+
+    img.onload = () => {
+        const canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+
+        const ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#fff";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(img, 0, 0);
+
+        canvas.toBlob(blob => {
+            downloadFile(blob, "converted.jpg");
+        }, "image/jpeg");
+    };
+}
+
+function saveText() {
+    const text = document.getElementById("textInput").value;
+    const blob = new Blob([text], { type: "text/plain" });
+    downloadFile(blob, "text.txt");
 }
 
 function readImage(file) {
