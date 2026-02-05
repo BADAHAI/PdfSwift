@@ -1,44 +1,88 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>عن PdfSwift</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
   <link rel="stylesheet" href="style.css">
 </head>
 <body class="light-theme">
 
-  <header class="header"> <!-- نفس الـ header من index.html أو tools.html --> 
-    <!-- ... انسخ الـ header هنا ... -->
+  <!-- Header -->
+  <header class="header">
+    <div class="container">
+      <a href="index.html" class="logo">Pdf<span>Swift</span></a>
+
+      <nav class="nav">
+        <a href="index.html">الرئيسية</a>
+        <a href="tools.html">الأدوات</a>
+        <a href="about.html" class="active">عن الموقع</a>
+        <a href="privacy.html">سياسة الخصوصية</a>
+      </nav>
+
+      <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع">
+        <i class="fa-solid fa-moon-stars"></i>
+      </button>
+    </div>
   </header>
 
-  <main class="container" style="padding: 5rem 1rem; max-width: 800px;">
-    <h1>عن PdfSwift</h1>
-    
-    <p style="font-size: 1.2rem; line-height: 1.8;">
-      PdfSwift هو مشروع مفتوح المصدر يهدف إلى توفير أدوات PDF بسيطة وقوية تعمل مباشرة داخل المتصفح بدون الحاجة إلى رفع الملفات إلى سيرفرات خارجية.
-    </p>
+  <!-- Main Content -->
+  <main class="container" style="padding: 5rem 1rem; max-width: 900px; margin: 0 auto;">
+    <h1 class="section-title" style="text-align: center; margin-bottom: 2.5rem;">عن PdfSwift</h1>
 
-    <h2>الأهداف الرئيسية</h2>
-    <ul style="font-size: 1.15rem; line-height: 1.8; margin: 1.5rem 0;">
-      <li>الحفاظ على خصوصية المستخدمين</li>
-      <li>سرعة المعالجة (client-side فقط)</li>
-      <li>دعم اللغة العربية بشكل كامل (RTL)</li>
-      <li>تصميم نظيف وعصري</li>
-      <li>إمكانية التوسع بأدوات إضافية مستقبلاً</li>
-    </ul>
+    <div class="card" style="padding: 2.5rem; line-height: 1.8; font-size: 1.1rem;">
+      <p>
+        PdfSwift هو مشروع يهدف إلى تقديم أدوات معالجة ملفات PDF بسيطة وقوية تعمل <strong>مباشرة داخل المتصفح</strong> بدون الحاجة إلى رفع الملفات إلى أي خادم خارجي.
+      </p>
 
-    <h2>التقنيات المستخدمة</h2>
-    <p>HTML + CSS + JavaScript نقي، مع مكتبة <strong>pdf-lib</strong> لمعالجة الملفات PDF.</p>
+      <h2 style="margin: 2.5rem 0 1.2rem;">الأهداف الرئيسية</h2>
+      <ul style="padding-right: 1.8rem; list-style: disc;">
+        <li>الحفاظ على خصوصية المستخدمين بشكل كامل (معالجة client-side 100%)</li>
+        <li>توفير أداء سريع بدون تأخير الرفع / التنزيل</li>
+        <li>دعم كامل للغة العربية والكتابة من اليمين إلى اليسار</li>
+        <li>تصميم نظيف ومتجاوب مع جميع الأجهزة (جوال، تابلت، كمبيوتر)</li>
+        <li>إمكانية إضافة أدوات جديدة بسهولة في المستقبل</li>
+      </ul>
 
-    <p style="margin-top: 3rem;">
-      <a href="https://github.com/imbadah/PdfSwift" target="_blank" class="btn btn-primary">
-        <i class="fab fa-github"></i> زيارة المشروع على GitHub
-      </a>
-    </p>
+      <h2 style="margin: 2.5rem 0 1.2rem;">التقنيات المستخدمة</h2>
+      <p>
+        • HTML + CSS + Vanilla JavaScript<br>
+        • مكتبة <strong>pdf-lib</strong> لمعالجة ملفات PDF<br>
+        • Font Awesome للأيقونات<br>
+        • خط Cairo لدعم عربي ممتاز
+      </p>
+
+      <div style="margin-top: 3rem; text-align: center;">
+        <a href="https://github.com/imbadah/PdfSwift" target="_blank" class="btn btn-primary">
+          <i class="fab fa-github" style="margin-left: 0.6rem;"></i>
+          زيارة المشروع على GitHub
+        </a>
+      </div>
+    </div>
   </main>
 
-  <footer class="footer"> <!-- نفس الـ footer --> </footer>
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
+
+      <div class="social-links">
+        <span>تواصل معنا:</span>
+        <a href="https://x.com/AIGemX" target="_blank" rel="noopener noreferrer" aria-label="حساب X (تويتر سابقاً)">
+          <i class="fab fa-x-twitter"></i>
+        </a>
+        <a href="https://t.me/AIGemX" target="_blank" rel="noopener noreferrer" aria-label="قناة تليجرام">
+          <i class="fab fa-telegram-plane"></i>
+        </a>
+      </div>
+    </div>
+  </footer>
 
   <script src="theme.js"></script>
 </body>
