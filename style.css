@@ -1,84 +1,8 @@
-/* style.css - PdfSwift - Mobile-first + responsive + dark/light theme */
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  font-family: 'Cairo', sans-serif;
-  line-height: 1.7;
-  transition: background-color 0.4s ease, color 0.4s ease;
-}
-
-body.light-theme {
-  background: #f8fafc;
-  color: #0f172a;
-}
-
-body.dark-theme {
-  background: #0f172a;
-  color: #e2e8f0;
-}
-
-/* Container */
-.container {
-  width: 100%;
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-
-/* Header */
-.header {
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: rgba(248, 250, 252, 0.94);
-  backdrop-filter: blur(10px);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.06);
-  transition: background 0.4s;
-}
-
-.dark-theme .header {
-  background: rgba(15, 23, 42, 0.94);
-  box-shadow: 0 2px 10px rgba(0,0,0,0.45);
-}
-
-.header .container {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  padding: 1rem;
-}
-
-.logo {
-  font-size: clamp(1.5rem, 5vw, 1.9rem);
-  font-weight: 700;
-  color: #1e40af;
-  text-decoration: none;
-}
-
-.logo span {
-  color: #3b82f6;
-}
-
-/* ────────────────────────────────
-   تحسين حجم وتناسق روابط الهيدر
-   ──────────────────────────────── */
 .nav {
   display: flex;
-  gap: 1.1rem;
+  gap: 1.2rem;           /* مسافة معتدلة */
   align-items: center;
   flex-wrap: wrap;
-  justify-content: center;
   margin: 0.5rem 0;
 }
 
@@ -86,8 +10,8 @@ body.dark-theme {
   color: inherit;
   text-decoration: none;
   font-weight: 500;
-  font-size: clamp(0.94rem, 2.4vw, 1.04rem);
-  padding: 0.45rem 0.75rem;
+  font-size: clamp(0.95rem, 2.3vw, 1.02rem);  /* حجم أصغر ومتجاوب */
+  padding: 0.4rem 0.8rem;
   border-radius: 6px;
   transition: all 0.25s ease;
 }
@@ -95,191 +19,23 @@ body.dark-theme {
 .nav a:hover,
 .nav a.active {
   color: #1e40af;
-  background: rgba(30, 64, 175, 0.07);
+  background: rgba(30, 64, 175, 0.06);
 }
 
-.dark-theme .nav a:hover,
-.dark-theme .nav a.active {
-  color: #60a5fa;
-  background: rgba(96, 165, 250, 0.12);
-}
-
-.theme-btn {
-  background: none;
-  border: none;
-  font-size: 1.35rem;
-  cursor: pointer;
-  color: inherit;
-  padding: 0.4rem;
-}
-
-/* Hero */
-.hero {
-  text-align: center;
-  padding: 5rem 1rem 4rem;
-  background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-  color: white;
-}
-
-.hero h1 {
-  font-size: clamp(1.9rem, 6.5vw, 3.4rem);
-  margin-bottom: 1.2rem;
-  font-weight: 700;
-}
-
-.lead {
-  font-size: clamp(1.05rem, 4vw, 1.3rem);
-  max-width: 720px;
-  margin: 0 auto 2rem;
-  opacity: 0.95;
-}
-
-/* Buttons */
-.btn, .action-btn, button.action-btn {
-  display: inline-block;
-  padding: clamp(0.8rem, 2.5vw, 1rem) clamp(1.5rem, 4vw, 2.2rem);
-  border-radius: 50px;
-  font-weight: 600;
-  text-decoration: none;
-  transition: all 0.35s ease;
-  cursor: pointer;
-  border: none;
-  font-size: clamp(0.95rem, 3vw, 1.15rem);
-}
-
-.btn-primary, .action-btn {
-  background: white;
-  color: #1e40af;
-}
-
-.btn-primary:hover, .action-btn:hover {
-  background: #f1f5f9;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 25px rgba(30,64,175,0.22);
-}
-
-.dark-theme .btn-primary,
-.dark-theme .action-btn {
-  background: #3b82f6;
-  color: white;
-}
-
-/* Grid */
-.grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.5rem;
-}
-
-/* Cards */
-.card, .tool-card, .tool-section {
-  background: white;
-  border-radius: 14px;
-  padding: 1.8rem;
-  text-align: center;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.07);
-  transition: transform 0.35s, box-shadow 0.35s;
-}
-
-.dark-theme .card,
-.dark-theme .tool-card,
-.dark-theme .tool-section {
-  background: #1e293b;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
-}
-
-.card:hover, .tool-card:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 16px 36px rgba(30,64,175,0.18);
-}
-
-.card i, .tool-card i {
-  font-size: 2.8rem;
-  color: #1e40af;
-  margin-bottom: 1rem;
-}
-
-.dark-theme .card i, .dark-theme .tool-card i {
-  color: #60a5fa;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 3rem 1rem 2rem;
-  margin-top: 4rem;
-  border-top: 1px solid rgba(226,232,240,0.12);
-}
-
-.dark-theme .footer {
-  border-top-color: rgba(226,232,240,0.07);
-}
-
-.social-links {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 1.4rem;
-  margin-top: 1.2rem;
-  flex-wrap: wrap;
-}
-
-.social-links a {
-  font-size: 1.9rem;
-  color: inherit;
-  transition: all 0.3s;
-}
-
-.social-links a:hover {
-  transform: translateY(-4px);
-  color: #1e40af;
-}
-
-.dark-theme .social-links a:hover {
-  color: #60a5fa;
-}
-
-/* Fade-in */
-.fade-in {
-  opacity: 0;
-  transform: translateY(25px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.fade-in.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* ────────────────────────────────
-   MEDIA QUERIES
-   ──────────────────────────────── */
-
-@media (min-width: 520px) {
-  .container { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .hero { padding: 7rem 1.5rem 5rem; }
-}
-
-@media (min-width: 640px) {
-  .nav { gap: 1.6rem; }
-  .nav a { font-size: clamp(1rem, 2.2vw, 1.08rem); }
-  .grid { grid-template-columns: repeat(2, 1fr); }
-}
-
+/* على الشاشات الكبيرة لا نزيد الحجم كثيرًا */
 @media (min-width: 1024px) {
-  .grid { grid-template-columns: repeat(3, 1fr); }
-  .tool-selector { grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-  .tool-section { max-width: 900px; padding: 3rem; }
-  .nav { gap: 2rem; }
-  .nav a { font-size: 1.08rem; padding: 0.6rem 1.1rem; }
+  .nav a {
+    font-size: 1.02rem;
+  }
 }
 
-@media (min-width: 1200px) {
-  .hero { padding: 9rem 2rem 7rem; }
-  .container { padding-left: 2rem; padding-right: 2rem; }
-}
-
+/* على الجوال الصغير */
 @media (max-width: 480px) {
-  .nav { gap: 0.9rem; }
-  .nav a { font-size: 0.94rem; padding: 0.4rem 0.7rem; }
+  .nav {
+    gap: 0.9rem;
+  }
+  .nav a {
+    font-size: 0.93rem;
+    padding: 0.35rem 0.6rem;
+  }
 }
