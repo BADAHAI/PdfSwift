@@ -1,35 +1,21 @@
 <!DOCTYPE html>
 <html lang="ar">
 
-<!-- 🔐 حماية الصفحة + العربية افتراضية -->
-<script>
-// جعل اللغة العربية هي الافتراضية
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
-    document.querySelectorAll('.lang-ar').forEach(e => e.style.display = '');
-});
-</script>
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>أدوات PDF | PDF SWIFT</title>
+  <title>PDF SWIFT | الأدوات</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&display=swap" rel="stylesheet">
 
   <style>
     body {
       margin: 0;
-      font-family: 'Cairo', 'Inter', sans-serif;
+      font-family: 'Cairo', sans-serif;
       background: #f3f4f6;
       color: #1a202c;
-      transition: 0.3s;
       direction: rtl;
       text-align: right;
-    }
-    body.dark {
-      background: #1f2937;
-      color: #f3f4f6;
     }
 
     header {
@@ -41,20 +27,14 @@ document.addEventListener("DOMContentLoaded", () => {
       align-items: center;
     }
 
-    header a {
+    header img {
+      height: 45px;
+    }
+
+    nav a {
       color: white;
       text-decoration: none;
       margin-left: 1rem;
-      font-weight: 600;
-    }
-
-    .toggle {
-      background: none;
-      border: 2px solid white;
-      color: white;
-      padding: 0.4rem 0.8rem;
-      border-radius: 6px;
-      cursor: pointer;
       font-weight: 600;
     }
 
@@ -64,9 +44,14 @@ document.addEventListener("DOMContentLoaded", () => {
       padding: 2rem;
     }
 
+    h2 {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      grid-template-columns: repeat(3, 1fr);
       gap: 1.5rem;
     }
 
@@ -74,323 +59,147 @@ document.addEventListener("DOMContentLoaded", () => {
       background: white;
       padding: 2rem;
       border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
       text-align: center;
       cursor: pointer;
-      transition: 0.3s;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    }
-
-    body.dark .tool-card {
-      background: #374151;
+      transition: 0.2s;
     }
 
     .tool-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.15);
+      transform: scale(1.03);
     }
 
-    .workspace {
-      display: none;
-      margin-top: 2rem;
-      padding: 2rem;
-      background: white;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    .tool-card img {
+      width: 60px;
+      margin-bottom: 1rem;
     }
 
-    body.dark .workspace {
-      background: #374151;
+    .tool-card h3 {
+      margin: 0;
+      font-size: 1.2rem;
     }
 
-    .btn {
-      background: #5A67D8;
-      color: white;
-      padding: 0.8rem 1.2rem;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      margin-top: 1rem;
-      font-size: 1rem;
+    /* تحسين الجوال */
+    @media (max-width: 768px) {
+      .grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .tool-card {
+        padding: 1.5rem;
+      }
+
+      .tool-card img {
+        width: 50px;
+      }
     }
 
-    input[type="file"] {
-      margin-top: 1rem;
-    }
+    @media (max-width: 480px) {
+      header {
+        padding: 1rem;
+      }
 
-    .lang-ar { display: block; }
-    .lang-en { display: none; direction: ltr; text-align: left; }
+      header img {
+        height: 38px;
+      }
+
+      .container {
+        padding: 1rem;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+      }
+
+      .tool-card {
+        padding: 1.2rem;
+      }
+
+      .tool-card img {
+        width: 45px;
+      }
+
+      .tool-card h3 {
+        font-size: 1rem;
+      }
+    }
   </style>
 </head>
 
 <body>
 
 <header>
-  <strong>PDF SWIFT — الأدوات</strong>
+  <img src="https://raw.githubusercontent.com/imbadah/PdfSwift/main/logo.png">
 
-  <div>
-    <a href="dashboard.html">لوحة التحكم</a>
-    <a href="index.html">الرئيسية</a>
-    <button class="toggle" onclick="toggleLang()">AR / EN</button>
-    <button class="toggle" onclick="toggleMode()">☀ / 🌙</button>
-  </div>
+  <nav id="nav-area">
+    <!-- يتم التعديل عبر JavaScript -->
+  </nav>
 </header>
 
 <div class="container">
 
-  <!-- DASHBOARD -->
-  <div id="dashboard">
-    <h2 class="lang-ar">اختر أداة PDF</h2>
-    <h2 class="lang-en">Choose a PDF Tool</h2>
+  <h2>الأدوات المتاحة</h2>
 
-    <div class="grid">
+  <div class="grid">
 
-      <div class="tool-card" onclick="openTool('merge')">
-        <h3>دمج PDF</h3>
-      </div>
-
-      <div class="tool-card" onclick="openTool('split')">
-        <h3>تقسيم PDF</h3>
-      </div>
-
-      <div class="tool-card" onclick="openTool('compress')">
-        <h3>ضغط PDF</h3>
-      </div>
-
-      <div class="tool-card" onclick="openTool('pdfToImg')">
-        <h3>PDF → صور</h3>
-      </div>
-
-      <div class="tool-card" onclick="openTool('imgToPdf')">
-        <h3>صور → PDF</h3>
-      </div>
-
-      <div class="tool-card" onclick="openTool('ocr')">
-        <h3>استخراج النصوص OCR</h3>
-      </div>
-
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/pdf.png">
+      <h3>دمج ملفات PDF</h3>
     </div>
-  </div>
 
-  <!-- WORKSPACE -->
-  <div id="workspace" class="workspace">
-    <h2 id="toolTitle"></h2>
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/split-files.png">
+      <h3>تقسيم PDF</h3>
+    </div>
 
-    <input type="file" id="fileInput" multiple>
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/compress.png">
+      <h3>ضغط PDF</h3>
+    </div>
 
-    <button class="btn" onclick="runTool()">تشغيل الأداة</button>
-    <button class="btn" onclick="backToDashboard()">← رجوع</button>
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/convert.png">
+      <h3>PDF إلى Word</h3>
+    </div>
 
-    <div id="output" style="margin-top: 1.5rem;"></div>
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/convert.png">
+      <h3>Word إلى PDF</h3>
+    </div>
+
+    <div class="tool-card" onclick="alert('سيتم إضافة الأداة لاحقاً')">
+      <img src="https://img.icons8.com/ios-filled/100/5A67D8/lock.png">
+      <h3>حماية PDF</h3>
+    </div>
+
   </div>
 
 </div>
 
-<!-- JAVASCRIPT -->
 <script>
-function toggleMode() {
-  document.body.classList.toggle('dark');
-}
+  // عرض أزرار الهيدر حسب حالة المستخدم
+  const nav = document.getElementById("nav-area");
+  const username = localStorage.getItem("username");
 
-function toggleLang() {
-  const ar = document.querySelectorAll('.lang-ar');
-  const en = document.querySelectorAll('.lang-en');
-
-  const isArabic = ar[0].style.display !== 'none';
-
-  if (isArabic) {
-    ar.forEach(e => e.style.display = 'none');
-    en.forEach(e => e.style.display = '');
+  if (username) {
+    nav.innerHTML = `
+      <span style="margin-left:1rem;">${username}</span>
+      <a href="profile.html">الملف الشخصي</a>
+      <a href="#" onclick="logout()">تسجيل الخروج</a>
+    `;
   } else {
-    en.forEach(e => e.style.display = 'none');
-    ar.forEach(e => e.style.display = '');
-  }
-}
-
-let currentTool = "";
-
-/* 📝 إضافة الملف إلى سجل المستخدم */
-function addToHistory(filename) {
-  let history = JSON.parse(localStorage.getItem("history") || "[]");
-
-  history.push({
-    file: filename,
-    date: new Date().toLocaleString()
-  });
-
-  localStorage.setItem("history", JSON.stringify(history));
-}
-
-/* فتح الأداة */
-function openTool(tool) {
-  currentTool = tool;
-
-  document.getElementById("dashboard").style.display = "none";
-  document.getElementById("workspace").style.display = "block";
-
-  const titles = {
-    merge: "دمج ملفات PDF",
-    split: "تقسيم ملف PDF",
-    compress: "ضغط ملف PDF",
-    pdfToImg: "تحويل PDF إلى صور",
-    imgToPdf: "تحويل الصور إلى PDF",
-    ocr: "استخراج النصوص OCR"
-  };
-
-  document.getElementById("toolTitle").innerText = titles[tool];
-  document.getElementById("output").innerHTML = "";
-}
-
-/* رجوع */
-function backToDashboard() {
-  document.getElementById("dashboard").style.display = "block";
-  document.getElementById("workspace").style.display = "none";
-}
-
-/* تشغيل الأداة */
-async function runTool() {
-  const files = document.getElementById("fileInput").files;
-  if (!files.length) {
-    alert("الرجاء رفع ملف واحد على الأقل");
-    return;
+    nav.innerHTML = `
+      <a href="login.html">تسجيل الدخول</a>
+      <a href="signup.html">إنشاء حساب</a>
+    `;
   }
 
-  if (currentTool === "merge") mergePDF(files);
-  if (currentTool === "split") splitPDF(files[0]);
-  if (currentTool === "compress") compressPDF(files[0]);
-  if (currentTool === "pdfToImg") pdfToImages(files[0]);
-  if (currentTool === "imgToPdf") imagesToPDF(files);
-  if (currentTool === "ocr") runOCR(files[0]);
-}
-
-/* دمج PDF */
-async function mergePDF(files) {
-  const { PDFDocument } = PDFLib;
-  const mergedPdf = await PDFDocument.create();
-
-  for (let file of files) {
-    const bytes = await file.arrayBuffer();
-    const pdf = await PDFDocument.load(bytes);
-    const pages = await mergedPdf.copyPages(pdf, pdf.getPageIndices());
-    pages.forEach(p => mergedPdf.addPage(p));
+  function logout() {
+    localStorage.clear();
+    location.reload();
   }
-
-  const mergedBytes = await mergedPdf.save();
-  downloadFile(mergedBytes, "merged.pdf");
-  addToHistory("merged.pdf");
-}
-
-/* تقسيم PDF */
-async function splitPDF(file) {
-  const { PDFDocument } = PDFLib;
-  const bytes = await file.arrayBuffer();
-  const pdf = await PDFDocument.load(bytes);
-
-  for (let i = 0; i < pdf.getPageCount(); i++) {
-    const newPdf = await PDFDocument.create();
-    const [page] = await newPdf.copyPages(pdf, [i]);
-    newPdf.addPage(page);
-
-    const pdfBytes = await newPdf.save();
-    downloadFile(pdfBytes, `page-${i + 1}.pdf`);
-    addToHistory(`page-${i + 1}.pdf`);
-  }
-}
-
-/* ضغط PDF */
-async function compressPDF(file) {
-  const compressed = await imageCompression(file, {
-    maxSizeMB: 1,
-    maxWidthOrHeight: 2000
-  });
-
-  downloadFile(await compressed.arrayBuffer(), "compressed.pdf");
-  addToHistory("compressed.pdf");
-}
-
-/* PDF → صور */
-async function pdfToImages(file) {
-  const pdfData = await file.arrayBuffer();
-  const pdf = await pdfjsLib.getDocument({ data: pdfData }).promise;
-
-  const output = document.getElementById("output");
-  output.innerHTML = "";
-
-  for (let i = 1; i <= pdf.numPages; i++) {
-    const page = await pdf.getPage(i);
-    const viewport = page.getViewport({ scale: 1.5 });
-
-    const canvas = document.createElement("canvas");
-    const ctx = canvas.getContext("2d");
-    canvas.height = viewport.height;
-    canvas.width = viewport.width;
-
-    await page.render({ canvasContext: ctx, viewport }).promise;
-
-    const imgURL = canvas.toDataURL("image/png");
-    const link = document.createElement("a");
-    link.href = imgURL;
-    link.download = `page-${i}.png`;
-    link.innerText = `تحميل الصفحة ${i}`;
-    link.style.display = "block";
-
-    output.appendChild(link);
-
-    addToHistory(`page-${i}.png`);
-  }
-}
-
-/* صور → PDF */
-async function imagesToPDF(files) {
-  const pdf = new jspdf.jsPDF();
-
-  for (let i = 0; i < files.length; i++) {
-    const img = await readImage(files[i]);
-    pdf.addImage(img, "PNG", 10, 10, 190, 260);
-
-    if (i < files.length - 1) pdf.addPage();
-  }
-
-  pdf.save("images.pdf");
-  addToHistory("images.pdf");
-}
-
-function readImage(file) {
-  return new Promise(resolve => {
-    const reader = new FileReader();
-    reader.onload = e => resolve(e.target.result);
-    reader.readAsDataURL(file);
-  });
-}
-
-/* OCR */
-async function runOCR(file) {
-  const output = document.getElementById("output");
-  output.innerHTML = "<p>جاري استخراج النص…</p>";
-
-  const { data } = await Tesseract.recognize(file, "ara+eng", {
-    logger: m => console.log(m)
-  });
-
-  output.innerHTML = `<textarea style="width:100%;height:200px;">${data.text}</textarea>`;
-  addToHistory("ocr-text.txt");
-}
-
-/* تحميل ملف */
-function downloadFile(bytes, filename) {
-  const blob = new Blob([bytes], { type: "application/pdf" });
-  const link = document.createElement("a");
-  link.href = URL.createObjectURL(blob);
-  link.download = filename;
-  link.click();
-}
 </script>
-
-<!-- LIBRARIES -->
-<script src="https://cdn.jsdelivr.net/npm/pdf-lib/dist/pdf-lib.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.16.105/pdf.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/browser-image-compression@2.0.0/dist/browser-image-compression.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
 
 </body>
 </html>
