@@ -3,12 +3,8 @@
 
 <!-- 🔐 حماية الصفحة + العربية افتراضية -->
 <script>
-// منع الوصول للصفحة بدون تسجيل دخول
-if (!localStorage.getItem("email")) {
-    window.location.href = "login.html";
-}
 
-// جعل اللغة العربية هي الافتراضية
+    // جعل اللغة العربية هي الافتراضية
 document.addEventListener("DOMContentLoaded", () => {
     document.querySelectorAll('.lang-en').forEach(e => e.style.display = 'none');
     document.querySelectorAll('.lang-ar').forEach(e => e.style.display = '');
