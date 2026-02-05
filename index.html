@@ -3,80 +3,67 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <meta name="description" content="أدوات PDF مجانية وسريعة: ضغط، تقسيم، دمج، تحويل، وأكثر بدون تسجيل."/>
-  <title>PdfSwift – أدوات PDF سريعة ومجانية</title>
-  
+  <meta name="description" content="أدوات PDF مجانية تعمل مباشرة في المتصفح: دمج، تقسيم، تدوير، علامة مائية وأكثر بدون رفع الملفات."/>
+  <title>PdfSwift – أدوات PDF سريعة ومجانية في المتصفح</title>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="light-theme">  <!-- نبدأ بوضع فاتح افتراضي -->
+<body class="light-theme">
 
-  <!-- Header ثابت -->
   <header class="header">
     <div class="container">
-      <a href="index.html" class="logo">
-        Pdf<span>Swift</span>
-      </a>
-
+      <a href="index.html" class="logo">Pdf<span>Swift</span></a>
       <nav class="nav">
         <a href="index.html" class="active">الرئيسية</a>
         <a href="tools.html">الأدوات</a>
         <a href="about.html">عن الموقع</a>
         <a href="privacy.html">سياسة الخصوصية</a>
       </nav>
-
       <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع">
         <i class="fa-solid fa-moon-stars"></i>
       </button>
     </div>
   </header>
 
-  <!-- Hero Section -->
   <section class="hero fade-in">
     <div class="container">
-      <h1>أدوات PDF بسيطة وسريعة في متصفحك</h1>
-      <p class="lead">ضغط، دمج، تقسيم، تحويل، إضافة علامة مائية... كل ذلك مجاناً وبدون تحميل برامج أو تسجيل دخول.</p>
+      <h1>أدوات PDF قوية وآمنة في متصفحك</h1>
+      <p class="lead">دمج، تقسيم، تدوير، إضافة علامة مائية... كل شيء يتم محليًا بدون رفع الملفات لأي سيرفر.</p>
       <a href="tools.html" class="btn btn-primary">جرب الأدوات الآن</a>
     </div>
   </section>
 
-  <!-- Features / Tools Preview -->
   <section class="features">
     <div class="container">
-      <h2 class="section-title">الأدوات الشائعة</h2>
+      <h2 class="section-title">لماذا PdfSwift؟</h2>
       <div class="grid">
-        <div class="tool-card fade-in">
-          <i class="fa-solid fa-compress-arrows-alt"></i>
-          <h3>ضغط PDF</h3>
-          <p>قلّص حجم الملف مع الحفاظ على الجودة العالية</p>
+        <div class="card fade-in">
+          <i class="fas fa-lock"></i>
+          <h3>خصوصية تامة</h3>
+          <p>كل المعالجة تتم داخل المتصفح – لا يغادر ملفك جهازك</p>
         </div>
-        
-        <div class="tool-card fade-in">
-          <i class="fa-solid fa-scissors"></i>
-          <h3>تقسيم PDF</h3>
-          <p>قسّم ملف PDF كبير إلى ملفات متعددة</p>
+        <div class="card fade-in">
+          <i class="fas fa-bolt"></i>
+          <h3>سريعة جدًا</h3>
+          <p>لا انتظار تحميل أو معالجة على سيرفر بعيد</p>
         </div>
-        
-        <div class="tool-card fade-in">
-          <i class="fa-solid fa-object-group"></i>
-          <h3>دمج PDF</h3>
-          <p>اجمع عدة ملفات PDF في ملف واحد مرتب</p>
-        </div>
-        
-        <div class="tool-card fade-in">
-          <i class="fa-solid fa-file-export"></i>
-          <h3>تحويل PDF</h3>
-          <p>PDF إلى Word، JPG، Excel والعكس</p>
+        <div class="card fade-in">
+          <i class="fas fa-mobile-alt"></i>
+          <h3>تعمل على الجوال</h3>
+          <p>تصميم متجاوب 100% – استخدمها في أي مكان</p>
         </div>
       </div>
-      
-      <div class="text-center" style="margin-top: 3rem;">
-        <a href="tools.html" class="btn btn-outline">عرض جميع الأدوات</a>
-      </div>
+    </div>
+  </section>
+
+  <section class="cta">
+    <div class="container">
+      <h2>جاهز لتبدأ؟</h2>
+      <a href="tools.html" class="btn btn-primary">استكشف الأدوات</a>
     </div>
   </section>
 
@@ -84,13 +71,11 @@
     <div class="container">
       <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
       <div class="footer-links">
-        <a href="privacy.html">سياسة الخصوصية</a>
-        <a href="about.html">عن الموقع</a>
+        <a href="about.html">عن الموقع</a> • <a href="privacy.html">سياسة الخصوصية</a>
       </div>
     </div>
   </footer>
 
   <script src="theme.js"></script>
-  <!-- يمكن إضافة script لـ fade-in لاحقاً إذا أردنا تحسين -->
 </body>
 </html>
