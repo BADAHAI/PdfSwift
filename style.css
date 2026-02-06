@@ -1,4 +1,4 @@
-/* style.css - Mobile-first responsive */
+/* style.css - Mobile-first responsive - تحسينات للجوال والأجهزة */
 
 * {
   margin: 0;
@@ -31,8 +31,8 @@ body.dark-theme {
   width: 100%;
   max-width: 1280px;
   margin: 0 auto;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding-left: clamp(0.8rem, 3vw, 1.5rem);
+  padding-right: clamp(0.8rem, 3vw, 1.5rem);
 }
 
 /* Header */
@@ -56,11 +56,11 @@ body.dark-theme {
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1rem 1rem;
+  padding: clamp(0.8rem, 3vw, 1rem);
 }
 
 .logo {
-  font-size: 1.7rem;
+  font-size: clamp(1.4rem, 5vw, 1.8rem);
   font-weight: 700;
   color: #1e40af;
   text-decoration: none;
@@ -70,7 +70,7 @@ body.dark-theme {
 
 .nav {
   display: flex;
-  gap: 1.4rem;
+  gap: clamp(0.8rem, 3vw, 1.4rem);
   margin: 0.6rem 0;
 }
 
@@ -78,7 +78,7 @@ body.dark-theme {
   color: inherit;
   text-decoration: none;
   font-weight: 500;
-  font-size: 1.05rem;
+  font-size: clamp(0.9rem, 3vw, 1.05rem);
   transition: color 0.3s;
 }
 
@@ -88,7 +88,7 @@ body.dark-theme {
 .theme-btn {
   background: none;
   border: none;
-  font-size: 1.4rem;
+  font-size: clamp(1.2rem, 4vw, 1.4rem);
   cursor: pointer;
   color: inherit;
 }
@@ -96,34 +96,35 @@ body.dark-theme {
 /* Hero */
 .hero {
   text-align: center;
-  padding: 5rem 1rem 4rem;
+  padding: clamp(4rem, 12vw, 6rem) clamp(1rem, 4vw, 2rem) clamp(3rem, 10vw, 5rem);
   background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
   color: white;
 }
 
 .hero h1 {
-  font-size: clamp(1.9rem, 6vw, 3.2rem);
-  margin-bottom: 1.2rem;
+  font-size: clamp(1.8rem, 7vw, 3.2rem);
+  margin-bottom: clamp(0.8rem, 4vw, 1.2rem);
   font-weight: 700;
 }
 
 .lead {
-  font-size: clamp(1.05rem, 4vw, 1.35rem);
-  max-width: 720px;
-  margin: 0 auto 2rem;
+  font-size: clamp(1rem, 4.5vw, 1.35rem);
+  max-width: 90%;
+  margin: 0 auto clamp(1.2rem, 5vw, 2rem);
   opacity: 0.95;
 }
 
 /* Buttons */
 .btn, .action-btn {
   display: inline-block;
-  padding: 0.9rem 2rem;
+  padding: clamp(0.8rem, 3vw, 1rem) clamp(1.4rem, 5vw, 2.2rem);
   border-radius: 50px;
   font-weight: 600;
   text-decoration: none;
   transition: all 0.35s ease;
   cursor: pointer;
   border: none;
+  font-size: clamp(0.95rem, 3.5vw, 1.15rem);
 }
 
 .btn-primary, .action-btn {
@@ -142,22 +143,18 @@ body.dark-theme {
   color: white;
 }
 
-.dark-theme .btn-primary:hover, .dark-theme .action-btn:hover {
-  background: #2563eb;
-}
-
 /* Grid - responsive */
 .grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1.6rem;
+  gap: clamp(1rem, 4vw, 1.8rem);
 }
 
 /* Cards / Tool cards */
 .card, .tool-card, .tool-section {
   background: white;
   border-radius: 14px;
-  padding: 1.8rem;
+  padding: clamp(1.2rem, 4vw, 1.8rem);
   text-align: center;
   box-shadow: 0 8px 24px rgba(0,0,0,0.07);
   transition: transform 0.35s, box-shadow 0.35s;
@@ -176,9 +173,9 @@ body.dark-theme {
 }
 
 .card i, .tool-card i {
-  font-size: 2.8rem;
+  font-size: clamp(2rem, 8vw, 2.8rem);
   color: #1e40af;
-  margin-bottom: 1rem;
+  margin-bottom: clamp(0.8rem, 4vw, 1rem);
 }
 
 .dark-theme .card i, .dark-theme .tool-card i {
@@ -188,7 +185,7 @@ body.dark-theme {
 /* Footer */
 .footer {
   text-align: center;
-  padding: 3rem 1rem 2rem;
+  padding: clamp(2rem, 6vw, 3rem) 1rem 2rem;
   margin-top: 4rem;
   border-top: 1px solid rgba(226,232,240,0.12);
 }
@@ -201,13 +198,13 @@ body.dark-theme {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 1.4rem;
+  gap: clamp(1rem, 4vw, 1.4rem);
   margin-top: 1.2rem;
   flex-wrap: wrap;
 }
 
 .social-links a {
-  font-size: 1.9rem;
+  font-size: clamp(1.6rem, 6vw, 1.9rem);
   color: inherit;
   transition: all 0.3s;
 }
@@ -234,36 +231,40 @@ body.dark-theme {
 }
 
 /* ────────────────────────────────────────────────
-   MEDIA QUERIES - Mobile First
+   MEDIA QUERIES - Mobile First + تحسينات للجوال
 ───────────────────────────────────────────────── */
 
 @media (min-width: 520px) {
-  .container { padding-left: 1.5rem; padding-right: 1.5rem; }
-  .hero { padding: 7rem 1.5rem 5rem; }
+  .container { padding-left: clamp(1.2rem, 4vw, 1.5rem); padding-right: clamp(1.2rem, 4vw, 1.5rem); }
+  .hero { padding: clamp(6rem, 12vw, 8rem) 1.5rem 5rem; }
+}
+
+@media (min-width: 640px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .nav { gap: clamp(1.2rem, 3vw, 1.8rem); }
+  .nav a { font-size: clamp(1rem, 2.5vw, 1.1rem); }
 }
 
 @media (min-width: 768px) {
-  .header .container {
-    flex-wrap: nowrap;
-  }
+  .header .container { flex-wrap: nowrap; }
   .nav { margin: 0; }
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
   .hero h1 { font-size: clamp(2.8rem, 7vw, 3.8rem); }
 }
 
 @media (min-width: 1024px) {
-  .grid {
-    grid-template-columns: repeat(3, 1fr);
-  }
-  .tool-selector {
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  }
-  .tool-section { max-width: 900px; padding: 3rem; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .card i { font-size: clamp(2.8rem, 5vw, 3.2rem); }
 }
 
 @media (min-width: 1200px) {
   .hero { padding: 9rem 2rem 7rem; }
   .container { padding-left: 2rem; padding-right: 2rem; }
+}
+
+/* تصغير إضافي للجوال الصغير (أقل من 480px) */
+@media (max-width: 480px) {
+  .card i { font-size: clamp(1.8rem, 10vw, 2.4rem); }
+  .card h3 { font-size: clamp(1.1rem, 5vw, 1.35rem); }
+  .card p { font-size: clamp(0.9rem, 4vw, 1rem); }
+  .btn-primary { padding: 0.8rem 1.6rem; font-size: 1rem; }
 }
