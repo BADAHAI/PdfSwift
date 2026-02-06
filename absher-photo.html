@@ -1,1 +1,210 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>تعديل أبعاد الصورة لأبشر – PdfSwift</title>
 
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+
+  <style>
+    body {
+      font-family: 'Cairo', sans-serif;
+      background: #f8fafc;
+    }
+
+    .absher-container {
+      max-width: 900px;
+      margin: 3rem auto;
+      background: white;
+      padding: 2.5rem;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .title-box {
+      text-align: center;
+      margin-bottom: 2rem;
+      position: relative;
+    }
+
+    .new-badge {
+      position: absolute;
+      top: -10px;
+      right: 50%;
+      transform: translateX(50%);
+      background: #8b5cf6;
+      color: white;
+      padding: 4px 10px;
+      border-radius: 6px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      animation: pulse 2.2s infinite ease-in-out;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.55; transform: scale(1.08); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    .crop-area {
+      width: 100%;
+      max-height: 450px;
+      overflow: hidden;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+      margin-bottom: 1.5rem;
+    }
+
+    .settings-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 1.5rem;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 0.9rem;
+      border-radius: 10px;
+      border: 1px solid #cbd5e1;
+      font-size: 1rem;
+    }
+
+    .action-btn {
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      margin-top: 2rem;
+      transition: all 0.3s;
+      display: block;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .action-btn:hover {
+      background: #1e3a8a;
+      transform: translateY(-3px);
+    }
+
+    #result-preview {
+      margin-top: 2rem;
+      text-align: center;
+    }
+
+    #result-preview img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 2px solid #e2e8f0;
+    }
+
+    .status {
+      text-align: center;
+      margin-top: 1rem;
+      font-weight: 600;
+      min-height: 1.5rem;
+    }
+
+    .success { color: #16a34a; }
+    .error { color: #dc2626; }
+  </style>
+</head>
+
+<body>
+
+<header class="header">
+  <div class="container">
+    <a href="index.html" class="logo">Pdf<span>Swift</span></a>
+    <nav class="nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="tools.html">الأدوات</a>
+      <a href="absher-photo.html" class="active">أدوات الصور</a>
+    </nav>
+  </div>
+</header>
+
+<div class="absher-container">
+
+  <div class="title-box">
+    <span class="new-badge">جديد</span>
+    <h1>تعديل أبعاد الصورة لأبشر</h1>
+    <p>أداة احترافية لضبط المقاس والحجم والخلفية والقص التلقائي للوجه</p>
+  </div>
+
+  <!-- رفع الصورة -->
+  <input type="file" id="upload-image" accept="image/*">
+
+  <!-- منطقة القص -->
+  <div class="crop-area">
+    <img id="image-preview" style="max-width:100%; display:none;">
+  </div>
+
+  <!-- الإعدادات -->
+  <div class="settings-grid">
+
+    <select id="preset-size">
+      <option value="200x200">200×200 (الهوية)</option>
+      <option value="400x400">400×400 (الجواز)</option>
+      <option value="600x600">600×600 (صورة شخصية)</option>
+      <option value="custom">مخصص</option>
+    </select>
+
+    <input type="number" id="custom-width" placeholder="العرض (px)" style="display:none;">
+    <input type="number" id="custom-height" placeholder="الطول (px)" style="display:none;">
+
+    <select id="max-size">
+      <option value="100">≤ 100KB</option>
+      <option value="150">≤ 150KB</option>
+      <option value="200">≤ 200KB</option>
+      <option value="250">≤ 250KB</option>
+      <option value="300">≤ 300KB</option>
+    </select>
+
+    <select id="dpi">
+      <option value="72">DPI 72</option>
+      <option value="96">DPI 96</option>
+      <option value="150">DPI 150</option>
+      <option value="300">DPI 300</option>
+    </select>
+
+    <select id="background">
+      <option value="white">خلفية بيضاء</option>
+      <option value="transparent">شفافة</option>
+      <option value="custom">لون مخصص</option>
+    </select>
+
+    <input type="color" id="custom-bg" style="display:none;">
+
+    <select id="format">
+      <option value="jpeg">JPG</option>
+      <option value="png">PNG</option>
+    </select>
+
+  </div>
+
+  <!-- زر التعديل -->
+  <button id="process-btn" class="action-btn">تعديل الصورة الآن</button>
+
+  <div id="status" class="status"></div>
+
+  <!-- النتيجة -->
+  <div id="result-preview"></div>
+
+</div>
+
+<!-- مكتبات القص والذكاء -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
+
+<!-- ملف JS الخاص بالأداة -->
+<script src="absher-photo.js"></script>
+
+</body>
+</html>
