@@ -17,7 +17,103 @@
   <!-- PDF.js -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
 
+  <!-- Tesseract.js لـ OCR -->
+  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
+
   <style>
+    .tools-page { padding: 4rem 1rem 2rem; }
+
+    .tool-selector {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 3rem;
+    }
+
+    .tool-btn {
+      position: relative;
+      background: white;
+      color: #1e40af;
+      border: 1px solid #e2e8f0;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.35s ease;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 1.2rem;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 30px rgba(30,64,175,0.18);
+      border-color: #1e40af;
+    }
+
+    .dark-theme .tool-btn {
+      background: #1e293b;
+      color: #60a5fa;
+      border-color: #475569;
+    }
+
+    .tool-section {
+      background: white;
+      border-radius: 16px;
+      padding: 2.5rem;
+      margin: 2rem auto;
+      max-width: 860px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .dark-theme .tool-section {
+      background: #1e293b;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 1rem;
+      margin: 1rem 0;
+      border: 1px solid #cbd5e1;
+      border-radius: 8px;
+      font-size: 1.05rem;
+    }
+
+    textarea {
+      min-height: 180px;
+      resize: vertical;
+    }
+
+    .action-btn {
+      background: #1e40af;
+      color: white;
+      border: none;
+      padding: 1rem 2.5rem;
+      border-radius: 50px;
+      font-size: 1.15rem;
+      cursor: pointer;
+      margin-top: 1.5rem;
+      transition: all 0.3s;
+    }
+
+    .action-btn:hover { background: #1e3a8a; transform: translateY(-3px); }
+
+    .status { margin-top: 1.5rem; font-weight: 600; min-height: 1.8rem; }
+    .success { color: #16a34a; }
+    .error   { color: #dc2626; }
+
+    .convert-hero {
+      text-align: center;
+      margin-top: 4rem;
+      margin-bottom: 2rem;
+    }
+
     /* شارة جديد */
     .new-badge {
       position: absolute;
@@ -38,8 +134,21 @@
       100% { opacity: 1; transform: scale(1); }
     }
 
-    .tool-btn {
-      position: relative;
+    /* شريط تقدم لـ OCR */
+    .progress-bar {
+      width: 100%;
+      height: 10px;
+      background: #e5e7eb;
+      border-radius: 999px;
+      overflow: hidden;
+      margin-top: 0.5rem;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #1e40af, #8b5cf6);
+      transition: width 0.2s ease;
     }
   </style>
 </head>
@@ -81,6 +190,27 @@
       <span class="new-badge">جديد</span>
       <i class="fas fa-lock"></i>
       <span>حماية PDF</span>
+    </button>
+
+    <!-- إزالة كلمة المرور (جديد) -->
+    <button class="tool-btn" data-tool="remove-password">
+      <span class="new-badge">جديد</span>
+      <i class="fas fa-unlock"></i>
+      <span>إزالة كلمة المرور</span>
+    </button>
+
+    <!-- توقيع PDF (جديد) -->
+    <button class="tool-btn" data-tool="sign">
+      <span class="new-badge">جديد</span>
+      <i class="fas fa-signature"></i>
+      <span>توقيع PDF</span>
+    </button>
+
+    <!-- ترتيب الصفحات (جديد) -->
+    <button class="tool-btn" data-tool="reorder">
+      <span class="new-badge">جديد</span>
+      <i class="fas fa-list-ol"></i>
+      <span>ترتيب الصفحات</span>
     </button>
 
     <button class="tool-btn" data-tool="merge">
@@ -156,7 +286,112 @@
     <div id="protect-status" class="status"></div>
   </section>
 
-  <!-- باقي الأدوات… (نفس اللي أرسلتها لك سابقًا) -->
+  <!-- إزالة كلمة المرور -->
+  <section id="tool-remove-password" class="tool-section" style="display:none;">
+    <h2>إزالة كلمة المرور</h2>
+    <p>إزالة كلمة المرور من ملف PDF (يتطلب معرفة كلمة المرور الحالية)</p>
+    <input type="file" id="remove-file" accept=".pdf">
+    <input type="password" id="remove-password" placeholder="اكتب كلمة المرور الحالية">
+    <button id="btn-remove-password" class="action-btn">إزالة الآن</button>
+    <div id="remove-status" class="status"></div>
+  </section>
+
+  <!-- توقيع PDF -->
+  <section id="tool-sign" class="tool-section" style="display:none;">
+    <h2>توقيع PDF</h2>
+    <p>إضافة توقيعك كصورة إلى صفحات PDF</p>
+    <input type="file" id="sign-file" accept=".pdf">
+    <input type="file" id="sign-image" accept="image/*">
+    <button id="btn-sign" class="action-btn">توقيع الآن</button>
+    <div id="sign-status" class="status"></div>
+  </section>
+
+  <!-- ترتيب الصفحات -->
+  <section id="tool-reorder" class="tool-section" style="display:none;">
+    <h2>ترتيب الصفحات</h2>
+    <p>أعد ترتيب صفحات PDF حسب الترتيب الذي تريده</p>
+    <input type="file" id="reorder-file" accept=".pdf">
+    <input type="text" id="reorder-order" placeholder="مثال: 3,1,2,5,4">
+    <button id="btn-reorder" class="action-btn">ترتيب الآن</button>
+    <div id="reorder-status" class="status"></div>
+  </section>
+
+  <!-- دمج -->
+  <section id="tool-merge" class="tool-section" style="display:none;">
+    <h2>دمج ملفات PDF</h2>
+    <input type="file" id="merge-files" multiple accept=".pdf">
+    <button id="btn-merge" class="action-btn">دمج الآن</button>
+    <div id="merge-status" class="status"></div>
+  </section>
+
+  <!-- تقسيم -->
+  <section id="tool-split" class="tool-section" style="display:none;">
+    <h2>تقسيم / استخراج صفحات</h2>
+    <input type="file" id="split-file" accept=".pdf">
+    <input type="text" id="split-ranges" placeholder="مثال: 1-3,5,8-10">
+    <button id="btn-split" class="action-btn">استخراج الآن</button>
+    <div id="split-status" class="status"></div>
+  </section>
+
+  <!-- تدوير -->
+  <section id="tool-rotate" class="tool-section" style="display:none;">
+    <h2>تدوير الصفحات</h2>
+    <input type="file" id="rotate-file" accept=".pdf">
+    <select id="rotate-degree">
+      <option value="90">90° يمين</option>
+      <option value="180">180°</option>
+      <option value="270">90° يسار</option>
+    </select>
+    <button id="btn-rotate" class="action-btn">تدوير الآن</button>
+    <div id="rotate-status" class="status"></div>
+  </section>
+
+  <!-- علامة مائية -->
+  <section id="tool-watermark" class="tool-section" style="display:none;">
+    <h2>إضافة علامة مائية نصية</h2>
+    <input type="file" id="watermark-file" accept=".pdf">
+    <input type="text" id="watermark-text" placeholder="اكتب النص (مثال: سري)">
+    <button id="btn-watermark" class="action-btn">إضافة الآن</button>
+    <div id="watermark-status" class="status"></div>
+  </section>
+
+  <!-- PDF إلى صور -->
+  <section id="tool-pdf-to-images" class="tool-section" style="display:none;">
+    <h2>تحويل PDF إلى صور</h2>
+    <input type="file" id="pdf-to-images-file" accept=".pdf">
+    <select id="pdf-image-format">
+      <option value="png">PNG</option>
+      <option value="jpg">JPG</option>
+    </select>
+    <button id="btn-pdf-to-images" class="action-btn">تحويل الآن</button>
+    <div id="pdf-to-images-status" class="status"></div>
+  </section>
+
+  <!-- صور إلى PDF -->
+  <section id="tool-images-to-pdf" class="tool-section" style="display:none;">
+    <h2>تحويل الصور إلى PDF</h2>
+    <input type="file" id="images-to-pdf-files" accept="image/*" multiple>
+    <button id="btn-images-to-pdf" class="action-btn">تحويل الآن</button>
+    <div id="images-to-pdf-status" class="status"></div>
+  </section>
+
+  <!-- OCR -->
+  <section id="tool-ocr" class="tool-section" style="display:none;">
+    <h2>OCR – تحويل PDF إلى نص</h2>
+    <p>استخراج النص من صفحات PDF باستخدام التعرف الضوئي على الحروف</p>
+    <input type="file" id="ocr-file" accept=".pdf">
+    <select id="ocr-lang">
+      <option value="ara">العربية</option>
+      <option value="eng">الإنجليزية</option>
+      <option value="ara+eng">العربية + الإنجليزية</option>
+    </select>
+    <button id="btn-ocr" class="action-btn">استخراج النص الآن</button>
+    <div class="progress-bar">
+      <div id="ocr-progress" class="progress-fill"></div>
+    </div>
+    <div id="ocr-status" class="status"></div>
+    <textarea id="ocr-result" placeholder="سيظهر النص المستخرج هنا"></textarea>
+  </section>
 
   <button id="back-to-tools" class="action-btn" style="display:none; margin: 3rem auto;">
     ← العودة إلى الأدوات
