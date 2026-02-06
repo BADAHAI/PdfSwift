@@ -1,243 +1,170 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>PdfSwift | الأدوات</title>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>الأدوات – PdfSwift</title>
 
-<!-- PDF-LIB -->
-<script src="https://unpkg.com/pdf-lib/dist/pdf-lib.min.js"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<link rel="stylesheet" href="style.css">
 
-<style>
-body {
-  margin: 0;
-  font-family: Tahoma, Arial;
-  background: #0f172a;
-  color: #fff;
-}
-
-header {
-  padding: 20px;
-  text-align: center;
-  font-size: 24px;
-  font-weight: bold;
-}
-
-.container {
-  max-width: 900px;
-  margin: auto;
-  padding: 20px;
-}
-
-.tool {
-  background: #020617;
-  border-radius: 14px;
-  padding: 20px;
-  margin-bottom: 20px;
-}
-
-.tool h3 {
-  margin-top: 0;
-}
-
-input, select, button {
-  width: 100%;
-  margin-top: 10px;
-  padding: 12px;
-  border-radius: 10px;
-  border: none;
-  font-size: 15px;
-}
-
-input, select {
-  background: #020617;
-  color: #fff;
-  border: 1px solid #334155;
-}
-
-button {
-  background: linear-gradient(135deg,#38bdf8,#6366f1);
-  color: #fff;
-  cursor: pointer;
-}
-
-button:hover {
-  opacity: .9;
-}
-
-.status {
-  margin-top: 10px;
-  font-size: 14px;
-}
-
-.status.error {
-  color: #f87171;
-}
-
-.status.success {
-  color: #4ade80;
-}
-</style>
+<script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
 </head>
 
-<body>
+<body class="light-theme">
 
-<header>🧩 PdfSwift – أدوات PDF</header>
-
-<div class="container">
-
-  <!-- دمج -->
-  <div class="tool">
-    <h3>دمج ملفات PDF</h3>
-    <input type="file" id="merge-files" multiple accept="application/pdf">
-    <button id="btn-merge">دمج الآن</button>
-    <div id="merge-status" class="status"></div>
+<header class="header">
+  <div class="container">
+    <a href="index.html" class="logo">Pdf<span>Swift</span></a>
+    <nav class="nav">
+      <a href="index.html">الرئيسية</a>
+      <a href="tools.html" class="active">الأدوات</a>
+      <a href="about.html">عن الموقع</a>
+      <a href="privacy.html">الخصوصية</a>
+    </nav>
   </div>
+</header>
 
-  <!-- تقسيم -->
-  <div class="tool">
-    <h3>استخراج / تقسيم صفحات</h3>
-    <input type="file" id="split-file" accept="application/pdf">
-    <input type="text" id="split-ranges" placeholder="مثال: 1-3,5">
-    <button id="btn-split">استخراج</button>
-    <div id="split-status" class="status"></div>
-  </div>
+<main class="container tools-page">
+<h1 class="section-title">أدوات PDF محلية 100%</h1>
+<p style="text-align:center;margin-bottom:3rem">كل المعالجة تتم داخل متصفحك</p>
 
-  <!-- تدوير -->
-  <div class="tool">
-    <h3>تدوير الصفحات</h3>
-    <input type="file" id="rotate-file" accept="application/pdf">
-    <select id="rotate-degree">
-      <option value="90">90°</option>
-      <option value="180">180°</option>
-      <option value="270">270°</option>
-    </select>
-    <button id="btn-rotate">تدوير</button>
-    <div id="rotate-status" class="status"></div>
-  </div>
+<div class="grid tool-selector">
+<button class="tool-btn" data-tool="merge"><i class="fas fa-object-group"></i><span>دمج ملفات</span></button>
+<button class="tool-btn" data-tool="split"><i class="fas fa-scissors"></i><span>تقسيم PDF</span></button>
+<button class="tool-btn" data-tool="rotate"><i class="fas fa-redo"></i><span>تدوير صفحات</span></button>
+<button class="tool-btn" data-tool="watermark"><i class="fas fa-stamp"></i><span>علامة مائية</span></button>
 
-  <!-- علامة مائية -->
-  <div class="tool">
-    <h3>إضافة علامة مائية</h3>
-    <input type="file" id="watermark-file" accept="application/pdf">
-    <input type="text" id="watermark-text" placeholder="النص">
-    <button id="btn-watermark">إضافة</button>
-    <div id="watermark-status" class="status"></div>
-  </div>
-
+<button class="tool-btn"><i class="fas fa-trash"></i><span>حذف صفحات</span><span class="coming-soon">قريبًا</span></button>
+<button class="tool-btn"><i class="fas fa-file-lines"></i><span>استخراج النص</span><span class="coming-soon">قريبًا</span></button>
+<button class="tool-btn"><i class="fas fa-image"></i><span>استخراج صور</span><span class="coming-soon">قريبًا</span></button>
+<button class="tool-btn"><i class="fas fa-images"></i><span>PDF إلى صور</span><span class="coming-soon">قريبًا</span></button>
 </div>
 
+<section id="tool-merge" class="tool-section" hidden>
+<h2>دمج ملفات PDF</h2>
+<input type="file" id="merge-files" multiple accept=".pdf">
+<button id="btn-merge" class="action-btn">دمج الآن</button>
+<div id="merge-status" class="status"></div>
+</section>
+
+<section id="tool-split" class="tool-section" hidden>
+<h2>استخراج صفحات</h2>
+<input type="file" id="split-file" accept=".pdf">
+<input type="text" id="split-ranges" placeholder="مثال: 1-3,5">
+<button id="btn-split" class="action-btn">استخراج</button>
+<div id="split-status" class="status"></div>
+</section>
+
+<section id="tool-rotate" class="tool-section" hidden>
+<h2>تدوير الصفحات</h2>
+<input type="file" id="rotate-file" accept=".pdf">
+<select id="rotate-degree">
+<option value="90">90°</option>
+<option value="180">180°</option>
+<option value="270">270°</option>
+</select>
+<button id="btn-rotate" class="action-btn">تدوير</button>
+<div id="rotate-status" class="status"></div>
+</section>
+
+<section id="tool-watermark" class="tool-section" hidden>
+<h2>إضافة علامة مائية</h2>
+<input type="file" id="watermark-file" accept=".pdf">
+<input type="text" id="watermark-text" placeholder="النص">
+<button id="btn-watermark" class="action-btn">إضافة</button>
+<div id="watermark-status" class="status"></div>
+</section>
+
+<button id="back" class="action-btn" hidden>← العودة</button>
+</main>
+
+<footer class="footer">
+<div class="container"><p>© 2026 PdfSwift</p></div>
+</footer>
+
 <script>
-const { PDFDocument, rgb, degrees, StandardFonts } = PDFLib;
+const { PDFDocument, degrees, rgb, StandardFonts } = PDFLib;
 
-function download(bytes, name) {
-  const blob = new Blob([bytes], { type: "application/pdf" });
-  const a = document.createElement("a");
-  a.href = URL.createObjectURL(blob);
-  a.download = name;
-  a.click();
-}
+/* التنقل */
+document.querySelectorAll(".tool-btn[data-tool]").forEach(b=>{
+b.onclick=()=>{
+document.querySelector(".tool-selector").style.display="none";
+document.querySelector(".section-title").style.display="none";
+document.querySelector("main p").style.display="none";
+document.getElementById("tool-"+b.dataset.tool).hidden=false;
+document.getElementById("back").hidden=false;
+};
+});
+document.getElementById("back").onclick=()=>{
+document.querySelectorAll(".tool-section").forEach(s=>s.hidden=true);
+document.querySelector(".tool-selector").style.display="grid";
+document.querySelector(".section-title").style.display="block";
+document.querySelector("main p").style.display="block";
+document.getElementById("back").hidden=true;
+};
 
-function status(id, msg, type="success") {
-  const el = document.getElementById(id);
-  el.textContent = msg;
-  el.className = "status " + type;
+/* تحميل */
+function download(bytes,name){
+const a=document.createElement("a");
+a.href=URL.createObjectURL(new Blob([bytes],{type:"application/pdf"}));
+a.download=name;a.click();
 }
 
 /* دمج */
-document.getElementById("btn-merge").onclick = async () => {
-  try {
-    const files = document.getElementById("merge-files").files;
-    if (!files.length) throw "اختر ملفات PDF";
-
-    const merged = await PDFDocument.create();
-
-    for (const f of files) {
-      const pdf = await PDFDocument.load(await f.arrayBuffer());
-      const pages = await merged.copyPages(pdf, pdf.getPageIndices());
-      pages.forEach(p => merged.addPage(p));
-    }
-
-    download(await merged.save(), "merged.pdf");
-    status("merge-status", "تم الدمج بنجاح");
-  } catch (e) {
-    status("merge-status", e, "error");
-  }
+document.getElementById("btn-merge").onclick=async()=>{
+const files=document.getElementById("merge-files").files;
+if(!files.length)return;
+const pdf=await PDFDocument.create();
+for(const f of files){
+const p=await PDFDocument.load(await f.arrayBuffer());
+const pages=await pdf.copyPages(p,p.getPageIndices());
+pages.forEach(pg=>pdf.addPage(pg));
+}
+download(await pdf.save(),"merged.pdf");
 };
 
 /* تقسيم */
-document.getElementById("btn-split").onclick = async () => {
-  try {
-    const file = document.getElementById("split-file").files[0];
-    const ranges = document.getElementById("split-ranges").value;
-    if (!file || !ranges) throw "أدخل الملف والصفحات";
-
-    const src = await PDFDocument.load(await file.arrayBuffer());
-    const out = await PDFDocument.create();
-
-    ranges.split(",").forEach(r => {
-      if (r.includes("-")) {
-        let [s,e] = r.split("-").map(n=>parseInt(n)-1);
-        for (let i=s;i<=e;i++) out.addPage(src.getPage(i));
-      } else {
-        out.addPage(src.getPage(parseInt(r)-1));
-      }
-    });
-
-    download(await out.save(), "extracted.pdf");
-    status("split-status","تم الاستخراج");
-  } catch (e) {
-    status("split-status", e, "error");
-  }
+document.getElementById("btn-split").onclick=async()=>{
+const file=document.getElementById("split-file").files[0];
+if(!file)return;
+const src=await PDFDocument.load(await file.arrayBuffer());
+const out=await PDFDocument.create();
+document.getElementById("split-ranges").value.split(",").forEach(r=>{
+if(r.includes("-")){
+let[s,e]=r.split("-").map(n=>n-1);
+for(let i=s;i<=e;i++)out.addPage(src.getPage(i));
+}else out.addPage(src.getPage(r-1));
+});
+download(await out.save(),"pages.pdf");
 };
 
 /* تدوير */
-document.getElementById("btn-rotate").onclick = async () => {
-  try {
-    const file = document.getElementById("rotate-file").files[0];
-    if (!file) throw "اختر ملف";
-
-    const pdf = await PDFDocument.load(await file.arrayBuffer());
-    const deg = parseInt(document.getElementById("rotate-degree").value);
-
-    pdf.getPages().forEach(p =>
-      p.setRotation(degrees(p.getRotation().angle + deg))
-    );
-
-    download(await pdf.save(), "rotated.pdf");
-    status("rotate-status","تم التدوير");
-  } catch (e) {
-    status("rotate-status", e, "error");
-  }
+document.getElementById("btn-rotate").onclick=async()=>{
+const file=document.getElementById("rotate-file").files[0];
+if(!file)return;
+const pdf=await PDFDocument.load(await file.arrayBuffer());
+const d=parseInt(document.getElementById("rotate-degree").value);
+pdf.getPages().forEach(p=>p.setRotation(degrees(p.getRotation().angle+d)));
+download(await pdf.save(),"rotated.pdf");
 };
 
 /* علامة مائية */
-document.getElementById("btn-watermark").onclick = async () => {
-  try {
-    const file = document.getElementById("watermark-file").files[0];
-    const text = document.getElementById("watermark-text").value;
-    if (!file || !text) throw "أدخل البيانات";
-
-    const pdf = await PDFDocument.load(await file.arrayBuffer());
-    const font = await pdf.embedFont(StandardFonts.HelveticaBold);
-
-    pdf.getPages().forEach(p => {
-      const {width,height} = p.getSize();
-      p.drawText(text,{
-        x: width/4,
-        y: height/2,
-        size: 40,
-        font,
-        color: rgb(.7,.7,.7),
-        rotate: degrees(-45),
-        opacity:.4
-      });
-    });
-
-    download(await pdf.save(),"watermarked.pdf");
-    status("watermark-status","تمت الإضافة");
-  } catch (e) {
-    status("watermark-status", e, "error");
-  }
+document.getElementById("btn-watermark").onclick=async()=>{
+const file=document.getElementById("watermark-file").files[0];
+if(!file)return;
+const pdf=await PDFDocument.load(await file.arrayBuffer());
+const font=await pdf.embedFont(StandardFonts.HelveticaBold);
+pdf.getPages().forEach(p=>{
+const{width,height}=p.getSize();
+p.drawText(document.getElementById("watermark-text").value,{
+x:width/4,y:height/2,size:40,font,
+color:rgb(0.7,0.7,0.7),rotate:degrees(-45),opacity:.4});
+});
+download(await pdf.save(),"watermark.pdf");
 };
 </script>
 
