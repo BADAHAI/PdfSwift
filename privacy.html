@@ -1,177 +1,101 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>سياسة الخصوصية – PdfSwift</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>سياسة الخصوصية — PdfSwift</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  
-  <!-- Font Awesome 6 (مطلوب للهيدر الجديد) -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-
-  <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* تصغير خط القائمة */
-    .nav a {
-      font-size: 0.9rem !important;
-    }
-
-    /* زر القائمة */
-    .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
-      cursor: pointer;
-      color: #1e293b;
-    }
-
-    @media (max-width: 900px) {
-      .nav {
-        display: none;
-        flex-direction: column;
-        background: white;
-        padding: 1rem;
-        border-radius: 12px;
-        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
-        position: absolute;
-        top: 70px;
-        right: 20px;
-        width: 200px;
-        z-index: 999;
-      }
-
-      .nav a {
-        padding: 0.7rem 0;
-        border-bottom: 1px solid #e2e8f0;
-      }
-
-      .nav a:last-child {
-        border-bottom: none;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
-
-      /* الشعار في المنتصف */
-      .header .container {
-        display: grid;
-        grid-template-columns: 1fr auto 1fr;
-        align-items: center;
-      }
-
-      .logo {
-        justify-self: center;
-        margin: 0;
-      }
-
-      /* زر الوضع الليلي يسار */
-      #themeToggle {
-        justify-self: end;
-      }
-    }
-  </style>
+    <link rel="stylesheet" href="ui-kit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body class="light-theme">
 
-  <!-- Header (الهيدر الجديد) -->
-  <header class="header">
-    <div class="container">
+<body>
 
-      <!-- زر القائمة (الهامبرغر) -->
-      <div class="menu-toggle" onclick="toggleMenu()">
-        <i class="fa-solid fa-bars"></i>
-      </div>
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="container">
 
-      <!-- الشعار في المنتصف -->
-      <a href="index.html" class="logo" style="font-size:1.7rem; font-weight:700;">
-        <span style="color:#000;">PDF</span><span style="color:#1e40af;"> SWIFT</span>
-      </a>
+            <button id="menuToggle" class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
 
-      <!-- القائمة -->
-      <nav class="nav" id="mobileMenu">
-        <a href="index.html">الرئيسية</a>
-        <a href="tools.html">الأدوات</a>
-        <a href="about.html">عن الموقع</a>
-        <a href="privacy.html" class="active">سياسة الخصوصية</a>
-      </nav>
+            <a href="index.html" class="logo">
+                <span class="pdf">PDF</span><span class="swift">SWIFT</span>
+            </a>
 
-      <!-- زر الوضع الليلي -->
-      <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع">
-        <i class="fa-solid fa-moon-stars"></i>
-      </button>
+            <nav class="nav">
+                <a href="index.html">الرئيسية</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="about.html">من نحن</a>
+                <a href="privacy.html" class="active">سياسة الخصوصية</a>
+            </nav>
 
-    </div>
-  </header>
+        </div>
+    </header>
 
-  <!-- Main Content -->
-  <main class="container" style="padding: 5rem 1rem; max-width: 900px; margin: 0 auto;">
-    <h1 class="section-title" style="text-align: center; margin-bottom: 2.5rem;">سياسة الخصوصية</h1>
+    <!-- محتوى سياسة الخصوصية -->
+    <section class="privacy-section container">
 
-    <div class="card" style="padding: 2.5rem; line-height: 1.8; font-size: 1.1rem;">
-      <p style="margin-bottom: 1.5rem; font-weight: bold;">آخر تحديث: فبراير 2026</p>
+        <h2>سياسة الخصوصية</h2>
+        <p>
+            في PdfSwift، نلتزم بحماية خصوصيتك واحترام بياناتك.  
+            تم تصميم الموقع ليعمل بالكامل على جهازك دون رفع أي ملفات إلى خوادم خارجية.
+        </p>
 
-      <h2 style="margin: 2rem 0 1rem;">1. عدم جمع البيانات الشخصية</h2>
-      <p>
-        لا نقوم بجمع أي بيانات شخصية من المستخدمين (اسم، بريد إلكتروني، رقم هاتف، عنوان IP، إلخ).
-      </p>
+        <h3>1. معالجة الملفات</h3>
+        <p>
+            جميع عمليات التحويل، الضغط، التعديل، وتجهيز الصور تتم محليًا على جهازك (Client‑Side).
+            لا نقوم بتخزين أو رفع أو إرسال أي ملف إلى أي خادم.
+        </p>
 
-      <h2 style="margin: 2rem 0 1rem;">2. معالجة الملفات محليًا فقط</h2>
-      <p>
-        جميع عمليات معالجة ملفات PDF (دمج، تقسيم، تدوير، علامة مائية، ...) تتم <strong>داخل متصفحك</strong> باستخدام JavaScript.<br>
-        لا يتم رفع أي ملف إلى خادم خارجي أو تخزينه في أي مكان.
-      </p>
+        <h3>2. البيانات التي نجمعها</h3>
+        <p>لا نقوم بجمع أي بيانات شخصية أو ملفات أو صور من المستخدمين.</p>
 
-      <h2 style="margin: 2rem 0 1rem;">3. التخزين المحلي (localStorage)</h2>
-      <p>
-        نستخدم localStorage فقط لحفظ تفضيل الوضع الليلي/النهاري (dark/light mode).<br>
-        لا يحتوي هذا التخزين على أي معلومات شخصية أو محتوى الملفات.
-      </p>
+        <h3>3. ملفات تعريف الارتباط (Cookies)</h3>
+        <p>
+            لا يستخدم PdfSwift أي ملفات تعريف ارتباط تتعلق بتتبع المستخدمين أو جمع البيانات.
+        </p>
 
-      <h2 style="margin: 2rem 0 1rem;">4. عدم استخدام الكوكيز أو أدوات التتبع</h2>
-      <p>
-        لا نستخدم كوكيز تتبع، ولا Google Analytics، ولا أي خدمة تحليل خارجية.
-      </p>
+        <h3>4. خدمات الطرف الثالث</h3>
+        <p>
+            قد نستخدم أدوات تحليل عامة لقياس عدد الزيارات فقط، بدون أي معلومات شخصية.
+        </p>
 
-      <h2 style="margin: 2rem 0 1rem;">5. التعديلات على السياسة</h2>
-      <p>
-        قد نقوم بتحديث هذه السياسة في المستقبل، وسيتم نشر النسخة الجديدة هنا مع ذكر تاريخ التحديث.
-      </p>
+        <h3>5. أمان المعلومات</h3>
+        <p>
+            بما أن جميع العمليات تتم على جهازك، فإن ملفاتك لا تغادر جهازك إطلاقًا،
+            مما يوفر أعلى مستوى من الخصوصية والأمان.
+        </p>
 
-      <p style="margin-top: 3rem; text-align: center; font-weight: bold;">
-        إذا كان لديك أي استفسار حول الخصوصية، يمكنك التواصل عبر حساباتنا.
-      </p>
-    </div>
-  </main>
+        <h3>6. التعديلات على سياسة الخصوصية</h3>
+        <p>
+            قد نقوم بتحديث هذه السياسة من وقت لآخر. سيتم نشر أي تحديثات على هذه الصفحة.
+        </p>
 
-  <!-- Footer -->
-  <footer class="footer">
-    <div class="container">
-      <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
+        <h3>7. التواصل معنا</h3>
+        <p>
+            إذا كان لديك أي استفسار حول سياسة الخصوصية، يمكنك التواصل معنا عبر صفحة GitHub الخاصة بالمشروع.
+        </p>
 
-      <div class="social-links">
-        <span>تواصل معنا:</span>
-        <a href="https://x.com/BADAH_AI" target="_blank" rel="noopener noreferrer" aria-label="حساب X (تويتر سابقاً)">
-          <i class="fab fa-x-twitter"></i>
-        </a>
-        <a href="https://t.me/MRBADAH" target="_blank" rel="noopener noreferrer" aria-label="قناة تليجرام">
-          <i class="fab fa-telegram-plane"></i>
-        </a>
-      </div>
-    </div>
-  </footer>
+    </section>
 
-  <!-- سكربت القائمة -->
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById("mobileMenu");
-      menu.style.display = menu.style.display === "flex" ? "none" : "flex";
-    }
-  </script>
+    <!-- الفوتر -->
+    <footer class="footer">
+        <p>© 2024 PdfSwift — جميع الحقوق محفوظة</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
 
-  <script src="theme.js"></script>
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const nav = document.querySelector(".nav");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("open");
+        });
+    </script>
+
 </body>
 </html>
