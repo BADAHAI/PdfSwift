@@ -3,22 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أدوات PdfSwift</title>
+    <title>PdfSwift — الصفحة الرئيسية</title>
 
-    <!-- الأيقونات -->
+    <!-- أيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <!-- ستايل الموقع -->
     <link rel="stylesheet" href="ui-kit.css">
-
-    <!-- مكتبات الصور و PDF (لو احتجتها لاحقًا) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/compressorjs/1.2.1/compressor.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
 </head>
 
-<body>
+<body class="home-body">
 
     <!-- الهيدر -->
     <header class="header">
@@ -33,8 +27,8 @@
             </a>
 
             <nav class="nav">
-                <a href="index.html">الرئيسية</a>
-                <a href="tools.html" class="active">الأدوات</a>
+                <a href="index.html" class="active">الرئيسية</a>
+                <a href="tools.html">الأدوات</a>
                 <a href="about.html">من نحن</a>
                 <a href="privacy.html">سياسة الخصوصية</a>
             </nav>
@@ -42,129 +36,76 @@
         </div>
     </header>
 
-    <!-- المحتوى الرئيسي -->
-    <main class="container">
+    <!-- هيرو زجاجي -->
+    <section class="hero-glass container">
+        <div class="hero-content">
+            <h1>حوّل ملفاتك وصورك بسهولة واحترافية</h1>
+            <p>
+                PdfSwift يقدم لك أدوات سريعة، مجانية، وآمنة لتحويل، ضغط، تعديل، وتجهيز ملفات PDF والصور — مباشرة من المتصفح.
+            </p>
+            <a href="tools.html" class="btn btn-primary hero-btn">جرّب الأدوات الآن</a>
+        </div>
+    </section>
 
-        <!-- 🟪 بانر تجهيز صورة أبشر -->
-        <section id="absher-hero" class="tool-section absher-hero">
-            <div class="absher-hero-content">
-                <div class="absher-hero-text">
-                    <div class="absher-icon">
-                        <i class="fas fa-id-card"></i>
-                    </div>
-                    <h2>تجهيز صورة منصة أبشر</h2>
-                    <p>
-                        جهّز صورتك لمتطلبات منصة أبشر تلقائيًا بأبعاد مناسبة وخلفية بيضاء وجودة عالية، في ثوانٍ فقط.
-                    </p>
-                    <button class="btn btn-primary" onclick="openAbsherTool()">
-                        ابدأ الآن
-                    </button>
-                </div>
+    <!-- المزايا -->
+    <section class="features container">
+        <h2 class="section-title">لماذا PdfSwift؟</h2>
 
-                <div class="absher-hero-illustration">
-                    <div class="absher-card-ghost">
-                        <div class="absher-photo"></div>
-                        <div class="absher-lines">
-                            <span></span>
-                            <span></span>
-                            <span></span>
-                        </div>
-                    </div>
-                </div>
+        <div class="features-grid">
+
+            <div class="feature-card glass-card">
+                <i class="fas fa-bolt"></i>
+                <h3>سرعة عالية</h3>
+                <p>معالجة فورية بدون انتظار أو تحميلات معقدة.</p>
             </div>
-        </section>
 
-        <!-- 🟦 أدوات PDF -->
-        <section id="pdf-tools" class="tool-section">
-            <h2>أدوات PDF</h2>
-            <p>مجموعة من الأدوات للتعامل مع ملفات PDF بسهولة واحترافية.</p>
-
-            <div class="tool-selector">
-
-                <button class="tool-btn" data-tool="merge-pdf">
-                    <i class="fas fa-object-group"></i>
-                    <span>دمج ملفات PDF</span>
-                </button>
-
-                <button class="tool-btn" data-tool="compress-pdf">
-                    <i class="fas fa-compress-alt"></i>
-                    <span>ضغط PDF</span>
-                </button>
-
-                <button class="tool-btn" data-tool="split-pdf">
-                    <i class="fas fa-columns"></i>
-                    <span>تقسيم PDF</span>
-                </button>
-
-                <button class="tool-btn" data-tool="pdf-to-img">
-                    <i class="fas fa-file-image"></i>
-                    <span>PDF إلى صور</span>
-                </button>
-
-                <button class="tool-btn" data-tool="img-to-pdf">
-                    <i class="fas fa-images"></i>
-                    <span>صور إلى PDF</span>
-                </button>
-
-                <button class="tool-btn" data-tool="ocr-pdf">
-                    <i class="fas fa-text-height"></i>
-                    <span>استخراج النصوص OCR</span>
-                </button>
-
-                <button class="tool-btn" data-tool="remove-pages">
-                    <i class="fas fa-trash-alt"></i>
-                    <span>إزالة صفحات</span>
-                </button>
-
-                <button class="tool-btn" data-tool="reorder-pages">
-                    <i class="fas fa-sort"></i>
-                    <span>إعادة ترتيب الصفحات</span>
-                </button>
-
+            <div class="feature-card glass-card">
+                <i class="fas fa-shield-alt"></i>
+                <h3>خصوصية كاملة</h3>
+                <p>كل شيء يتم على جهازك — لا نرفع أي ملفات للسيرفر.</p>
             </div>
-        </section>
 
-        <!-- 🟧 أدوات الصور -->
-        <section id="image-tools" class="tool-section">
-            <h2>أدوات الصور</h2>
-            <p>تحكم كامل في صورك: قص، تغيير حجم، تحويل صيغة، تدوير، وتحسين.</p>
+            <div class="feature-card glass-card">
+                <i class="fas fa-wand-magic-sparkles"></i>
+                <h3>سهولة الاستخدام</h3>
+                <p>واجهة بسيطة وواضحة بدون تعقيد.</p>
+            </div>
 
-            <div class="tool-selector">
+            <div class="feature-card glass-card">
+                <i class="fas fa-layer-group"></i>
+                <h3>مجموعة أدوات متكاملة</h3>
+                <p>تحويل، ضغط، قص، تدوير، تجهيز صور أبشر، والمزيد.</p>
+            </div>
 
-                <button class="tool-btn" data-tool="crop-image">
-                    <i class="fas fa-crop"></i>
-                    <span>قص الصورة</span>
-                </button>
+        </div>
+    </section>
 
-                <button class="tool-btn" data-tool="resize-image">
-                    <i class="fas fa-expand-arrows-alt"></i>
-                    <span>تغيير الحجم</span>
-                </button>
-
-                <button class="tool-btn" data-tool="convert-image">
-                    <i class="fas fa-sync-alt"></i>
-                    <span>تغيير الصيغة</span>
-                </button>
-
-                <button class="tool-btn" data-tool="enhance-image">
-                    <i class="fas fa-magic"></i>
-                    <span>تحسين الجودة</span>
-                </button>
-
-                <button class="tool-btn" data-tool="rotate-image">
-                    <i class="fas fa-redo"></i>
-                    <span>تدوير الصورة</span>
-                </button>
-
-                <button class="tool-btn" onclick="openAbsherTool()">
+    <!-- بانر أبشر -->
+    <section class="absher-hero container">
+        <div class="absher-hero-content">
+            <div class="absher-hero-text">
+                <div class="absher-icon">
                     <i class="fas fa-id-card"></i>
-                    <span>تجهيز صورة أبشر</span>
-                </button>
-
+                </div>
+                <h2>إطلاق أداة تجهيز صورة منصة أبشر</h2>
+                <p>
+                    الآن يمكنك تجهيز صورتك لمتطلبات منصة أبشر تلقائيًا — أبعاد صحيحة، خلفية بيضاء، جودة عالية، في ثوانٍ فقط.
+                </p>
+                <a href="tools.html" class="btn btn-primary">جرّب الأداة الآن</a>
             </div>
-        </section>
 
-    </main>
+            <div class="absher-hero-illustration">
+                <div class="absher-card-ghost">
+                    <div class="absher-photo"></div>
+                    <div class="absher-lines">
+                        <span></span>
+                        <span></span>
+                        <span></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- الفوتر -->
     <footer class="footer">
@@ -175,8 +116,14 @@
         </div>
     </footer>
 
-    <!-- سكربت الأدوات -->
-    <script src="tools-engine.js"></script>
+    <script>
+        const menuToggle = document.getElementById("menuToggle");
+        const nav = document.querySelector(".nav");
+
+        menuToggle.addEventListener("click", () => {
+            nav.classList.toggle("open");
+        });
+    </script>
 
 </body>
 </html>
