@@ -11,7 +11,7 @@
     <!-- ستايل الموقع -->
     <link rel="stylesheet" href="ui-kit.css">
 
-    <!-- مكتبات Cropper.js (للـ قص اليدوي) -->
+    <!-- مكتبات Cropper.js (للأدوات التي تحتاج قص يدوي) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 
@@ -25,7 +25,7 @@
 
 <body>
 
-    <!-- الهيدر -->
+    <!-- الهيدر الجديد -->
     <header class="header">
         <div class="container">
 
@@ -33,7 +33,9 @@
                 <i class="fas fa-bars"></i>
             </button>
 
-            <a href="index.html" class="logo">PdfSwift</a>
+            <a href="index.html" class="logo">
+                <span class="pdf">PDF</span><span class="swift">SWIFT</span>
+            </a>
 
             <nav class="nav">
                 <a href="index.html">الرئيسية</a>
@@ -42,43 +44,13 @@
                 <a href="privacy.html">سياسة الخصوصية</a>
             </nav>
 
-            <button id="themeToggle" class="theme-btn">
-                <i class="fas fa-moon"></i>
-            </button>
-
         </div>
     </header>
 
     <!-- المحتوى الرئيسي -->
     <main class="container">
 
-        <!-- 🟦 القسم الأول — أداة أبشر -->
-        <section id="absher-tool" class="tool-section fade-in">
-            <h2>أداة تجهيز صورة أبشر</h2>
-
-            <div class="absher-box">
-
-                <label>اختر نوع الهوية:</label>
-                <select id="absher-type">
-                    <option value="national">الهوية الوطنية</option>
-                    <option value="passport">جواز السفر السعودي</option>
-                    <option value="license">رخصة القيادة</option>
-                    <option value="iqama">الإقامة</option>
-                </select>
-
-                <label>ارفع الصورة:</label>
-                <input type="file" id="absher-input" accept="image/*">
-
-                <div id="absher-crop-area"></div>
-
-                <button id="absher-process" class="btn btn-primary">معالجة الصورة</button>
-
-                <div id="absher-result"></div>
-
-            </div>
-        </section>
-
-        <!-- 🟩 القسم الثاني — أدوات PDF -->
+        <!-- 🟦 أدوات PDF -->
         <section id="pdf-tools" class="tool-section fade-in">
             <h2>أدوات PDF</h2>
 
@@ -127,7 +99,7 @@
             </div>
         </section>
 
-        <!-- 🟧 القسم الثالث — أدوات الصور -->
+        <!-- 🟧 أدوات الصور -->
         <section id="image-tools" class="tool-section fade-in">
             <h2>أدوات الصور</h2>
 
@@ -156,6 +128,11 @@
                 <button class="tool-btn" data-tool="rotate-image">
                     <i class="fas fa-redo"></i>
                     <span>تدوير الصورة</span>
+                </button>
+
+                <button class="tool-btn" onclick="openAbsherTool()">
+                    <i class="fas fa-id-card"></i>
+                    <span>تجهيز صورة أبشر</span>
                 </button>
 
             </div>
