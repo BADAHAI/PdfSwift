@@ -1,463 +1,169 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>الأدوات – PdfSwift</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أدوات PdfSwift</title>
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <link rel="stylesheet" href="style.css">
+    <!-- الخطوط والأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
-  <!-- PDF-LIB -->
-  <script src="https://unpkg.com/pdf-lib@1.17.1/dist/pdf-lib.min.js"></script>
-
-  <!-- PDF.js -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
-
-  <!-- Tesseract.js لـ OCR -->
-  <script src="https://cdn.jsdelivr.net/npm/tesseract.js@5/dist/tesseract.min.js"></script>
-
-  <style>
-    .tools-page { padding: 4rem 1rem 2rem; }
-
-    .tool-selector {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 1.2rem;
-      margin-bottom: 3rem;
-    }
-
-    .tool-btn {
-      position: relative;
-      background: white;
-      color: #1e40af;
-      border: 1px solid #e2e8f0;
-      aspect-ratio: 1 / 1;
-      border-radius: 16px;
-      font-size: 1rem;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.35s ease;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.06);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.7rem;
-      padding: 1.2rem;
-    }
-
-    .tool-btn:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 12px 30px rgba(30,64,175,0.18);
-      border-color: #1e40af;
-    }
-
-    .dark-theme .tool-btn {
-      background: #1e293b;
-      color: #60a5fa;
-      border-color: #475569;
-    }
-
-    .tool-section {
-      background: white;
-      border-radius: 16px;
-      padding: 2.5rem;
-      margin: 2rem auto;
-      max-width: 860px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
-    }
-
-    .dark-theme .tool-section {
-      background: #1e293b;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.45);
-    }
-
-    input, select, textarea {
-      width: 100%;
-      padding: 1rem;
-      margin: 1rem 0;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font-size: 1.05rem;
-    }
-
-    textarea {
-      min-height: 180px;
-      resize: vertical;
-    }
-
-    .action-btn {
-      background: #1e40af;
-      color: white;
-      border: none;
-      padding: 1rem 2.5rem;
-      border-radius: 50px;
-      font-size: 1.15rem;
-      cursor: pointer;
-      margin-top: 1.5rem;
-      transition: all 0.3s;
-    }
-
-    .action-btn:hover { background: #1e3a8a; transform: translateY(-3px); }
-
-    .status { margin-top: 1.5rem; font-weight: 600; min-height: 1.8rem; }
-    .success { color: #16a34a; }
-    .error   { color: #dc2626; }
-
-    .convert-hero {
-      text-align: center;
-      margin-top: 4rem;
-      margin-bottom: 2rem;
-    }
-
-    /* شارة جديد */
-    .new-badge {
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      background: #8b5cf6;
-      color: white;
-      padding: 3px 8px;
-      font-size: 0.75rem;
-      border-radius: 6px;
-      font-weight: 700;
-      animation: pulse 2.2s infinite ease-in-out;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.55; transform: scale(1.08); }
-      100% { opacity: 1; transform: scale(1); }
-    }
-
-    /* شريط تقدم لـ OCR */
-    .progress-bar {
-      width: 100%;
-      height: 10px;
-      background: #e5e7eb;
-      border-radius: 999px;
-      overflow: hidden;
-      margin-top: 0.5rem;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #1e40af, #8b5cf6);
-      transition: width 0.2s ease;
-    }
-  </style>
+    <!-- ملف الثيم والستايل الموحد -->
+    <link rel="stylesheet" href="ui-kit.css">
 </head>
 
-<body class="light-theme">
+<body>
 
-<header class="header">
-  <div class="container">
+    <!-- الهيدر -->
+    <header class="header">
+        <div class="container">
 
-    <!-- زر القائمة (هامبرغر) للجوال -->
-    <button class="menu-toggle" aria-label="قائمة" onclick="toggleMenu()">
-      <i class="fas fa-bars"></i>
-    </button>
+            <button id="menuToggle" class="menu-toggle">
+                <i class="fas fa-bars"></i>
+            </button>
 
-    <!-- الشعار في المنتصف -->
-    <a href="index.html" class="logo" aria-label="الرئيسية" style="font-size:1.7rem; font-weight:700; text-decoration:none;">
-      <span style="color:#000;">PDF</span><span style="color:#1e40af; margin-left:6px;">SWIFT</span>
-    </a>
+            <a href="index.html" class="logo">PdfSwift</a>
 
-    <!-- القائمة -->
-    <nav class="nav" id="mobileMenu">
-      <a href="index.html">الرئيسية</a>
-      <a href="absher-photo.html">أداة الصور</a>
-      <a href="tools.html" class="active">الأدوات</a>
-      <a href="about.html">عن الموقع</a>
-      <a href="privacy.html">سياسة الخصوصية</a>
-    </nav>
+            <nav class="nav">
+                <a href="index.html">الرئيسية</a>
+                <a href="tools.html" class="active">الأدوات</a>
+                <a href="about.html">من نحن</a>
+                <a href="privacy.html">سياسة الخصوصية</a>
+            </nav>
 
-    <!-- زر الوضع الليلي -->
-    <button id="themeToggle" class="theme-btn" aria-label="تبديل الوضع">
-      <i class="fas fa-moon"></i>
-    </button>
+            <button id="themeToggle" class="theme-btn">
+                <i class="fas fa-moon"></i>
+            </button>
 
-  </div>
-</header>
+        </div>
+    </header>
 
-<main class="container tools-page">
+    <!-- المحتوى الرئيسي -->
+    <main class="container">
 
-  <!-- أدوات PDF الأساسية -->
-  <h1 class="section-title">أدوات PDF الأساسية</h1>
-  <p style="text-align:center; margin-bottom: 3.5rem;">عمليات PDF تتم بالكامل داخل متصفحك</p>
+        <!-- 🟦 القسم الأول — أداة أبشر -->
+        <section id="absher-tool" class="tool-section fade-in">
+            <h2>أداة تجهيز صورة أبشر</h2>
 
-  <div class="grid tool-selector">
+            <div class="absher-box">
 
-    <!-- ضغط PDF (جديد) -->
-    <button class="tool-btn" data-tool="compress">
-      <span class="new-badge">جديد</span>
-      <i class="fas fa-compress"></i>
-      <span>ضغط PDF</span>
-    </button>
+                <label>اختر نوع الهوية:</label>
+                <select id="absher-type">
+                    <option value="national">الهوية الوطنية</option>
+                    <option value="passport">جواز السفر السعودي</option>
+                    <option value="license">رخصة القيادة</option>
+                    <option value="iqama">الإقامة</option>
+                </select>
 
-    <!-- حماية PDF (جديد) -->
-    <button class="tool-btn" data-tool="protect">
-      <span class="new-badge">جديد</span>
-      <i class="fas fa-lock"></i>
-      <span>حماية PDF</span>
-    </button>
+                <label>ارفع الصورة:</label>
+                <input type="file" id="absher-input" accept="image/*">
 
-    <!-- إزالة كلمة المرور (جديد) -->
-    <button class="tool-btn" data-tool="remove-password">
-      <span class="new-badge">جديد</span>
-      <i class="fas fa-unlock"></i>
-      <span>إزالة كلمة المرور</span>
-    </button>
+                <div id="absher-crop-area"></div>
 
-    <!-- توقيع PDF (جديد) -->
-    <button class="tool-btn" data-tool="sign">
-      <span class="new-badge">جديد</span>
-      <i class="fas fa-signature"></i>
-      <span>توقيع PDF</span>
-    </button>
+                <button id="absher-process" class="btn btn-primary">معالجة الصورة</button>
 
-    <!-- ترتيب الصفحات (جديد) -->
-    <button class="tool-btn" data-tool="reorder">
-      <span class="new-badge">جديد</span>
-      <i class="fas fa-list-ol"></i>
-      <span>ترتيب الصفحات</span>
-    </button>
+                <div id="absher-result"></div>
 
-    <button class="tool-btn" data-tool="merge">
-      <i class="fas fa-object-group"></i>
-      <span>دمج ملفات</span>
-    </button>
+            </div>
+        </section>
 
-    <button class="tool-btn" data-tool="split">
-      <i class="fas fa-scissors"></i>
-      <span>تقسيم PDF</span>
-    </button>
+        <!-- 🟩 القسم الثاني — أدوات PDF -->
+        <section id="pdf-tools" class="tool-section fade-in">
+            <h2>أدوات PDF</h2>
 
-    <button class="tool-btn" data-tool="rotate">
-      <i class="fas fa-redo"></i>
-      <span>تدوير صفحات</span>
-    </button>
+            <div class="tool-selector">
 
-    <button class="tool-btn" data-tool="watermark">
-      <i class="fas fa-stamp"></i>
-      <span>علامة مائية</span>
-    </button>
+                <button class="tool-btn" data-tool="merge-pdf">
+                    <i class="fas fa-object-group"></i>
+                    <span>دمج ملفات PDF</span>
+                </button>
 
-  </div>
+                <button class="tool-btn" data-tool="compress-pdf">
+                    <i class="fas fa-compress-alt"></i>
+                    <span>ضغط PDF</span>
+                </button>
 
-  <!-- قسم أدوات التحويل -->
-  <div class="convert-hero">
-    <h1 class="section-title">أدوات التحويل</h1>
-    <p>حوّل ملفاتك بسهولة بين PDF والصور والورد</p>
-  </div>
+                <button class="tool-btn" data-tool="split-pdf">
+                    <i class="fas fa-columns"></i>
+                    <span>تقسيم PDF</span>
+                </button>
 
-  <div class="grid tool-selector">
+                <button class="tool-btn" data-tool="pdf-to-img">
+                    <i class="fas fa-file-image"></i>
+                    <span>PDF إلى صور</span>
+                </button>
 
-    <button class="tool-btn" data-tool="pdf-to-images">
-      <i class="fas fa-file-image"></i>
-      <span>PDF إلى صور</span>
-    </button>
+                <button class="tool-btn" data-tool="img-to-pdf">
+                    <i class="fas fa-images"></i>
+                    <span>صور إلى PDF</span>
+                </button>
 
-    <button class="tool-btn" data-tool="images-to-pdf">
-      <i class="fas fa-images"></i>
-      <span>صور إلى PDF</span>
-    </button>
+                <button class="tool-btn" data-tool="ocr-pdf">
+                    <i class="fas fa-text-height"></i>
+                    <span>استخراج النصوص OCR</span>
+                </button>
 
-    <button class="tool-btn" onclick="openModal('PDF إلى Word', 'هذه الميزة قيد التطوير وسيتم إطلاقها قريبًا.')">
-      <i class="fas fa-file-word"></i>
-      <span>PDF إلى Word</span>
-    </button>
+                <button class="tool-btn" data-tool="remove-pages">
+                    <i class="fas fa-trash-alt"></i>
+                    <span>إزالة صفحات</span>
+                </button>
 
-    <button class="tool-btn" onclick="openModal('Word إلى PDF', 'هذه الميزة قيد التطوير وسيتم إطلاقها قريبًا.')">
-      <i class="fas fa-file-pdf"></i>
-      <span>Word إلى PDF</span>
-    </button>
+                <button class="tool-btn" data-tool="reorder-pages">
+                    <i class="fas fa-sort"></i>
+                    <span>إعادة ترتيب الصفحات</span>
+                </button>
 
-  </div>
+            </div>
+        </section>
 
-  <!-- الأقسام (تظهر عند اختيار الأداة) -->
+        <!-- 🟧 القسم الثالث — أدوات الصور -->
+        <section id="image-tools" class="tool-section fade-in">
+            <h2>أدوات الصور</h2>
 
-  <!-- ضغط PDF -->
-  <section id="tool-compress" class="tool-section" style="display:none;">
-    <h2>ضغط PDF</h2>
-    <p>ضغط PDF لتسهيل المشاركة والرفع</p>
-    <input type="file" id="compress-file" accept=".pdf">
-    <button id="btn-compress" class="action-btn">ضغط الآن</button>
-    <div id="compress-status" class="status"></div>
-  </section>
+            <div class="tool-selector">
 
-  <!-- حماية PDF -->
-  <section id="tool-protect" class="tool-section" style="display:none;">
-    <h2>حماية PDF</h2>
-    <p>حماية PDF بكلمة مرور ومنع النسخ</p>
-    <input type="file" id="protect-file" accept=".pdf">
-    <input type="password" id="protect-password" placeholder="اكتب كلمة المرور">
-    <button id="btn-protect" class="action-btn">حماية الآن</button>
-    <div id="protect-status" class="status"></div>
-  </section>
+                <button class="tool-btn" data-tool="crop-image">
+                    <i class="fas fa-crop"></i>
+                    <span>قص الصورة</span>
+                </button>
 
-  <!-- إزالة كلمة المرور -->
-  <section id="tool-remove-password" class="tool-section" style="display:none;">
-    <h2>إزالة كلمة المرور</h2>
-    <p>إزالة كلمة المرور من ملف PDF (يتطلب معرفة كلمة المرور الحالية)</p>
-    <input type="file" id="remove-file" accept=".pdf">
-    <input type="password" id="remove-password" placeholder="اكتب كلمة المرور الحالية">
-    <button id="btn-remove-password" class="action-btn">إزالة الآن</button>
-    <div id="remove-status" class="status"></div>
-  </section>
+                <button class="tool-btn" data-tool="resize-image">
+                    <i class="fas fa-expand-arrows-alt"></i>
+                    <span>تغيير الحجم</span>
+                </button>
 
-  <!-- توقيع PDF -->
-  <section id="tool-sign" class="tool-section" style="display:none;">
-    <h2>توقيع PDF</h2>
-    <p>إضافة توقيعك كصورة إلى صفحات PDF</p>
-    <input type="file" id="sign-file" accept=".pdf">
-    <input type="file" id="sign-image" accept="image/*">
-    <button id="btn-sign" class="action-btn">توقيع الآن</button>
-    <div id="sign-status" class="status"></div>
-  </section>
+                <button class="tool-btn" data-tool="convert-image">
+                    <i class="fas fa-sync-alt"></i>
+                    <span>تغيير الصيغة</span>
+                </button>
 
-  <!-- ترتيب الصفحات -->
-  <section id="tool-reorder" class="tool-section" style="display:none;">
-    <h2>ترتيب الصفحات</h2>
-    <p>أعد ترتيب صفحات PDF حسب الترتيب الذي تريده</p>
-    <input type="file" id="reorder-file" accept=".pdf">
-    <input type="text" id="reorder-order" placeholder="مثال: 3,1,2,5,4">
-    <button id="btn-reorder" class="action-btn">ترتيب الآن</button>
-    <div id="reorder-status" class="status"></div>
-  </section>
+                <button class="tool-btn" data-tool="enhance-image">
+                    <i class="fas fa-magic"></i>
+                    <span>تحسين الجودة</span>
+                </button>
 
-  <!-- دمج -->
-  <section id="tool-merge" class="tool-section" style="display:none;">
-    <h2>دمج ملفات PDF</h2>
-    <input type="file" id="merge-files" multiple accept=".pdf">
-    <button id="btn-merge" class="action-btn">دمج الآن</button>
-    <div id="merge-status" class="status"></div>
-  </section>
+                <button class="tool-btn" data-tool="rotate-image">
+                    <i class="fas fa-redo"></i>
+                    <span>تدوير الصورة</span>
+                </button>
 
-  <!-- تقسيم -->
-  <section id="tool-split" class="tool-section" style="display:none;">
-    <h2>تقسيم / استخراج صفحات</h2>
-    <input type="file" id="split-file" accept=".pdf">
-    <input type="text" id="split-ranges" placeholder="مثال: 1-3,5,8-10">
-    <button id="btn-split" class="action-btn">استخراج الآن</button>
-    <div id="split-status" class="status"></div>
-  </section>
+            </div>
+        </section>
 
-  <!-- تدوير -->
-  <section id="tool-rotate" class="tool-section" style="display:none;">
-    <h2>تدوير الصفحات</h2>
-    <input type="file" id="rotate-file" accept=".pdf">
-    <select id="rotate-degree">
-      <option value="90">90° يمين</option>
-      <option value="180">180°</option>
-      <option value="270">90° يسار</option>
-    </select>
-    <button id="btn-rotate" class="action-btn">تدوير الآن</button>
-    <div id="rotate-status" class="status"></div>
-  </section>
+    </main>
 
-  <!-- علامة مائية -->
-  <section id="tool-watermark" class="tool-section" style="display:none;">
-    <h2>إضافة علامة مائية نصية</h2>
-    <input type="file" id="watermark-file" accept=".pdf">
-    <input type="text" id="watermark-text" placeholder="اكتب النص (مثال: سري)">
-    <button id="btn-watermark" class="action-btn">إضافة الآن</button>
-    <div id="watermark-status" class="status"></div>
-  </section>
+    <!-- الفوتر -->
+    <footer class="footer">
+        <p>© 2024 PdfSwift — جميع الحقوق محفوظة</p>
+        <div class="social-links">
+            <a href="#"><i class="fab fa-x-twitter"></i></a>
+            <a href="#"><i class="fab fa-github"></i></a>
+        </div>
+    </footer>
 
-  <!-- PDF إلى صور -->
-  <section id="tool-pdf-to-images" class="tool-section" style="display:none;">
-    <h2>تحويل PDF إلى صور</h2>
-    <input type="file" id="pdf-to-images-file" accept=".pdf">
-    <select id="pdf-image-format">
-      <option value="png">PNG</option>
-      <option value="jpg">JPG</option>
-    </select>
-    <button id="btn-pdf-to-images" class="action-btn">تحويل الآن</button>
-    <div id="pdf-to-images-status" class="status"></div>
-  </section>
-
-  <!-- صور إلى PDF -->
-  <section id="tool-images-to-pdf" class="tool-section" style="display:none;">
-    <h2>تحويل الصور إلى PDF</h2>
-    <input type="file" id="images-to-pdf-files" accept="image/*" multiple>
-    <button id="btn-images-to-pdf" class="action-btn">تحويل الآن</button>
-    <div id="images-to-pdf-status" class="status"></div>
-  </section>
-
-  <!-- OCR -->
-  <section id="tool-ocr" class="tool-section" style="display:none;">
-    <h2>OCR – تحويل PDF إلى نص</h2>
-    <p>استخراج النص من صفحات PDF باستخدام التعرف الضوئي على الحروف</p>
-    <input type="file" id="ocr-file" accept=".pdf">
-    <select id="ocr-lang">
-      <option value="ara">العربية</option>
-      <option value="eng">الإنجليزية</option>
-      <option value="ara+eng">العربية + الإنجليزية</option>
-    </select>
-    <button id="btn-ocr" class="action-btn">استخراج النص الآن</button>
-    <div class="progress-bar">
-      <div id="ocr-progress" class="progress-fill"></div>
-    </div>
-    <div id="ocr-status" class="status"></div>
-    <textarea id="ocr-result" placeholder="سيظهر النص المستخرج هنا"></textarea>
-  </section>
-
-  <button id="back-to-tools" class="action-btn" style="display:none; margin: 3rem auto;">
-    ← العودة إلى الأدوات
-  </button>
-
-</main>
-
-<footer class="footer">
-  <div class="container">
-    <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
-  </div>
-</footer>
-
-<!-- نافذة زجاجية -->
-<div class="modal-overlay" id="modal">
-  <div class="modal-box">
-    <h3 id="modal-title">الأداة</h3>
-    <p id="modal-desc">هذه الميزة قيد التطوير وسيتم إطلاقها قريبًا.</p>
-    <div class="modal-close" onclick="closeModal()">إغلاق</div>
-  </div>
-</div>
-
-<script src="theme.js"></script>
-<script src="tools.js"></script>
-<script>
-  function toggleMenu() {
-    const menu = document.getElementById("mobileMenu");
-    if (!menu) return;
-
-    const isOpen = menu.style.display === "flex" || menu.style.display === "block";
-    menu.style.display = isOpen ? "none" : "flex";
-
-    if (!isOpen) {
-      menu.style.flexDirection = "column";
-    }
-  }
-
-  // إغلاق القائمة عند النقر خارجها
-  document.addEventListener('click', (e) => {
-    const menu = document.getElementById("mobileMenu");
-    const toggle = document.querySelector('.menu-toggle');
-
-    if (!menu || !toggle) return;
-
-    const clickedOutside = !menu.contains(e.target) && !toggle.contains(e.target);
-
-    if (window.innerWidth <= 900 && menu.style.display === 'flex' && clickedOutside) {
-      menu.style.display = 'none';
-    }
-  });
-</script>
+    <!-- سكربتات الثيم والأدوات -->
+    <script src="ui-theme.js"></script>
+    <script src="tools-engine.js"></script>
 
 </body>
 </html>
