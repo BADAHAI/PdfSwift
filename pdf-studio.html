@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PDF Studio — PdfSwift</title>
+
+    <link rel="stylesheet" href="ui-kit.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <style>
+        .studio-container {
+            max-width: 1100px;
+            margin: 40px auto;
+        }
+
+        .pdf-preview {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .pdf-page {
+            width: 180px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 5px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .pdf-page.selected {
+            border-color: #007bff;
+            box-shadow: 0 0 10px rgba(0, 123, 255, 0.4);
+        }
+
+        .tools-bar {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tools-bar button {
+            padding: 10px 15px;
+            border-radius: 6px;
+            border: none;
+            background: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+
+        .tools-bar button:hover {
+            background: #005fcc;
+        }
+    </style>
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        window.pdfjsLib = window['pdfjs-dist/build/pdf'];
+        pdfjsLib.GlobalWorkerOptions.workerSrc =
+            'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    </script>
+</head>
+
+<body>
+
+    <header class="header">
+        <div class="container">
+            <a href="index.html" class="logo">
+                <span class="pdf">PDF</span><span class="swift">SWIFT</span>
+            </a>
+
+            <nav class="nav">
+                <a href="index.html">الرئيسية</a>
+                <a href="tools.html">الأدوات</a>
+                <a href="pdf-studio.html" class="active">PDF Studio</a>
+            </nav>
+        </div>
+    </header>
+
+    <section class="studio-container">
+        <h2 class="section-title">PDF Studio</h2>
+        <p>أداة احترافية لتحرير ملفات PDF مباشرة من المتصفح.</p>
+
+        <input type="file" id="pdfInput" accept="application/pdf" class="btn btn-primary">
+
+        <div class="tools-bar" id="toolsBar" style="display:none;">
+            <button onclick="deletePages()">حذف الصفحات</button>
+            <button onclick="rotatePages()">تدوير الصفحات</button>
+            <button onclick="extractPages()">استخراج الصفحات</button>
+            <button onclick="downloadPDF()">تنزيل PDF</button>
+        </div>
+
+        <div id="preview" class="pdf-preview"></div>
+    </section>
+
+    <script>
+        let pdfDoc = null;
+        let selectedPages = new Set();
+
+        document.getElementById("pdfInput").addEventListener("change", async (e) => {
+            const file = e.target.files[0];
+            if (!file) return;
+
+            const arrayBuffer = await file.arrayBuffer();
+            pdfDoc = await pdfjsLib.getDocument({ data: arrayBuffer }).promise;
+
+            document.getElementById("toolsBar").style.display = "flex";
+            renderPreview();
+        });
+
+        async function renderPreview() {
+            const preview = document.getElementById("preview");
+            preview.innerHTML = "";
+
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 0.4 });
+
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({ canvasContext: ctx, viewport }).promise;
+
+                const img = document.createElement("img");
+                img.src = canvas.toDataURL();
+                img.className = "pdf-page";
+                img.dataset.page = i;
+
+                img.onclick = () => {
+                    if (selectedPages.has(i)) {
+                        selectedPages.delete(i);
+                        img.classList.remove("selected");
+                    } else {
+                        selectedPages.add(i);
+                        img.classList.add("selected");
+                    }
+                };
+
+                preview.appendChild(img);
+            }
+        }
+
+        async function deletePages() {
+            if (selectedPages.size === 0) return alert("اختر صفحات أولاً");
+
+            const pdf = new jspdf.jsPDF();
+            let first = true;
+
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
+                if (selectedPages.has(i)) continue;
+
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 2 });
+
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({ canvasContext: ctx, viewport }).promise;
+
+                if (!first) pdf.addPage();
+                first = false;
+
+                pdf.addImage(canvas.toDataURL(), "JPEG", 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+            }
+
+            pdf.save("edited.pdf");
+        }
+
+        async function rotatePages() {
+            if (selectedPages.size === 0) return alert("اختر صفحات أولاً");
+
+            const pdf = new jspdf.jsPDF();
+            let first = true;
+
+            for (let i = 1; i <= pdfDoc.numPages; i++) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 2 });
+
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+
+                if (selectedPages.has(i)) {
+                    canvas.width = viewport.height;
+                    canvas.height = viewport.width;
+
+                    ctx.translate(canvas.width / 2, canvas.height / 2);
+                    ctx.rotate(Math.PI / 2);
+                    ctx.drawImage(await renderPageImage(page), -viewport.width / 2, -viewport.height / 2);
+                } else {
+                    canvas.width = viewport.width;
+                    canvas.height = viewport.height;
+                    await page.render({ canvasContext: ctx, viewport }).promise;
+                }
+
+                if (!first) pdf.addPage();
+                first = false;
+
+                pdf.addImage(canvas.toDataURL(), "JPEG", 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+            }
+
+            pdf.save("rotated.pdf");
+        }
+
+        async function extractPages() {
+            if (selectedPages.size === 0) return alert("اختر صفحات أولاً");
+
+            const pdf = new jspdf.jsPDF();
+            let first = true;
+
+            for (let i of selectedPages) {
+                const page = await pdfDoc.getPage(i);
+                const viewport = page.getViewport({ scale: 2 });
+
+                const canvas = document.createElement("canvas");
+                const ctx = canvas.getContext("2d");
+                canvas.width = viewport.width;
+                canvas.height = viewport.height;
+
+                await page.render({ canvasContext: ctx, viewport }).promise;
+
+                if (!first) pdf.addPage();
+                first = false;
+
+                pdf.addImage(canvas.toDataURL(), "JPEG", 0, 0, pdf.internal.pageSize.getWidth(), pdf.internal.pageSize.getHeight());
+            }
+
+            pdf.save("extracted.pdf");
+        }
+
+        function downloadPDF() {
+            alert("هذه الميزة ستُفعّل بعد إضافة أدوات التحرير المتقدمة.");
+        }
+    </script>
+
+</body>
+</html>
