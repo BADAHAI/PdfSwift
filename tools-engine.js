@@ -8,19 +8,53 @@ function openTool(toolName) {
     const modal = document.createElement("div");
     modal.className = "modal open";
 
-    modal.innerHTML = `
-        <div class="modal-content">
-            <h3>أداة: ${getToolTitle(toolName)}</h3>
-            <p>اختر ملفًا من جهازك لبدء استخدام الأداة.</p>
+    if (toolName === "absher") {
+        modal.innerHTML = `
+            <div class="modal-content" style="max-width:600px;">
+                <h3>تجهيز صورة أبشر</h3>
 
-            <input type="file" id="toolFile" accept="image/*,.pdf" />
+                <label>اختر نوع الوثيقة:</label>
+                <select id="absherType" class="input-select">
+                    <option value="id">هوية وطنية</option>
+                    <option value="passport">جواز سفر</option>
+                    <option value="iqama">إقامة</option>
+                </select>
 
-            <div style="margin-top: 18px;">
-                <button class="btn btn-primary" onclick="runTool('${toolName}')">تشغيل الأداة</button>
-                <button class="modal-close" onclick="this.closest('.modal').remove()">إغلاق</button>
+                <label style="margin-top:15px;">ارفع الصورة:</label>
+                <input type="file" id="toolFile" accept="image/*" />
+
+                <div id="previewArea" style="margin-top:20px; display:none;">
+                    <h4>المعاينة:</h4>
+                    <div style="display:flex; gap:10px;">
+                        <div>
+                            <p>قبل:</p>
+                            <img id="beforePreview" style="width:250px; border-radius:10px;">
+                        </div>
+                        <div>
+                            <p>بعد:</p>
+                            <img id="afterPreview" style="width:250px; border-radius:10px;">
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 18px;">
+                    <button class="btn btn-primary" onclick="runTool('absher')">تجهيز الصورة</button>
+                    <button class="modal-close" onclick="this.closest('.modal').remove()">إغلاق</button>
+                </div>
             </div>
-        </div>
-    `;
+        `;
+    } else {
+        modal.innerHTML = `
+            <div class="modal-content">
+                <h3>أداة: ${getToolTitle(toolName)}</h3>
+                <input type="file" id="toolFile" accept="image/*,.pdf" />
+                <div style="margin-top: 18px;">
+                    <button class="btn btn-primary" onclick="runTool('${toolName}')">تشغيل الأداة</button>
+                    <button class="modal-close" onclick="this.closest('.modal').remove()">إغلاق</button>
+                </div>
+            </div>
+        `;
+    }
 
     document.body.appendChild(modal);
 }
@@ -79,17 +113,47 @@ function runTool(toolName) {
 }
 
 /* =========================================================
-   1) تجهيز صورة أبشر
+   1) تجهيز صورة أبشر (نسخة Lite Pro)
 ========================================================= */
 
-function prepareAbsherPhoto(file) {
+async function prepareAbsherPhoto(file) {
+    const type = document.getElementById("absherType").value;
+
+    const sizes = {
+        id: { w: 600, h: 800 },
+        passport: { w: 826, h: 1102 },
+        iqama: { w: 600, h: 800 }
+    };
+
+    const target = sizes[type];
+
+    // تحميل face-api
+    await faceapi.nets.ssdMobilenetv1.loadFromUri("https://cdn.jsdelivr.net/npm/face-api.js/models");
+
     const img = new Image();
     img.src = URL.createObjectURL(file);
 
-    img.onload = () => {
+    img.onload = async () => {
+        document.getElementById("previewArea").style.display = "block";
+        document.getElementById("beforePreview").src = img.src;
+
+        // كشف الوجه
+        const detection = await faceapi.detectSingleFace(img);
+
+        let cropX = 0, cropY = 0, cropW = img.width, cropH = img.height;
+
+        if (detection) {
+            const box = detection.box;
+            cropX = Math.max(0, box.x - box.width * 0.5);
+            cropY = Math.max(0, box.y - box.height * 0.8);
+            cropW = box.width * 2;
+            cropH = box.height * 2.5;
+        }
+
+        // تجهيز الكانفس
         const canvas = document.createElement("canvas");
-        canvas.width = 600;
-        canvas.height = 800;
+        canvas.width = target.w;
+        canvas.height = target.h;
 
         const ctx = canvas.getContext("2d");
 
@@ -97,20 +161,54 @@ function prepareAbsherPhoto(file) {
         ctx.fillStyle = "#ffffff";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-        // رسم الصورة في المنتصف
-        const ratio = Math.min(600 / img.width, 800 / img.height);
-        const newW = img.width * ratio;
-        const newH = img.height * ratio;
+        // قص الوجه
+        const tempCanvas = document.createElement("canvas");
+        tempCanvas.width = cropW;
+        tempCanvas.height = cropH;
+        tempCanvas.getContext("2d").drawImage(img, cropX, cropY, cropW, cropH, 0, 0, cropW, cropH);
 
+        // تحسين الإضاءة
+        const imageData = tempCanvas.getContext("2d").getImageData(0, 0, cropW, cropH);
+        const data = imageData.data;
+
+        for (let i = 0; i < data.length; i += 4) {
+            data[i] = Math.min(255, data[i] * 1.1);     // R
+            data[i+1] = Math.min(255, data[i+1] * 1.1); // G
+            data[i+2] = Math.min(255, data[i+2] * 1.1); // B
+        }
+
+        tempCanvas.getContext("2d").putImageData(imageData, 0, 0);
+
+        // تنعيم بسيط
+        ctx.filter = "blur(1px)";
+
+        // رسم الصورة داخل الإطار
         ctx.drawImage(
-            img,
-            (600 - newW) / 2,
-            (800 - newH) / 2,
-            newW,
-            newH
+            tempCanvas,
+            (canvas.width - cropW) / 2,
+            (canvas.height - cropH) / 2,
+            cropW,
+            cropH
         );
 
-        downloadCanvas(canvas, "absher-photo.jpg");
+        // إطار أبيض
+        ctx.filter = "none";
+        ctx.lineWidth = 8;
+        ctx.strokeStyle = "#ffffff";
+        ctx.strokeRect(0, 0, canvas.width, canvas.height);
+
+        const finalImage = canvas.toDataURL("image/jpeg");
+        document.getElementById("afterPreview").src = finalImage;
+
+        // زر تنزيل
+        const downloadBtn = document.createElement("a");
+        downloadBtn.innerText = "تنزيل الصورة";
+        downloadBtn.className = "btn btn-primary";
+        downloadBtn.style.marginTop = "15px";
+        downloadBtn.download = `absher-${type}.jpg`;
+        downloadBtn.href = finalImage;
+
+        document.querySelector(".modal-content").appendChild(downloadBtn);
     };
 }
 
