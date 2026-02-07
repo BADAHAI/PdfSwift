@@ -1,7 +1,7 @@
 /* --------------------------------------------------
    UI-THEME.JS
    نظام الثيم + القائمة المنسدلة
-   يعمل على كل صفحات PdfSwift
+   يعمل على كل الأجهزة
 -------------------------------------------------- */
 
 /* -------------------------------
@@ -30,7 +30,7 @@ if (themeToggle) {
             localStorage.setItem("theme", "light");
         }
 
-        // تغيير الأيقونة
+        // تحديث الأيقونة
         updateThemeIcon();
     });
 
@@ -54,7 +54,7 @@ function updateThemeIcon() {
 }
 
 /* -------------------------------
-   2) القائمة المنسدلة للجوال
+   2) القائمة المنسدلة — تعمل على كل الأجهزة
 ------------------------------- */
 
 const menuToggle = document.getElementById("menuToggle");
@@ -62,8 +62,8 @@ const navMenu = document.querySelector(".nav");
 
 if (menuToggle && navMenu) {
     menuToggle.addEventListener("click", () => {
-        navMenu.style.display =
-            navMenu.style.display === "flex" ? "none" : "flex";
+        const isVisible = navMenu.style.display === "flex";
+        navMenu.style.display = isVisible ? "none" : "flex";
     });
 }
 
@@ -75,8 +75,6 @@ document.addEventListener("click", (e) => {
         !navMenu.contains(e.target) &&
         !menuToggle.contains(e.target)
     ) {
-        if (window.innerWidth < 900) {
-            navMenu.style.display = "none";
-        }
+        navMenu.style.display = "none";
     }
 });
