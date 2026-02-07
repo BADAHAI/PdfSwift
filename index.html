@@ -9,11 +9,12 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
     <style>
+
         /* ============================
-           ثيم عام
+           خلفية Premium Soft Gradient
         ============================ */
         body {
-            background: #ffffff;
+            background: linear-gradient(180deg, #ffffff 0%, #f8faff 40%, #eef2ff 100%);
             font-family: "Tajawal", sans-serif;
             scroll-behavior: smooth;
         }
@@ -22,16 +23,18 @@
             padding-bottom: 40px;
         }
 
-        /* حركة دخول عامة */
+        /* ============================
+           حركة دخول عامة
+        ============================ */
         .fade-in {
             opacity: 0;
             transform: translateY(18px);
             animation: fadeInUp 0.7s ease forwards;
         }
 
-        .fade-in.delay-1 { animation-delay: 0.1s; }
-        .fade-in.delay-2 { animation-delay: 0.2s; }
-        .fade-in.delay-3 { animation-delay: 0.3s; }
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
 
         @keyframes fadeInUp {
             to {
@@ -41,17 +44,26 @@
         }
 
         /* ============================
-           البنر — Premium Gradient
+           الهيدر
+        ============================ */
+        .header {
+            background: #ffffffcc;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 12px rgba(15,23,42,0.06);
+        }
+
+        /* ============================
+           بنر أبشر Premium
         ============================ */
         .absher-banner {
             width: 100%;
-            background: radial-gradient(circle at top left, #4f8cff, #0052cc);
-            padding: 30px 20px;
+            background: linear-gradient(135deg, #4f8cff, #7b5cff);
+            padding: 34px 20px;
             text-align: center;
             color: white;
-            margin-bottom: 40px;
-            border-radius: 0 0 22px 22px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.18);
+            margin-bottom: 45px;
+            border-radius: 0 0 26px 26px;
+            box-shadow: 0 12px 32px rgba(79,140,255,0.35);
         }
 
         .absher-banner-inner {
@@ -63,27 +75,27 @@
             display: inline-block;
             padding: 4px 12px;
             border-radius: 999px;
-            background: rgba(255,255,255,0.12);
+            background: rgba(255,255,255,0.18);
             font-size: 12px;
             margin-bottom: 10px;
         }
 
         .absher-banner h1 {
-            font-size: 26px;
+            font-size: 28px;
             margin-bottom: 6px;
             font-weight: 800;
         }
 
         .absher-banner p {
-            font-size: 14px;
+            font-size: 15px;
             margin-bottom: 16px;
             opacity: 0.96;
         }
 
         .absher-banner button {
             background: #ffffff;
-            color: #0052cc;
-            padding: 9px 24px;
+            color: #4f46e5;
+            padding: 10px 26px;
             border-radius: 999px;
             border: none;
             font-size: 15px;
@@ -95,7 +107,7 @@
 
         .absher-banner button:hover {
             background: #f3f3f3;
-            transform: translateY(-1px);
+            transform: translateY(-2px);
         }
 
         /* ============================
@@ -103,37 +115,30 @@
         ============================ */
         .group-card {
             background: #ffffff;
-            border-radius: 20px;
-            padding: 26px 24px 24px;
-            margin-bottom: 40px;
-            box-shadow: 0 10px 30px rgba(15,23,42,0.08);
-            border: 1px solid #edf0f5;
-        }
-
-        .group-header {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            margin-bottom: 18px;
+            border-radius: 24px;
+            padding: 30px 26px;
+            margin-bottom: 45px;
+            box-shadow: 0 12px 32px rgba(15,23,42,0.08);
+            border: 1px solid #e5e7eb;
         }
 
         .group-title {
-            font-size: 20px;
+            font-size: 22px;
             font-weight: 800;
             color: #111827;
+            margin-bottom: 6px;
         }
 
         .group-subtitle {
             font-size: 13px;
             color: #6b7280;
-            margin-top: 4px;
+            margin-bottom: 18px;
         }
 
         .group-line {
             height: 1px;
-            background: linear-gradient(to left, #e5e7eb, #cbd5f5, #e5e7eb);
-            margin-bottom: 18px;
-            opacity: 0.9;
+            background: linear-gradient(to left, #e5e7eb, #c7d2fe, #e5e7eb);
+            margin-bottom: 22px;
         }
 
         /* ============================
@@ -142,115 +147,89 @@
         .tools-grid-4 {
             display: grid;
             grid-template-columns: repeat(4, minmax(0, 1fr));
-            gap: 18px;
+            gap: 20px;
         }
 
         @media (max-width: 1024px) {
             .tools-grid-4 {
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                grid-template-columns: repeat(3, 1fr);
             }
         }
 
         @media (max-width: 800px) {
             .tools-grid-4 {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
         @media (max-width: 520px) {
             .tools-grid-4 {
-                grid-template-columns: repeat(1, minmax(0, 1fr));
+                grid-template-columns: repeat(1, 1fr);
             }
         }
 
         /* ============================
-           كروت الأدوات — Premium Gradient
+           كروت الأدوات Premium
         ============================ */
         .tool-card {
             background: #ffffff;
-            border-radius: 18px;
-            padding: 18px 16px 16px;
+            border-radius: 20px;
+            padding: 20px 18px;
             text-align: right;
-            box-shadow: 0 6px 18px rgba(15,23,42,0.06);
-            border: 1px solid #edf0f5;
-            transition: 0.22s ease;
+            box-shadow: 0 8px 22px rgba(15,23,42,0.06);
+            border: 1px solid #e5e7eb;
+            transition: 0.25s ease;
             position: relative;
             overflow: hidden;
         }
 
-        .tool-card::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at top right, rgba(79,140,255,0.16), transparent 55%);
-            opacity: 0;
-            transition: 0.25s;
-        }
-
-        .tool-card-inner {
-            position: relative;
-            z-index: 1;
-        }
-
         .tool-card:hover {
-            transform: translateY(-6px);
-            box-shadow: 0 14px 32px rgba(15,23,42,0.16);
-            border-color: #d0ddff;
-        }
-
-        .tool-card:hover::before {
-            opacity: 1;
+            transform: translateY(-8px);
+            box-shadow: 0 16px 40px rgba(15,23,42,0.16);
+            border-color: #c7d2fe;
         }
 
         .tool-icon {
-            width: 40px;
-            height: 40px;
-            border-radius: 14px;
+            width: 46px;
+            height: 46px;
+            border-radius: 16px;
             display: flex;
             align-items: center;
             justify-content: center;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             background: linear-gradient(135deg, #4f8cff, #7b5cff);
             color: #ffffff;
-            font-size: 20px;
-            box-shadow: 0 6px 16px rgba(79,140,255,0.45);
+            font-size: 22px;
+            box-shadow: 0 8px 22px rgba(79,140,255,0.45);
         }
 
         .tool-title {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 700;
             color: #111827;
-            margin-bottom: 4px;
+            margin-bottom: 6px;
         }
 
         .tool-desc {
             font-size: 13px;
             color: #6b7280;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
             min-height: 32px;
         }
 
-        .tool-card .btn {
+        .btn-primary {
             width: 100%;
             font-size: 13px;
-            padding: 7px 0;
+            padding: 8px 0;
             border-radius: 999px;
-        }
-
-        .btn-primary {
-            background: linear-gradient(135deg, #4f8cff, #0052cc);
+            background: linear-gradient(135deg, #4f8cff, #7b5cff);
             border: none;
+            color: white;
+            font-weight: 700;
         }
 
         .btn-primary:hover {
-            filter: brightness(1.05);
-        }
-
-        /* ============================
-           الهيدر (نخليه بسيط ونظيف)
-        ============================ */
-        .header {
-            box-shadow: 0 1px 8px rgba(15,23,42,0.06);
+            filter: brightness(1.08);
         }
 
     </style>
@@ -280,7 +259,7 @@
         </div>
     </header>
 
-    <!-- بنر أداة أبشر -->
+    <!-- بنر أبشر -->
     <section class="absher-banner fade-in delay-2">
         <div class="absher-banner-inner">
             <div class="absher-badge">إطلاق جديد</div>
@@ -293,69 +272,53 @@
     <!-- مجموعة أدوات PDF -->
     <section class="tools-section container fade-in delay-2">
         <div class="group-card">
-            <div class="group-header">
-                <div>
-                    <div class="group-title">مجموعة أدوات PDF</div>
-                    <div class="group-subtitle">كل ما تحتاجه للتعامل مع ملفات PDF بسهولة واحترافية.</div>
-                </div>
-            </div>
+            <div class="group-title">مجموعة أدوات PDF</div>
+            <div class="group-subtitle">كل ما تحتاجه للتعامل مع ملفات PDF بسهولة واحترافية.</div>
             <div class="group-line"></div>
 
             <div class="tools-grid-4">
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon">
-                            <i class="fas fa-layer-group"></i>
-                        </div>
-                        <div class="tool-title">دمج ملفات PDF</div>
-                        <div class="tool-desc">ادمج عدة ملفات PDF في ملف واحد منظم بسهولة.</div>
-                        <button class="btn btn-primary" onclick="openTool('mergepdf')">فتح الأداة</button>
-                    </div>
+                    <div class="tool-icon"><i class="fas fa-layer-group"></i></div>
+                    <div class="tool-title">دمج ملفات PDF</div>
+                    <div class="tool-desc">ادمج عدة ملفات PDF في ملف واحد منظم بسهولة.</div>
+                    <button class="btn-primary" onclick="openTool('mergepdf')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 6px 16px rgba(234,88,12,0.45);">
-                            <i class="fas fa-compress-alt"></i>
-                        </div>
-                        <div class="tool-title">ضغط PDF</div>
-                        <div class="tool-desc">قلل حجم ملفات PDF مع الحفاظ على جودة مناسبة.</div>
-                        <button class="btn btn-primary" onclick="openTool('compresspdf')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 8px 22px rgba(234,88,12,0.45);">
+                        <i class="fas fa-compress-alt"></i>
                     </div>
+                    <div class="tool-title">ضغط PDF</div>
+                    <div class="tool-desc">قلل حجم ملفات PDF مع الحفاظ على جودة مناسبة.</div>
+                    <button class="btn-primary" onclick="openTool('compresspdf')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 6px 16px rgba(34,197,94,0.45);">
-                            <i class="fas fa-scissors"></i>
-                        </div>
-                        <div class="tool-title">تقسيم PDF</div>
-                        <div class="tool-desc">قسّم ملف PDF إلى عدة ملفات حسب الصفحات.</div>
-                        <button class="btn btn-primary" onclick="openTool('splitpdf')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 8px 22px rgba(34,197,94,0.45);">
+                        <i class="fas fa-scissors"></i>
                     </div>
+                    <div class="tool-title">تقسيم PDF</div>
+                    <div class="tool-desc">قسّم ملف PDF إلى عدة ملفات حسب الصفحات.</div>
+                    <button class="btn-primary" onclick="openTool('splitpdf')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#ec4899,#db2777);box-shadow:0 6px 16px rgba(236,72,153,0.45);">
-                            <i class="fas fa-file-image"></i>
-                        </div>
-                        <div class="tool-title">PDF إلى صور</div>
-                        <div class="tool-desc">حوّل صفحات PDF إلى صور عالية الجودة.</div>
-                        <button class="btn btn-primary" onclick="openTool('pdf2img')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#ec4899,#db2777);box-shadow:0 8px 22px rgba(236,72,153,0.45);">
+                        <i class="fas fa-file-image"></i>
                     </div>
+                    <div class="tool-title">PDF إلى صور</div>
+                    <div class="tool-desc">حوّل صفحات PDF إلى صور عالية الجودة.</div>
+                    <button class="btn-primary" onclick="openTool('pdf2img')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9);box-shadow:0 6px 16px rgba(14,165,233,0.45);">
-                            <i class="fas fa-file-arrow-up"></i>
-                        </div>
-                        <div class="tool-title">صور إلى PDF</div>
-                        <div class="tool-desc">حوّل مجموعة من الصور إلى ملف PDF واحد.</div>
-                        <button class="btn btn-primary" onclick="openTool('img2pdf')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9);box-shadow:0 8px 22px rgba(14,165,233,0.45);">
+                        <i class="fas fa-file-arrow-up"></i>
                     </div>
+                    <div class="tool-title">صور إلى PDF</div>
+                    <div class="tool-desc">حوّل مجموعة من الصور إلى ملف PDF واحد.</div>
+                    <button class="btn-primary" onclick="openTool('img2pdf')">فتح الأداة</button>
                 </div>
 
             </div>
@@ -365,80 +328,62 @@
     <!-- مجموعة أدوات الصور -->
     <section class="tools-section container fade-in delay-3">
         <div class="group-card">
-            <div class="group-header">
-                <div>
-                    <div class="group-title">مجموعة أدوات الصور</div>
-                    <div class="group-subtitle">تحكم كامل في صورك من القص والتدوير وحتى تجهيز صورة أبشر.</div>
-                </div>
-            </div>
+            <div class="group-title">مجموعة أدوات الصور</div>
+            <div class="group-subtitle">تحكم كامل في صورك من القص والتدوير وحتى تجهيز صورة أبشر.</div>
             <div class="group-line"></div>
 
             <div class="tools-grid-4">
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon">
-                            <i class="fas fa-crop"></i>
-                        </div>
-                        <div class="tool-title">قص الصورة</div>
-                        <div class="tool-desc">قص الصور بسهولة وبالدقة التي تناسبك.</div>
-                        <button class="btn btn-primary" onclick="openTool('crop')">فتح الأداة</button>
-                    </div>
+                    <div class="tool-icon"><i class="fas fa-crop"></i></div>
+                    <div class="tool-title">قص الصورة</div>
+                    <div class="tool-desc">قص الصور بسهولة وبالدقة التي تناسبك.</div>
+                    <button class="btn-primary" onclick="openTool('crop')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 6px 16px rgba(234,88,12,0.45);">
-                            <i class="fas fa-expand"></i>
-                        </div>
-                        <div class="tool-title">تغيير الحجم</div>
-                        <div class="tool-desc">تغيير أبعاد الصور مع الحفاظ على الجودة.</div>
-                        <button class="btn btn-primary" onclick="openTool('resize')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#f97316,#ea580c);box-shadow:0 8px 22px rgba(234,88,12,0.45);">
+                        <i class="fas fa-expand"></i>
                     </div>
+                    <div class="tool-title">تغيير الحجم</div>
+                    <div class="tool-desc">تغيير أبعاد الصور مع الحفاظ على الجودة.</div>
+                    <button class="btn-primary" onclick="openTool('resize')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 6px 16px rgba(34,197,94,0.45);">
-                            <i class="fas fa-sync"></i>
-                        </div>
-                        <div class="tool-title">تغيير الصيغة</div>
-                        <div class="tool-desc">حوّل الصور بين مختلف الصيغ بسهولة.</div>
-                        <button class="btn btn-primary" onclick="openTool('format')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 8px 22px rgba(34,197,94,0.45);">
+                        <i class="fas fa-sync"></i>
                     </div>
+                    <div class="tool-title">تغيير الصيغة</div>
+                    <div class="tool-desc">حوّل الصور بين مختلف الصيغ بسهولة.</div>
+                    <button class="btn-primary" onclick="openTool('format')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#ec4899,#db2777);box-shadow:0 6px 16px rgba(236,72,153,0.45);">
-                            <i class="fas fa-wand-magic-sparkles"></i>
-                        </div>
-                        <div class="tool-title">تحسين الجودة</div>
-                        <div class="tool-desc">رفع جودة الصور تلقائيًا بذكاء.</div>
-                        <button class="btn btn-primary" onclick="openTool('enhance')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#ec4899,#db2777);box-shadow:0 8px 22px rgba(236,72,153,0.45);">
+                        <i class="fas fa-wand-magic-sparkles"></i>
                     </div>
+                    <div class="tool-title">تحسين الجودة</div>
+                    <div class="tool-desc">رفع جودة الصور تلقائيًا بذكاء.</div>
+                    <button class="btn-primary" onclick="openTool('enhance')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9);box-shadow:0 6px 16px rgba(14,165,233,0.45);">
-                            <i class="fas fa-rotate"></i>
-                        </div>
-                        <div class="tool-title">تدوير الصورة</div>
-                        <div class="tool-desc">تدوير الصور لليمين أو اليسار أو 180 درجة.</div>
-                        <button class="btn btn-primary" onclick="openTool('rotate')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#06b6d4,#0ea5e9);box-shadow:0 8px 22px rgba(14,165,233,0.45);">
+                        <i class="fas fa-rotate"></i>
                     </div>
+                    <div class="tool-title">تدوير الصورة</div>
+                    <div class="tool-desc">تدوير الصور لليمين أو اليسار أو 180 درجة.</div>
+                    <button class="btn-primary" onclick="openTool('rotate')">فتح الأداة</button>
                 </div>
 
                 <div class="tool-card">
-                    <div class="tool-card-inner">
-                        <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 6px 16px rgba(34,197,94,0.45);">
-                            <i class="fas fa-image"></i>
-                        </div>
-                        <div class="tool-title">تجهيز صورة أبشر</div>
-                        <div class="tool-desc">تهيئة الصورة تلقائيًا لمتطلبات منصة أبشر.</div>
-                        <button class="btn btn-primary" onclick="openTool('absher')">فتح الأداة</button>
+                    <div class="tool-icon" style="background:linear-gradient(135deg,#22c55e,#16a34a);box-shadow:0 8px 22px rgba(34,197,94,0.45);">
+                        <i class="fas fa-image"></i>
                     </div>
+                    <div class="tool-title">تجهيز صورة أبشر</div>
+                    <div class="tool-desc">تهيئة الصورة تلقائيًا لمتطلبات منصة أبشر.</div>
+                    <button class="btn-primary" onclick="openTool('absher')">فتح الأداة</button>
                 </div>
 
             </div>
