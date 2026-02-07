@@ -1,1 +1,297 @@
+/* --------------------------------------------------
+   UI-KIT.CSS
+   ملف الستايل الموحد لكل صفحات PdfSwift
+   يحتوي على: الثيم + الهيدر + القائمة + الكروت + الشبكة
+-------------------------------------------------- */
 
+/* الخط الأساسي */
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f8fafc;
+    color: #1e293b;
+    transition: background 0.3s, color 0.3s;
+}
+
+/* --------------------------------------------------
+   الثيم (Light / Dark)
+-------------------------------------------------- */
+
+.light-theme {
+    background: #f8fafc;
+    color: #1e293b;
+}
+
+.dark-theme {
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+.dark-theme .header,
+.dark-theme .nav,
+.dark-theme .footer {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+}
+
+.dark-theme .card,
+.dark-theme .tool-btn {
+    background: #1e293b !important;
+    color: #e2e8f0 !important;
+    border-color: #334155 !important;
+}
+
+.dark-theme a {
+    color: #93c5fd;
+}
+
+/* --------------------------------------------------
+   الهيدر + القائمة
+-------------------------------------------------- */
+
+.header {
+    background: white;
+    padding: 1rem 0;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    position: sticky;
+    top: 0;
+    z-index: 999;
+}
+
+.header .container {
+    width: 90%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.7rem;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+    gap: 1.2rem;
+}
+
+.nav a {
+    text-decoration: none;
+    color: #1e293b;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.nav a.active {
+    color: #1e40af;
+    font-weight: 700;
+}
+
+/* القائمة المخفية للجوال */
+.menu-toggle {
+    display: none;
+    font-size: 1.8rem;
+    cursor: pointer;
+    color: #1e293b;
+}
+
+@media (max-width: 900px) {
+    .nav {
+        display: none;
+        flex-direction: column;
+        background: white;
+        padding: 1rem;
+        border-radius: 12px;
+        box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        width: 200px;
+        z-index: 999;
+    }
+
+    .nav a {
+        padding: 0.7rem 0;
+        border-bottom: 1px solid #e2e8f0;
+    }
+
+    .nav a:last-child {
+        border-bottom: none;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .header .container {
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
+        align-items: center;
+    }
+
+    #themeToggle {
+        justify-self: end;
+    }
+
+    .logo {
+        justify-self: center;
+    }
+}
+
+/* --------------------------------------------------
+   زر الثيم
+-------------------------------------------------- */
+
+.theme-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.4rem;
+    color: #1e293b;
+}
+
+.dark-theme .theme-btn {
+    color: #e2e8f0;
+}
+
+/* --------------------------------------------------
+   الأزرار العامة
+-------------------------------------------------- */
+
+.btn {
+    display: inline-block;
+    padding: 0.8rem 1.4rem;
+    border-radius: 10px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.2s;
+}
+
+.btn-primary {
+    background: #1e40af;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: #1e3a8a;
+}
+
+/* --------------------------------------------------
+   الشبكة + الكروت
+-------------------------------------------------- */
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+}
+
+@media (min-width: 700px) {
+    .grid {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+.card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 14px;
+    text-align: center;
+    border: 1px solid #e2e8f0;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card i {
+    font-size: 2rem;
+    margin-bottom: 0.7rem;
+    color: #1e40af;
+}
+
+/* --------------------------------------------------
+   كروت الأدوات (tools.html)
+-------------------------------------------------- */
+
+.tool-selector {
+    display: grid;
+    gap: 1rem;
+}
+
+@media (min-width: 700px) {
+    .tool-selector {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.tool-btn {
+    background: white;
+    border: 1px solid #e2e8f0;
+    padding: 1.2rem;
+    border-radius: 12px;
+    text-align: center;
+    cursor: pointer;
+    transition: 0.2s;
+    font-size: 1rem;
+}
+
+.tool-btn:hover {
+    background: #f1f5f9;
+    transform: translateY(-3px);
+}
+
+.tool-btn i {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    color: #1e40af;
+}
+
+.new-badge {
+    background: #dc2626;
+    color: white;
+    padding: 0.2rem 0.5rem;
+    border-radius: 6px;
+    font-size: 0.7rem;
+    margin-right: 5px;
+}
+
+/* --------------------------------------------------
+   الفوتر
+-------------------------------------------------- */
+
+.footer {
+    background: white;
+    padding: 1.5rem 0;
+    margin-top: 2rem;
+    text-align: center;
+    border-top: 1px solid #e2e8f0;
+}
+
+.footer .social-links a {
+    margin: 0 0.4rem;
+    font-size: 1.2rem;
+    color: #1e293b;
+}
+
+.dark-theme .footer {
+    background: #1e293b;
+    border-color: #334155;
+}
+
+/* --------------------------------------------------
+   أنيميشن
+-------------------------------------------------- */
+
+.fade-in {
+    animation: fadeIn 0.7s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
