@@ -58,7 +58,6 @@
         display: block;
       }
 
-      /* الشعار في المنتصف */
       .header .container {
         display: grid;
         grid-template-columns: 1fr auto 1fr;
@@ -78,6 +77,47 @@
       padding: 2.5rem;
       border-radius: 18px;
       box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    /* زر الأدوات (مطابق لصفحة tools.html) */
+    .tool-btn {
+      background: white;
+      color: #1e40af;
+      border: 1px solid #e2e8f0;
+      aspect-ratio: 1 / 1;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.7rem;
+      padding: 1.2rem;
+      cursor: pointer;
+      transition: 0.25s ease;
+      width: 140px;
+    }
+
+    .tool-btn i {
+      font-size: 1.8rem;
+    }
+
+    .tool-btn:hover {
+      transform: translateY(-4px);
+      border-color: #1e40af;
+    }
+
+    /* حركة اليد */
+    .hand-anim {
+      color: #1e40af;
+      margin-right: 6px;
+      animation: handMove 1.4s infinite ease-in-out;
+      font-size: 1.3rem;
+    }
+
+    @keyframes handMove {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
     }
 
     .section-title {
@@ -175,21 +215,18 @@
 
 <body>
 
-<!-- Header الجديد -->
+<!-- Header -->
 <header class="header">
   <div class="container">
 
-    <!-- زر القائمة -->
     <div class="menu-toggle" onclick="toggleMenu()">
       <i class="fa-solid fa-bars"></i>
     </div>
 
-    <!-- الشعار -->
     <a href="index.html" class="logo" style="font-size:1.7rem; font-weight:700;">
       <span style="color:#000;">PDF</span><span style="color:#1e40af;"> SWIFT</span>
     </a>
 
-    <!-- القائمة -->
     <nav class="nav" id="mobileMenu">
       <a href="index.html">الرئيسية</a>
       <a href="tools.html">أدوات PDF</a>
@@ -201,8 +238,27 @@
 
 <div class="container-box">
 
-  <!-- الأدوات كما هي بدون تغيير -->
-  <!-- (تم الإبقاء على كل شيء كما هو 100%) -->
+  <!-- ============================
+       الأكثر استخداماً
+  ============================= -->
+  <h2 class="section-title" style="margin-bottom: 1.2rem;">
+    ⭐ الأكثر استخداماً
+    <i class="fa-solid fa-hand-point-up hand-anim"></i>
+  </h2>
+
+  <div class="popular-tools" style="margin-bottom: 2.5rem;">
+    <button class="tool-btn" onclick="openAbsherTool()">
+      <i class="fas fa-id-card"></i>
+      <span>تعديل أبعاد صور أبشر</span>
+    </button>
+  </div>
+
+  <!-- ============================
+       الأدوات
+  ============================= -->
+  <h2 class="section-title" style="margin-bottom: 1.2rem;">
+    🧰 الأدوات
+  </h2>
 
   <!-- ============================
        أداة صور أبشر
@@ -352,7 +408,20 @@ function toggleBox(id) {
 }
 </script>
 
-<!-- Footer (نفس الصفحة الرئيسية) -->
+<!-- فتح أداة أبشر + Scroll -->
+<script>
+function openAbsherTool() {
+  const box = document.getElementById("absher-box");
+
+  if (box.style.display !== "block") {
+    box.style.display = "block";
+  }
+
+  box.scrollIntoView({ behavior: "smooth", block: "start" });
+}
+</script>
+
+<!-- Footer -->
 <footer class="footer">
   <div class="container">
     <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
