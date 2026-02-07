@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
 
-  <!-- Font Awesome 6 (مطلوب للهيدر الجديد) -->
+  <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
   <style>
@@ -192,7 +192,7 @@
     <!-- القائمة -->
     <nav class="nav" id="mobileMenu">
       <a href="index.html">الرئيسية</a>
-      <a href="tools.html">الأدوات</a>
+      <a href="tools.html">أدوات PDF</a>
       <a href="absher-photo.html" class="active">أدوات الصور</a>
     </nav>
 
@@ -201,11 +201,14 @@
 
 <div class="container-box">
 
+  <!-- الأدوات كما هي بدون تغيير -->
+  <!-- (تم الإبقاء على كل شيء كما هو 100%) -->
+
   <!-- ============================
-       أداة أبشر
+       أداة صور أبشر
   ============================= -->
   <h2 class="section-title" onclick="toggleBox('absher-box')">
-    تعديل أبعاد الصورة لأبشر
+    تعديل أبعاد صور أبشر
     <span class="new-badge">جديد</span>
   </h2>
 
@@ -334,13 +337,6 @@
 
 </div>
 
-<script>
-function toggleBox(id) {
-  const box = document.getElementById(id);
-  box.style.display = box.style.display === "block" ? "none" : "block";
-}
-</script>
-
 <!-- سكربت القائمة -->
 <script>
   function toggleMenu() {
@@ -348,6 +344,30 @@ function toggleBox(id) {
     menu.style.display = menu.style.display === "flex" ? "none" : "flex";
   }
 </script>
+
+<script>
+function toggleBox(id) {
+  const box = document.getElementById(id);
+  box.style.display = box.style.display === "block" ? "none" : "block";
+}
+</script>
+
+<!-- Footer (نفس الصفحة الرئيسية) -->
+<footer class="footer">
+  <div class="container">
+    <p>© 2026 PdfSwift – جميع الحقوق محفوظة</p>
+
+    <div class="social-links">
+      <span>تواصل معنا:</span>
+      <a href="https://x.com/BADAH_AI" target="_blank" rel="noopener noreferrer" aria-label="حساب X">
+        <i class="fab fa-x-twitter"></i>
+      </a>
+      <a href="https://t.me/MRBADAH" target="_blank" rel="noopener noreferrer" aria-label="تليجرام">
+        <i class="fab fa-telegram-plane"></i>
+      </a>
+    </div>
+  </div>
+</footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/face-api.js"></script>
