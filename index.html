@@ -232,6 +232,43 @@
             filter: brightness(1.08);
         }
 
+        /* ============================
+           الفوتر الجديد مع حساب X
+        ============================ */
+        .footer {
+            text-align: center;
+            padding: 20px 10px;
+            margin-top: 40px;
+            color: #111827;
+            font-size: 14px;
+        }
+
+        .x-follow {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #111827;
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: 999px;
+            background: #ffffff;
+            border: 1px solid #e5e7eb;
+            transition: 0.25s ease;
+        }
+
+        .x-follow i {
+            font-size: 16px;
+        }
+
+        .x-follow:hover {
+            background: #f3f4f6;
+            border-color: #c7d2fe;
+            transform: translateY(-2px);
+        }
+
     </style>
 </head>
 
@@ -390,18 +427,14 @@
         </div>
     </section>
 
-    <!-- الفوتر -->
+    <!-- الفوتر الجديد -->
     <footer class="footer fade-in delay-3">
-    <p>© 2024 PdfSwift — جميع الحقوق محفوظة</p>
+        <p>© 2024 PdfSwift — جميع الحقوق محفوظة</p>
 
-    <div class="social-links">
-        <a href="https://x.com/BADAH_AI" target="_blank" class="x-link">
+        <a href="https://x.com/BADAH_AI" target="_blank" class="x-follow">
             <i class="fa-brands fa-x-twitter"></i>
-            تابع المطور X
+            تابع مطوّر المنصة
         </a>
-    </div>
-</footer>
-
     </footer>
 
 </div>
@@ -412,10 +445,4 @@
     const menuToggle = document.getElementById("menuToggle");
     const nav = document.querySelector(".nav");
 
-    menuToggle.addEventListener("click", () => {
-        nav.classList.toggle("open");
-    });
-</script>
-
-</body>
-</html>
+    menuToggle.addEventListener("click",
